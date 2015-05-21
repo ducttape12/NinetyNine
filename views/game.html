@@ -1,3 +1,25 @@
+<h1>Count: {{game.count}}</h1>
+<h1>Players</h1>
 <ul>
-    <li ng-repeat="card in deck.cards">{{card.action}} - {{card.values}}</li>
+    <li ng-repeat="player in game.players">{{player.properties.name}} - {{player.active}}
+        <ul>
+            <li ng-repeat="card in player.hand">{{translateCardAction(card.action)}} - {{card.values}}</li>
+        </ul>
+    </li>
 </ul>
+<h1>Current Player #{{game.currentPlayerIndex}}: {{game.players[game.currentPlayerIndex].properties.name}}</h1>
+<ul>
+    <li ng-repeat="card in game.players[game.currentPlayerIndex].hand track by $index">{{translateCardAction(card.action)}}
+        <ul>
+            <li ng-repeat="value in card.values track by $index"><button ng-click="playCard($parent.$index, $index)">{{value}}</button></li>
+        </ul>
+    </li>
+</ul>
+<h1>Stock</h1>
+<ol>
+    <li ng-repeat="card in game.deck.stock">{{translateCardAction(card.action)}} - {{card.values}}</li>
+</ol>
+<h1>Discard Pile</h1>
+<ol>
+    <li ng-repeat="card in game.deck.discardPile">{{translateCardAction(card.action)}} - {{card.values}}</li>
+</ol>

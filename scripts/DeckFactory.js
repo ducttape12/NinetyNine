@@ -24,7 +24,8 @@ angular.module('ninetynine').factory('DeckFactory', ['Lodash', 'CardFactory', fu
         for(i = 0; i < DeckConfiguration.length; i++) {
             card = DeckConfiguration[i];
             
-            for(j = 0; j < card.count; j++) {deck.push(CardFactory.makeCard(card.type));
+            for(j = 0; j < card.count; j++) {
+                deck.push(CardFactory.makeCard(card.type));
             }
         }
         
@@ -32,24 +33,30 @@ angular.module('ninetynine').factory('DeckFactory', ['Lodash', 'CardFactory', fu
     };
     
     var Deck = function() {
-        this.cards = assembleDeck();
-        this.discard = [];
+        this.stock = assembleDeck();
+        this.discardPile = [];
     };
     
     Deck.prototype.drawCard = function() {
-        return this.cards.length > 0 ? this.cards.pop() : null;
+        var card = this.stock.pop();
+        
+        if(this.stock.length === 0) {
+            this.shuffleDiscardPile();
+        }
+        
+        return card;
     };
     
     Deck.prototype.discard = function(card) {
-        this.discard.push(card);
+        this.discardPile.push(card);
     };
     
     Deck.prototype.shuffleDiscardPile = function() {
-        this.cards = Lodash.shuffle(this.discard);
+        this.stock = Lodash.shuffle(this.discardPile);
     };
     
     Deck.prototype.lastCard = function() {
-        return this.discard.length > 0 ? this.discard[this.discard.length - 1] : null;
+        return this.discardPile.length > 0 ? this.discardPile[this.discardPile.length - 1] : null;
     };
     
     return {

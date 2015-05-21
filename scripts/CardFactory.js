@@ -29,6 +29,8 @@ angular.module('ninetynine').factory('CardFactory', [function() {
     return {
         CardType: CardType,
         
+        ActionType: ActionType,
+        
         makeCard: function(cardType) {
             var values = [],
                 action;
