@@ -7,14 +7,17 @@
         </ul>
     </li>
 </ul>
-<h1>Current Player #{{game.currentPlayerIndex}}: {{game.players[game.currentPlayerIndex].properties.name}}</h1>
-<ul>
+<h1>Current Player #{{game.currentPlayerIndex}}: {{game.getCurrentPlayer().properties.name}}</h1>
+<ul ng-show="game.getCurrentPlayer().properties.player == null">
     <li ng-repeat="card in game.players[game.currentPlayerIndex].hand track by $index">{{translateCardAction(card.action)}}
         <ul>
             <li ng-repeat="value in card.values track by $index"><button ng-click="playCard($parent.$index, $index)">{{value}}</button></li>
         </ul>
     </li>
 </ul>
+<p ng-show="game.getCurrentPlayer().properties.player != null">
+    <button ng-click="performNextMove()">{{nextMove}}</button>
+</p>
 <h1>Stock</h1>
 <ol>
     <li ng-repeat="card in game.deck.stock">{{translateCardAction(card.action)}} - {{card.values}}</li>

@@ -1,6 +1,14 @@
 angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory', 'Lodash', function(DeckFactory, CardFactory, Lodash) {
     'use strict';
     
+    var MoveResult = {
+        Continue: 0,
+        PlayerOut: 1,
+        PlayerWon: 2,
+        InvalidMove: 3
+    };
+    Object.freeze(MoveResult);
+    
     var Game = function(players, options) {
         var i;
         
@@ -21,10 +29,12 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
     };
     
     Game.prototype.playCard = function(cardIndex, valueIndex) {
+        var result = [];
+        
         var player = this.players[this.currentPlayerIndex];
         
-        if(!this.checkCardValue(player.hand[cardIndex], valueIndex)) {
-          return false;
+        if(!this.canPlay(player.hand[cardIndex], valueIndex)) {
+          return [{result: MoveResult.InvalidMove, player: player}];
         }
         
         // Apply card value to deck
@@ -53,8 +63,59 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
         
         // Determine the number of players to rotate through
         var rotation = card.action === CardFactory.ActionType.Skip ? 2 : 1;
+        this.nextPlayer(rotation);
+        result.push({result: MoveResult.Continue, player: player});
         
-        // Rotate to the next player
+        while(!this.currentPlayerCanPlay()) {
+            result.push({result: MoveResult.PlayerOut, player: this.players[this.currentPlayerIndex]});
+            while(this.players[this.currentPlayerIndex].hand.length > 0) {
+                this.deck.discard(this.players[this.currentPlayerIndex].hand.pop());
+            }
+            this.nextPlayer(1);
+            
+            if(this.currentPlayerWon()) {
+                result.push({result: MoveResult.PlayerWon, player: this.players[this.currentPlayerIndex]});
+            }
+        }
+        
+        return result;
+    };
+    
+    Game.prototype.currentPlayerCanPlay = function() {
+        var i,
+            j,
+            currentCard,
+            availableMove = false;
+            
+        for(i = 0; i < this.players[this.currentPlayerIndex].hand.length && !availableMove; i++) {
+            currentCard = this.players[this.currentPlayerIndex].hand[i];
+            
+            for(j = 0; j < currentCard.values.length; j++) {
+                if(this.canPlay(currentCard, j)) {
+                    availableMove = true;
+                    break;
+                }
+            }
+        }
+        
+        this.players[this.currentPlayerIndex].active = availableMove;
+        
+        return availableMove;
+    };
+    
+    Game.prototype.currentPlayerWon = function() {
+        return Lodash.where(this.players, {'active': true}).length === 1;
+    };
+    
+    Game.prototype.canPlay = function(card, valueIndex) {
+        if(card.action === CardFactory.ActionType.NinetyNine) {
+            return true;
+        }
+        
+        return card.values[valueIndex] + this.count <= 99;
+    };
+    
+    Game.prototype.nextPlayer = function(rotation) {
         do {
             this.currentPlayerIndex += this.order;
             
@@ -72,43 +133,10 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
             }
             
         } while(rotation > 0);
-        
-        return true;
-        
-          
-        // // Determine if the player is still in
-        // var i, j, active = false;
-        // for(i = 0; i < player.cards.length && !active; i++) {
-        //     for(j = 0; j < player.cards[i].values.length && !active; j++) {
-        //         if(this.checkCardValue(player.cards[i], j)) {
-        //             active = true;
-        //         }
-        //     }
-        // }
-        
-        // player.active = active;
-        
-        // // Is there a winner?
-        // if(Lodash.find(this.players, {'active': true}).length === 1) {
-        //     return PlayCardResult.GameOver;
-        // }
-        
-        // // Change active player
-        
-        // // Is this player out?
-        // if(!active) {
-        //     return PlayCardResult.PlayerOut;
-        // }
-        
-        // return PlayCardResult.Valid;
     };
     
-    Game.prototype.checkCardValue = function(card, valueIndex) {
-        if(card.action === CardFactory.ActionType.NinetyNine) {
-            return true;
-        }
-        
-        return card.values[valueIndex] + this.count <= 99;
+    Game.prototype.getCurrentPlayer = function() {
+        return this.players[this.currentPlayerIndex];  
     };
     
     
@@ -116,6 +144,7 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
     return {
         newGame: function(players, options) {
             return new Game(players, options);
-        }
+        },
+        MoveResult: MoveResult
     };
 }]);

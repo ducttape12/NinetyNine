@@ -53,6 +53,7 @@ angular.module('ninetynine').factory('DeckFactory', ['Lodash', 'CardFactory', fu
     
     Deck.prototype.shuffleDiscardPile = function() {
         this.stock = Lodash.shuffle(this.discardPile);
+        this.discardPile = [];
     };
     
     Deck.prototype.lastCard = function() {
