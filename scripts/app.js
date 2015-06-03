@@ -1,4 +1,4 @@
-angular.module('ninetynine', ['ui.router', 'ui.bootstrap'])
+angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize'])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
     	'use strict';
     	

@@ -18,6 +18,7 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
         this.order = 1;
         this.currentPlayerIndex = 0;
         this.options = options;
+        this.lastCard = null;
         
         for(i = 0; i < players.length; i++) {
             this.players.push({
@@ -51,6 +52,11 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
         
         // Discard the played card
         this.deck.discard(card);
+        
+        // Make a copy of the card, containing only the played value
+        this.lastCard = angular.copy(card);
+        this.lastCard.values = [];
+        this.lastCard.values[0] = card.values[valueIndex];
         
         // Draw a new card and put it in place of the discarded card
         player.hand[cardIndex] = this.deck.drawCard();

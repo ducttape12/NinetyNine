@@ -7,18 +7,17 @@
     <meta name="viewport" content="initial-scale=1,maximum-scale=1.0,user-scalable=no">
     <title>Ninety-Nine</title>
 
-	<link rel="stylesheet" href="styles/main.css">
-	<link rel="stylesheet" href="styles/flatly.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="bower_components/angular-hotkeys/build/hotkeys.min.css">
+	
+	<link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body ng-app="ninetynine">
 
     <div class="container">
-    	<div class="text-center">
-    		<div ui-view></div>
-    	</div>
+		<div ui-view></div>
 	</div>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -27,6 +26,7 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     
 
     <script src="scripts/app.js"></script>

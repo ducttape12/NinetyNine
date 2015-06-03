@@ -19,6 +19,7 @@
     "bootstrap": "~3.3.4",
     "angular-bootstrap": "~0.13.0",
     "jquery": "~2.1.4",
-    "lodash": "~3.8.0"
+    "lodash": "~3.8.0",
+    "angular-sanitize": "~1.4.0"
   }
 }
