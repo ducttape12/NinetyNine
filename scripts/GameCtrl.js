@@ -1,5 +1,5 @@
-angular.module('ninetynine').controller('GameCtrl', ['$scope', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory', 'Lodash', '$timeout',
-    function($scope, GameFactory, CardFactory, ComputerPlayerFactory, Lodash, $timeout) {
+angular.module('ninetynine').controller('GameCtrl', ['$scope', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory', 'Lodash', '$timeout', '$modal',
+    function($scope, GameFactory, CardFactory, ComputerPlayerFactory, Lodash, $timeout, $modal) {
         'use strict';
 
         $scope.isHuman = function(player) {
@@ -37,11 +37,11 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', 'GameFactory', 'C
         };
 
         $scope.translateCard = function(card, index) {
-            
-            if(card == null) {
+
+            if (card == null) {
                 return '';
             }
-            
+
             switch (card.action) {
                 case CardFactory.ActionType.NinetyNine:
                     return '99';
@@ -54,9 +54,10 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', 'GameFactory', 'C
                 case CardFactory.ActionType.Skip:
                     return '+3, <i class="fa fa-share"></i> Skip';
                 case CardFactory.ActionType.Ten:
-                    if(angular.isUndefined(index) && card.values.length > 1) {
+                    if (angular.isUndefined(index) && card.values.length > 1) {
                         return "+/-10";
-                    } else {
+                    }
+                    else {
                         return card.values[(angular.isUndefined(index) ? 0 : index)] > 0 ? '+10' : '-10';
                     }
             }
@@ -65,33 +66,78 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', 'GameFactory', 'C
         $scope.playCard = function(cardIndex, valueIndex) {
             var i,
                 currentResult,
-                result;
+                result,
+                player = $scope.game.getCurrentPlayer();
             result = $scope.game.playCard(cardIndex, valueIndex);
 
-            for (i = 0; i < result.length; i++) {
-                currentResult = result[i];
+            processNextResult(result);
 
-                switch (currentResult.result) {
-                    case GameFactory.MoveResult.Continue:
-                        break;
-                    case GameFactory.MoveResult.PlayerOut:
-                        alert(currentResult.player.properties.name + ' is out!');
-                        break;
-                    case GameFactory.MoveResult.PlayerWon:
-                        alert(currentResult.player.properties.name + ' has won!');
-                        return;
-                    case GameFactory.MoveResult.InvalidMove:
-                        break;
+            if (!$scope.game.currentPlayerWon()) {
+                var nextPlayer = $scope.game.getCurrentPlayer();
+                if (nextPlayer.properties.player != null) {
+                    var card = nextPlayer.properties.player.makeMove($scope.game.count, nextPlayer.hand);
+                    $timeout(function() {
+                        $scope.playCard(card.cardIndex, card.valueIndex);
+                    }, 1500);
                 }
             }
+        };
 
+        var processNextResult = function(results) {
+            if (results.length === 0) {
+                return;
+            }
 
-            var nextPlayer = $scope.game.getCurrentPlayer();
-            if (nextPlayer.properties.player != null) {
-                var card = nextPlayer.properties.player.makeMove($scope.game.count, nextPlayer.hand);
-                $timeout(function() {
-                    $scope.playCard(card.cardIndex, card.valueIndex);
-                }, 1500);
+            var result = results.splice(0, 1)[0];
+
+            switch (result.result) {
+                case GameFactory.MoveResult.PlayerOut:
+                    var modalInstance = $modal.open({
+                        templateUrl: 'views/playerOutModal.html',
+                        controller: 'PlayerOutModalCtrl',
+                        resolve: {
+                            name: function() {
+                                return result.player.properties.name;
+                            },
+                            hand: function() {
+                                return result.player.hand;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function() {
+                        processNextResult(results);
+                    }, function() {
+                        processNextResult(results);
+                    });
+                    break;
+
+                case GameFactory.MoveResult.PlayerWon:
+                    var modalInstance = $modal.open({
+                        templateUrl: 'views/playerWonModal.html',
+                        controller: 'PlayerOutModalCtrl',
+                        resolve: {
+                            name: function() {
+                                return result.player.properties.name;
+                            },
+                            hand: function() {
+                                return result.player.hand;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function() {
+                        processNextResult(results);
+                    }, function() {
+                        processNextResult(results);
+                    });
+                    break;
+
+                case GameFactory.MoveResult.Continue:
+                case GameFactory.MoveResult.InvalidMove:
+                default:
+                    processNextResult(results);
+                    break;
             }
         };
     }

@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-xs-offset-3 col-xs-3">
-        <div class="card text-center" ng-bind-html="translateCard(game.lastCard)"></div>
+        <div class="card" ng-bind-html="translateCard(game.lastCard)"></div>
     </div>
     <div class="col-xs-3">{{game.deck.length == 0 ? 'Empty': 'Next Card'}}</div>
 </div>
@@ -41,47 +41,7 @@
                         </div>
                     </div>
                 </div>
-
-
-                <!--<ul>-->
-                <!--    <li ng-repeat="value in card.values track by $index">-->
-                <!--        <button ng-click="playCard($parent.$index, $index)">{{value}}</button>-->
-                <!--    </li>-->
-                <!--</ul>-->
             </div>
         </div>
     </div>
 </div>
-
-
-
-<!--<h1>Count: {{game.count}}</h1>-->
-<!--<h1>Players</h1>-->
-<!--<ul>-->
-<!--    <li ng-repeat="player in game.players">{{player.properties.name}} - {{player.active}}-->
-<!--        <ul>-->
-<!--            <li ng-repeat="card in player.hand">{{translateCardAction(card.action)}} - {{card.values}}</li>-->
-<!--        </ul>-->
-<!--    </li>-->
-<!--</ul>-->
-<!--<h1>Current Player #{{game.currentPlayerIndex}}: {{game.getCurrentPlayer().properties.name}}</h1>-->
-<!--<ul ng-show="game.getCurrentPlayer().properties.player == null">-->
-<!--    <li ng-repeat="card in game.players[game.currentPlayerIndex].hand track by $index">{{translateCardAction(card.action)}}-->
-<!--        <ul>-->
-<!--            <li ng-repeat="value in card.values track by $index">-->
-<!--                <button ng-click="playCard($parent.$index, $index)">{{value}}</button>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </li>-->
-<!--</ul>-->
-<!--<p ng-show="game.getCurrentPlayer().properties.player != null">-->
-<!--    <button ng-click="performNextMove()">{{nextMove}}</button>-->
-<!--</p>-->
-<!--<h1>Stock</h1>-->
-<!--<ol>-->
-<!--    <li ng-repeat="card in game.deck.stock">{{translateCardAction(card.action)}} - {{card.values}}</li>-->
-<!--</ol>-->
-<!--<h1>Discard Pile</h1>-->
-<!--<ol>-->
-<!--    <li ng-repeat="card in game.deck.discardPile">{{translateCardAction(card.action)}} - {{card.values}}</li>-->
-<!--</ol>-->

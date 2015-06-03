@@ -73,14 +73,15 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
         result.push({result: MoveResult.Continue, player: player});
         
         while(!this.currentPlayerCanPlay()) {
-            result.push({result: MoveResult.PlayerOut, player: this.players[this.currentPlayerIndex]});
+            result.push({result: MoveResult.PlayerOut, player: angular.copy(this.players[this.currentPlayerIndex])});
             while(this.players[this.currentPlayerIndex].hand.length > 0) {
                 this.deck.discard(this.players[this.currentPlayerIndex].hand.pop());
             }
             this.nextPlayer(1);
             
             if(this.currentPlayerWon()) {
-                result.push({result: MoveResult.PlayerWon, player: this.players[this.currentPlayerIndex]});
+                result.push({result: MoveResult.PlayerWon, player: angular.copy(this.players[this.currentPlayerIndex])});
+                break;
             }
         }
         

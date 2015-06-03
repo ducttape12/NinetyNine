@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{name}} is out!</h3>
+</div>
+<div class="modal-body">
+    <p class="lead">{{name}} has been eliminated. Their hand:</p>
+    <div class="row">
+        <div class="col-xs-4" ng-repeat="card in hand">
+            <div class="card" ng-bind-html="translateCard(card)"></div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+</div>
