@@ -1,24 +1,19 @@
-angular.module('ninetynine').controller('GameCtrl', ['$scope', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory', 'Lodash', '$timeout', '$modal',
-    function($scope, GameFactory, CardFactory, ComputerPlayerFactory, Lodash, $timeout, $modal) {
+angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory', 'Lodash', '$timeout', '$modal',
+    function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory, Lodash, $timeout, $modal) {
         'use strict';
-
+        
+        if(angular.isUndefined($stateParams.players) || $stateParams.players == null) {
+            $state.go('mainmenu');
+            return;
+        };
+        
+        var delay = 1500;
+        
         $scope.isHuman = function(player) {
             return player.properties.player != null;
         };
 
-        $scope.game = GameFactory.newGame([{
-            'name': 'One',
-            'icon': 'plane',
-            'player': null
-        }, {
-            'name': 'Two',
-            'icon': 'puzzle-piece',
-            'player': ComputerPlayerFactory.createPlayer()
-        }, {
-            'name': 'Three',
-            'icon': 'beer',
-            'player': ComputerPlayerFactory.createPlayer()
-        }], {});
+        $scope.game = GameFactory.newGame($stateParams.players, {});
 
         $scope.cpuPlayerCount = 0;
         for (var i = 0; i < $scope.game.players.length; i++) {
@@ -71,20 +66,19 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', 'GameFactory', 'C
             result = $scope.game.playCard(cardIndex, valueIndex);
 
             processNextResult(result);
-
-            if (!$scope.game.currentPlayerWon()) {
-                var nextPlayer = $scope.game.getCurrentPlayer();
-                if (nextPlayer.properties.player != null) {
-                    var card = nextPlayer.properties.player.makeMove($scope.game.count, nextPlayer.hand);
-                    $timeout(function() {
-                        $scope.playCard(card.cardIndex, card.valueIndex);
-                    }, 1500);
-                }
-            }
         };
 
         var processNextResult = function(results) {
             if (results.length === 0) {
+                if (!$scope.game.currentPlayerWon()) {
+                    var nextPlayer = $scope.game.getCurrentPlayer();
+                    if (nextPlayer.properties.player != null) {
+                        var card = nextPlayer.properties.player.makeMove($scope.game.count, nextPlayer.hand);
+                        $timeout(function() {
+                            $scope.playCard(card.cardIndex, card.valueIndex);
+                        }, delay);
+                    }
+                }
                 return;
             }
 
@@ -139,6 +133,10 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', 'GameFactory', 'C
                     processNextResult(results);
                     break;
             }
+        };
+        
+        $scope.finishGame = function() {
+            delay = 0;
         };
     }
 ]);

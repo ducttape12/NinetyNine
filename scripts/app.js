@@ -1,24 +1,29 @@
-angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize'])
+angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalStorageModule'])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-    	'use strict';
-    	
+        'use strict';
+
         $urlRouterProvider.otherwise('/');
-        //
-        // Now set up the states
+
         $stateProvider
-            .state('game', {
+            .state('mainmenu', {
                 url: '/',
+                templateUrl: 'views/main.html',
+                params: {
+                    background: ''
+                },
+                controller: 'MainCtrl'
+            })
+            .state('game', {
+                url: '/game',
                 templateUrl: 'views/game.html',
+                params: {
+                    players: null,
+                    background: 'background-game'
+                },
                 controller: 'GameCtrl'
             });
-        //     .state('highscoreentry', {
-        //         templateUrl: 'views/highscoreentry.html',
-        //         params: { score: null, thirdLast: null, secondLast: null, lastNumber: null, highscoreType: null },
-        //         controller: 'HighscoreEntryCtrl'
-        //     })
-        //     .state('gameover', {
-        //         templateUrl: 'views/gameover.html',
-        //         params: { score: null, thirdLast: null, secondLast: null, lastNumber: null, highscoreAdded: false, highscoreType: null },
-        //         controller: 'GameOverCtrl'
-        //     });
+
+    }]).config(['localStorageServiceProvider', function(localStorageServiceProvider) {
+        localStorageServiceProvider
+            .setPrefix('ninteynine');
     }]);

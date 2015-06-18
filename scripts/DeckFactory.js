@@ -60,6 +60,10 @@ angular.module('ninetynine').factory('DeckFactory', ['Lodash', 'CardFactory', fu
         return this.discardPile.length > 0 ? this.discardPile[this.discardPile.length - 1] : null;
     };
     
+    Deck.prototype.stockRemaining = function() {
+        return this.stock.length > 0;
+    };
+    
     return {
         newDeck: function() {
             return new Deck();
