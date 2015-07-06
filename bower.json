@@ -21,6 +21,7 @@
     "jquery": "~2.1.4",
     "lodash": "~3.8.0",
     "angular-sanitize": "~1.4.0",
-    "angular-local-storage": "~0.2.2"
+    "angular-local-storage": "~0.2.2",
+    "moment": "~2.10.3"
   }
 }

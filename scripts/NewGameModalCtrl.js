@@ -8,9 +8,13 @@ angular.module('ninetynine').controller('NewGameModalCtrl', ['$scope', '$modalIn
         $scope.cpuPlayers = cpuPlayers;
         $scope.cpuPlayersCount = cpuPlayers[2];
         $scope.name = '';
+        
+        $scope.nameError = false;
 
         $scope.ok = function() {
-            if ($scope.name.trim().length > 0) {
+            $scope.nameError = $scope.name.trim().length === 0;
+            
+            if (!$scope.nameError) {
                 $modalInstance.close({
                     name: $scope.name == null || $scope.name.trim().length == 0 ? 'Player' : $scope.name.trim(),
                     icon: $scope.selectedIcon,
