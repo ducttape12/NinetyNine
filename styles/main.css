@@ -46,3 +46,19 @@ html, body, .container {
 .game {
     padding: 2em 0em;
 }
+
+.achievement {
+    position: absolute;
+    width: 40%;
+    left: 30%;
+    top: 50px;
+    z-index: 9999;
+}
+
+.achievement-image {
+    width: 60px;
+    height: 60px;
+    padding: 2px;
+    font-size: 2em;
+    text-align: center;
+}

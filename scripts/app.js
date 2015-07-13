@@ -21,6 +21,11 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
                     background: 'background-game'
                 },
                 controller: 'GameCtrl'
+            })
+            .state('instructions', {
+                url: '/instructions',
+                templateUrl: 'views/instructions.html',
+                controller: 'InstructionsCtrl'
             });
 
     }]).config(['localStorageServiceProvider', function(localStorageServiceProvider) {

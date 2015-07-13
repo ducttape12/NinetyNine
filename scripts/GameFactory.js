@@ -1,4 +1,4 @@
-angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory', 'Lodash', function(DeckFactory, CardFactory, Lodash) {
+angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory', 'Lodash', 'AchievementFactory', function(DeckFactory, CardFactory, Lodash, AchievementFactory) {
     'use strict';
     
     var MoveResult = {
@@ -60,6 +60,7 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
         
         // Draw a new card and put it in place of the discarded card
         player.hand[cardIndex] = this.deck.drawCard();
+        AchievementFactory.drewCard(player.hand[cardIndex], player);
         
         
         // Apply card special effects
@@ -73,14 +74,14 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
         result.push({result: MoveResult.Continue, player: player});
         
         while(!this.currentPlayerCanPlay()) {
-            result.push({result: MoveResult.PlayerOut, player: angular.copy(this.players[this.currentPlayerIndex])});
+            result.push({result: MoveResult.PlayerOut, player: angular.copy(this.players[this.currentPlayerIndex]), players: angular.copy(this.players)});
             while(this.players[this.currentPlayerIndex].hand.length > 0) {
                 this.deck.discard(this.players[this.currentPlayerIndex].hand.pop());
             }
             this.nextPlayer(1);
             
             if(this.currentPlayerWon()) {
-                result.push({result: MoveResult.PlayerWon, player: angular.copy(this.players[this.currentPlayerIndex])});
+                result.push({result: MoveResult.PlayerWon, player: angular.copy(this.players[this.currentPlayerIndex]), players: angular.copy(this.players)});
                 break;
             }
         }

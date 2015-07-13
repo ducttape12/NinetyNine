@@ -1,5 +1,5 @@
-angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory', 'Lodash', '$timeout', '$modal',
-    function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory, Lodash, $timeout, $modal) {
+angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory', 'Lodash', '$timeout', '$modal', 'AchievementFactory',
+    function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory, Lodash, $timeout, $modal, AchievementFactory) {
         'use strict';
         
         if(angular.isUndefined($stateParams.players) || $stateParams.players == null) {
@@ -98,6 +98,14 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                             }
                         }
                     });
+                    
+                    if($scope.getHumanPlayer().active) {
+                        AchievementFactory.opponentEliminated();
+                    }
+                    
+                    if($scope.getHumanPlayer() == result.player) {
+                        AchievementFactory.playerEliminated(result.player, result.players);
+                    }
 
                     modalInstance.result.then(function() {
                         processNextResult(results);
@@ -119,6 +127,12 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                             }
                         }
                     });
+                    
+                    if($scope.getHumanPlayer().active) {
+                        AchievementFactory.gameWon($scope.game.players);
+                    } else {
+                        AchievementFactory.gameLost($scope.game.players);
+                    }
 
                     modalInstance.result.then(function() {
                         processNextResult(results);
@@ -136,6 +150,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         };
         
         $scope.finishGame = function() {
+            AchievementFactory.fastForwardUsed();
             delay = 0;
         };
     }

@@ -9,6 +9,10 @@ angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state
                             'Billy', 'Angel', 'Nathaniel', 'Phyllis', 'Lincoln',
                             'Trula', 'Yvonne', 'Daniel', 'Matthew', 'Bandit'];
 
+        $scope.viewInstructions = function() {
+            $state.go('instructions');
+        };
+
         $scope.newGame = function() {
             var modalInstance = $modal.open({
                 templateUrl: 'views/newgame.html',

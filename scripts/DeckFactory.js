@@ -1,4 +1,4 @@
-angular.module('ninetynine').factory('DeckFactory', ['Lodash', 'CardFactory', function(Lodash, CardFactory) {
+angular.module('ninetynine').factory('DeckFactory', ['Lodash', 'CardFactory', 'AchievementFactory', function(Lodash, CardFactory, AchievementFactory) {
     'use strict';
     
     var DeckConfiguration = [
@@ -54,6 +54,7 @@ angular.module('ninetynine').factory('DeckFactory', ['Lodash', 'CardFactory', fu
     Deck.prototype.shuffleDiscardPile = function() {
         this.stock = Lodash.shuffle(this.discardPile);
         this.discardPile = [];
+        AchievementFactory.reshuffledDeck();
     };
     
     Deck.prototype.lastCard = function() {

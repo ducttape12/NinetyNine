@@ -10,16 +10,31 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <!--<link rel="stylesheet" href="styles/journal.min.css">-->
-	<link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
-	
-	<link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body ng-app="ninetynine" ng-controller="IndexCtrl" ng-class="background">
 
     <div class="container">
-		<div ui-view></div>
-	</div>
+        <div class="achievement" ng-show="achievementDisplay.currentAchievement != null">
+            <div class="alert alert-info" role="alert">
+                <div class="media">
+                    <div class="media-left">
+                        <div class="achievement-image">
+                            <i class="fa" ng-class="achievementDisplay.currentAchievement.icon"></i>
+                        </div>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Icon Unlocked</h4> {{achievementDisplay.currentAchievement.title}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ui-view></div>
+    </div>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -30,7 +45,7 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="bower_components/moment/min/moment.min.js"></script>
-    
+
     <script src="scripts/app.js"></script>
     <script src="lib/LodashFactory.js"></script>
     <script src="lib/MomentFactory.js"></script>
@@ -43,6 +58,9 @@
     <script src="scripts/MainCtrl.js"></script>
     <script src="scripts/NewGameModalCtrl.js"></script>
     <script src="scripts/IndexCtrl.js"></script>
+    <script src="scripts/InstructionsCtrl.js"></script>
+    <script src="scripts/AchievementFactory.js"></script>
+    <script src="scripts/AchievementDisplayFactory.js"></script>
 </body>
 
 </html>
