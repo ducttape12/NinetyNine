@@ -1,10 +1,21 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" ng-hide="hidden()">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" ng-show="optionsButtonFunc != null" ng-click="optionsButtonFunc()()">
+            <button type="button" class="navbar-toggle" ng-show="optionsButtonFunc() != null" ng-click="optionsButtonFunc()()">
                 {{optionsButtonText()}}
             </button>
-            <span class="navbar-brand"><span class="pointer" ng-show="backButtonFunc != null" ng-click="backButtonFunc()()"><i class="fa fa-arrow-left"></i> </span>{{title()}}</span>
+            <span class="navbar-brand" ng-class="{'pointer': backButtonFunc() != null}" ng-click="backButtonFunc()()">
+                <span class="pointer" ng-show="backButtonFunc() != null"><i class="fa fa-chevron-left"></i> </span>
+                🃏 {{title()}}
+            </span>
         </div>
+
+        <div class="collapse navbar-collapse" ng-show="optionsButtonFunc() != null">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="pointer" ng-click="optionsButtonFunc()()">{{optionsButtonText()}}</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
+    <!-- /.container-fluid -->
 </nav>

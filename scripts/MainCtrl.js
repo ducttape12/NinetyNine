@@ -2,11 +2,7 @@ angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state
     function($scope, $modal, $state, Lodash, ComputerPlayerFactory, AchievementFactory, SharedNavBarFactory) {
         'use strict';
         
-        SharedNavBarFactory.setNavBar('Ninety-Nine', function() {
-            alert('back!');
-        }, 'O', function() {
-            alert('options!');
-        });
+        SharedNavBarFactory.setNavBar('Ninety-Nine');
 
         var playerNames = ['Lynetta', 'Dorothy', 'Frank', 'Alia', 'Karl',
             'Margaret', 'Hattie', 'Randall', 'Janet', 'Ana',

@@ -1,6 +1,8 @@
-angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory', 'Lodash', '$timeout', '$modal', 'AchievementFactory',
-    function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory, Lodash, $timeout, $modal, AchievementFactory) {
+angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory', 'Lodash', '$timeout', '$modal', 'AchievementFactory', 'SharedNavBarFactory',
+    function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory, Lodash, $timeout, $modal, AchievementFactory, SharedNavBarFactory) {
         'use strict';
+        
+        SharedNavBarFactory.hide();
         
         if(angular.isUndefined($stateParams.players) || $stateParams.players == null) {
             $state.go('mainmenu');
