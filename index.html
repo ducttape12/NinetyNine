@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <!--<link rel="stylesheet" href="styles/journal.min.css">-->
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
 
     <link rel="stylesheet" href="styles/main.css">
 </head>
@@ -18,7 +20,7 @@
 <body ng-app="ninetynine" ng-controller="IndexCtrl" ng-class="background">
 
     <div class="container">
-        <div class="achievement" ng-show="achievementDisplay.currentAchievement != null">
+        <div class="achievement animated" ng-if="achievementDisplay.firstAchievementShown" ng-hide="hideAchievement" ng-class="{'fadeInDown': achievementDisplay.currentAchievement != null, 'fadeOutUp': achievementDisplay.currentAchievement == null}">
             <div class="alert alert-info" role="alert">
                 <div class="media">
                     <div class="media-left">

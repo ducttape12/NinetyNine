@@ -8,8 +8,5 @@ angular.module('ninetynine').controller('IndexCtrl', ['$scope', '$state', '$root
             });
             
         $scope.achievementDisplay = AchievementDisplayFactory;
-        $scope.$watch('achievementDisplay', function(nv, ov) {
-           console.log('uh huh ' + nv + ', ' + ov) ;
-        });
     }
 ]);
