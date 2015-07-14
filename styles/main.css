@@ -1,10 +1,20 @@
-html, body, .container {
+body {
+    padding-top: 50px;
     height: 100%;
+    
+}
+
+html, .container {
+    height: 100%;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 .background-game {
     background-color: #004700;
-    background-image: images/felt.jpg;
+    background-image: "images/felt.jpg";
 }
 
 .count {

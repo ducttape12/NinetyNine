@@ -1,0 +1,10 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-show="optionsButtonFunc != null" ng-click="optionsButtonFunc()()">
+                {{optionsButtonText()}}
+            </button>
+            <span class="navbar-brand"><span class="pointer" ng-show="backButtonFunc != null" ng-click="backButtonFunc()()"><i class="fa fa-arrow-left"></i> </span>{{title()}}</span>
+        </div>
+    </div>
+</nav>

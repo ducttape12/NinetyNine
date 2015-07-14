@@ -1,57 +1,65 @@
-<h1>Stats</h1>
-<table class="table table-striped">
-    <tbody>
-        <tr>
-            <td>Games Won</td>
-            <td>{{stats.gamesWon}}</td>
-        </tr>
-        <tr>
-            <td>Games Lost</td>
-            <td>{{stats.gamesLost}}</td>
-        </tr>
-        <tr>
-            <td>Cards Drawn</td>
-            <td>{{stats.cardsDrawn}}</td>
-        </tr>
-        <tr>
-            <td>Decks Reshuffled Mid-game</td>
-            <td>{{stats.decksReshuffledDuringGame}}</td>
-        </tr>
-        <tr>
-            <td>Fast Forwards Used</td>
-            <td>{{stats.fastFowardsUsed}}</td>
-        </tr>
-        <tr>
-            <td>Consecutive Days Played</td>
-            <td>{{stats.consecutiveDaysPlayed}}</td>
-        </tr>
-        <tr>
-            <td>Opponents Eliminated</td>
-            <td>{{stats.opponentsEliminated}}</td>
-        </tr>
-    </tbody>
-</table>
+<h1 class="text-center">Stats</h1>
+<div class="row">
+    <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td>Games Won</td>
+                    <td>{{stats.gamesWon}}</td>
+                </tr>
+                <tr>
+                    <td>Games Lost</td>
+                    <td>{{stats.gamesLost}}</td>
+                </tr>
+                <tr>
+                    <td>Cards Drawn</td>
+                    <td>{{stats.cardsDrawn}}</td>
+                </tr>
+                <tr>
+                    <td>Decks Reshuffled Mid-game</td>
+                    <td>{{stats.decksReshuffledDuringGame}}</td>
+                </tr>
+                <tr>
+                    <td>Fast Forwards Used</td>
+                    <td>{{stats.fastFowardsUsed}}</td>
+                </tr>
+                <tr>
+                    <td>Consecutive Days Played</td>
+                    <td>{{stats.consecutiveDaysPlayed}}</td>
+                </tr>
+                <tr>
+                    <td>Opponents Eliminated</td>
+                    <td>{{stats.opponentsEliminated}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<h1>Unlockable Icons</h1>
-<ul class="list-group">
-    <li class="list-group-item" ng-class="{'list-group-item-success': achievement.isCompleted()}" ng-repeat="achievement in achievements">
-        <div class="media">
-            <div class="media-left">
-                <div class="achievement-image">
-                    <i class="fa" ng-class="achievement.icon"></i>
+<h1 class="text-center">Unlockable Icons</h1>
+<div class="row">
+    <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12">
+        <ul class="list-group">
+            <li class="list-group-item" ng-class="{'list-group-item-success': achievement.isCompleted()}" ng-repeat="achievement in achievements">
+                <div class="media">
+                    <div class="media-left">
+                        <div class="achievement-image">
+                            <i class="fa" ng-class="achievement.icon"></i>
+                        </div>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{achievement.title}}</h4> {{achievement.description}}
+                    </div>
+                    <div class="media-right" ng-show="achievement.isCompleted()">
+                        <div class="achievement-image">
+                            <i class="fa fa-check"></i>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading">{{achievement.title}}</h4> {{achievement.description}}
-            </div>
-            <div class="media-right" ng-show="achievement.isCompleted()">
-                <div class="achievement-image">
-                    <i class="fa fa-check"></i>
-                </div>
-            </div>
-        </div>
-    </li>
-</ul>
+            </li>
+        </ul>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-sm-offset-3 col-sm-6 col-xs-12">

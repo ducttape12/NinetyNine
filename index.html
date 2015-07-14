@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <!--<link rel="stylesheet" href="styles/journal.min.css">-->
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
-    
+
     <link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
 
     <link rel="stylesheet" href="styles/main.css">
@@ -19,7 +19,9 @@
 
 <body ng-app="ninetynine" ng-controller="IndexCtrl" ng-class="background">
 
-    <div class="container">
+    <nav-bar title="sharedNavBar.title" back-button-func="sharedNavBar.backButtonFunc" options-button-func="sharedNavBar.optionsButtonFunc" options-button-text="sharedNavBar.optionsButtonText"></nav-bar>
+
+    <div class="container-fluid">
         <div class="achievement animated" ng-if="achievementDisplay.firstAchievementShown" ng-hide="hideAchievement" ng-class="{'fadeInDown': achievementDisplay.currentAchievement != null, 'fadeOutUp': achievementDisplay.currentAchievement == null}">
             <div class="alert alert-info" role="alert">
                 <div class="media">
@@ -65,6 +67,8 @@
     <script src="scripts/AchievementDisplayFactory.js"></script>
     <script src="scripts/StatsCtrl.js"></script>
     <script src="scripts/ResetStatsModalCtrl.js"></script>
+    <script src="scripts/NavBarDirective.js"></script>
+    <script src="scripts/SharedNavBarFactory.js"></script>
 </body>
 
 </html>

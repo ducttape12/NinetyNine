@@ -1,6 +1,12 @@
-angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state', 'Lodash', 'ComputerPlayerFactory', 'AchievementFactory',
-    function($scope, $modal, $state, Lodash, ComputerPlayerFactory, AchievementFactory) {
+angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state', 'Lodash', 'ComputerPlayerFactory', 'AchievementFactory', 'SharedNavBarFactory',
+    function($scope, $modal, $state, Lodash, ComputerPlayerFactory, AchievementFactory, SharedNavBarFactory) {
         'use strict';
+        
+        SharedNavBarFactory.setNavBar('Ninety-Nine', function() {
+            alert('back!');
+        }, 'O', function() {
+            alert('options!');
+        });
 
         var playerNames = ['Lynetta', 'Dorothy', 'Frank', 'Alia', 'Karl',
             'Margaret', 'Hattie', 'Randall', 'Janet', 'Ana',
