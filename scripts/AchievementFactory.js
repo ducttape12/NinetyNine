@@ -1,6 +1,10 @@
 angular.module('ninetynine').factory('AchievementFactory', ['localStorageService', 'Moment', 'Lodash', 'AchievementDisplayFactory', function(localStorageService, Moment, Lodash, AchievementDisplayFactory) {
     'use strict';
 
+    var achievements,
+        stats,
+        lastGamePlayed;
+
     var loadOrInitialize = function(key, initialized) {
         var loaded = localStorageService.get(key);
         if (angular.isUndefined(loaded) || loaded == null) {
@@ -11,22 +15,24 @@ angular.module('ninetynine').factory('AchievementFactory', ['localStorageService
         }
     };
 
-    var achievements = loadOrInitialize('achievements', [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]);
+    var initialize = function() {
+        achievements = loadOrInitialize('achievements', [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]);
+        stats = loadOrInitialize('stats', {
+            gamesWon: 0,
+            gamesLost: 0,
+            cardsDrawn: 0,
+            decksReshuffledDuringGame: 0,
+            fastFowardsUsed: 0,
+            consecutiveDaysPlayed: 0,
+            instructionsRead: false,
+            opponentsEliminated: 0,
+            firstOut: false,
+            playedAgainstBandit: false
+        });
+        lastGamePlayed = loadOrInitialize('lastGamePlayed', null);
+    };
 
-    var stats = loadOrInitialize('stats', {
-        gamesWon: 0,
-        gamesLost: 0,
-        cardsDrawn: 0,
-        decksReshuffledDuringGame: 0,
-        fastFowardsUsed: 0,
-        consecutiveDaysPlayed: 0,
-        instructionsRead: false,
-        opponentsEliminated: 0,
-        firstOut: false,
-        playedAgainstBandit: false
-    });
-
-    var lastGamePlayed = loadOrInitialize('lastGamePlayed', null);
+    initialize();
 
     var updateLastGamePlayed = function() {
         var today = new Moment();
@@ -340,7 +346,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['localStorageService
                 return null;
             }
 
-            if(Lodash(achievements, true).length === achievements.length - 1) { // This is the only achievement not accomplished
+            if (Lodash(achievements, true).length === achievements.length - 1) { // This is the only achievement not accomplished
                 achievements[14] == true;
                 return this;
             }
@@ -348,59 +354,59 @@ angular.module('ninetynine').factory('AchievementFactory', ['localStorageService
             return null;
         }
     }];
-    
+
     var processAchievements = function(players) {
-        if(angular.isUndefined(players)) {
+        if (angular.isUndefined(players)) {
             players = [];
         }
         var unlocked = [];
         var result;
-        
-        for(var i = 0; i < achievementList.length; i++) {
+
+        for (var i = 0; i < achievementList.length; i++) {
             result = achievementList[i].processStatChange(players);
-            if(result != null) {
+            if (result != null) {
                 unlocked.push(result);
             }
         }
-        
+
         // TODO: Temporary
-        for(i = 0; i < unlocked.length; i++) {
+        for (i = 0; i < unlocked.length; i++) {
             AchievementDisplayFactory.displayAchievement(unlocked[i].icon, unlocked[i].title);
         }
-        
+
         save();
     };
 
     return {
-        gameWon: function(players) { //
+        gameWon: function(players) {
             stats.gamesWon++;
             updateLastGamePlayed();
             processAchievements(players);
             save();
         },
 
-        gameLost: function(players) { //
+        gameLost: function(players) {
             stats.gamesLost++;
             updateLastGamePlayed();
             processAchievements(players);
             save();
         },
 
-        drewCard: function(card, player) { //
-            if(player.properties.player == null) {
+        drewCard: function(card, player) {
+            if (player.properties.player == null) {
                 stats.cardsDrawn++;
                 processAchievements();
                 save();
             }
         },
 
-        reshuffledDeck: function() { //
+        reshuffledDeck: function() {
             stats.decksReshuffledDuringGame++;
             processAchievements();
             save();
         },
 
-        fastForwardUsed: function() { //
+        fastForwardUsed: function() {
             stats.fastFowardsUsed++;
             processAchievements();
             save();
@@ -412,15 +418,40 @@ angular.module('ninetynine').factory('AchievementFactory', ['localStorageService
             save();
         },
 
-        opponentEliminated: function() { //
+        opponentEliminated: function() {
             stats.opponentsEliminated++;
             processAchievements();
             save();
         },
 
-        playerEliminated: function(players) { //
+        playerEliminated: function(players) {
             processAchievements(players);
             save();
+        },
+
+        getAchievements: function() {
+            return angular.copy(achievementList);
+        },
+
+        getStats: function() {
+            return angular.copy(stats);
+        },
+
+        getIcons: function(forceAll) {
+            var allIcons = ['fa-smile-o', 'fa-suitcase', 'fa-tree', 'fa-bicycle', 'fa-fighter-jet'];
+
+            for (var i = 0; i < achievementList.length; i++) {
+                if (achievementList[i].isCompleted() || forceAll) {
+                    allIcons.push(achievementList[i].icon);
+                }
+            }
+
+            return allIcons;
+        },
+
+        resetAll: function() {
+            localStorageService.clearAll();
+            initialize();
         }
     }
 }]);

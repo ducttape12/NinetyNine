@@ -26,6 +26,11 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
                 url: '/instructions',
                 templateUrl: 'views/instructions.html',
                 controller: 'InstructionsCtrl'
+            })
+            .state('stats', {
+                url: '/stats',
+                templateUrl: 'views/stats.html',
+                controller: 'StatsCtrl'
             });
 
     }]).config(['localStorageServiceProvider', function(localStorageServiceProvider) {

@@ -11,7 +11,7 @@
         <label class="control-label">Your Icon:</label>
         <div class="btn-group">
             <label class="btn btn-lg btn-default" ng-model="$parent.selectedIcon" ng-repeat="icon in icons" btn-radio="icon">
-                <i class="fa fa-{{icon}}"></i>
+                <i class="fa {{icon}}"></i>
             </label>
         </div>
     </div>

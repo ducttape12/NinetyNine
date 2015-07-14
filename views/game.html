@@ -3,7 +3,7 @@
         <div class="col-xs-{{12 / cpuPlayerCount}}" ng-repeat="player in game.players | filter:isHuman">
             <div class="panel panel-default" ng-class="{'panel-primary': game.getCurrentPlayer() == player}">
                 <div class="panel-heading text-center">
-                    <h4 ng-class="{'player-out': !player.active}"><i class="fa fa-{{player.properties.icon}}"></i><br />{{player.properties.name}}</h4>
+                    <h4 ng-class="{'player-out': !player.active}"><i class="fa {{player.properties.icon}}"></i><br />{{player.properties.name}}</h4>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
 
     <div class="panel panel-default" ng-class="{'panel-primary': game.getCurrentPlayer() == getHumanPlayer()}">
         <div class="panel-heading">
-            <h3 ng-class="{'player-out': !getHumanPlayer().active}"><i class="fa fa-{{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}</h3>
+            <h3 ng-class="{'player-out': !getHumanPlayer().active}"><i class="fa {{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}</h3>
         </div>
         <div class="panel-body">
             <button ng-if="!getHumanPlayer().active" class="btn btn-lg btn-default btn-block" ng-click="finishGame()">Finish Game</button>
