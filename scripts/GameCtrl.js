@@ -2,7 +2,9 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
     function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory, Lodash, $timeout, $modal, AchievementFactory, SharedNavBarFactory) {
         'use strict';
         
-        SharedNavBarFactory.hide();
+        SharedNavBarFactory.setNavBar('Ninety-Nine', function() {
+            $state.go('mainmenu');
+        }, null, null);
         
         if(angular.isUndefined($stateParams.players) || $stateParams.players == null) {
             $state.go('mainmenu');

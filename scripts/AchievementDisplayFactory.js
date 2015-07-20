@@ -5,16 +5,20 @@ angular.module('ninetynine').factory('AchievementDisplayFactory', ['$timeout', f
 
     return {
         displayAchievement: function(icon, title) {
-            this.currentAchievement = {icon: icon, title: title};
+            // TODO: Display multiple achievements one right after another
+            this.currentAchievement = {
+                icon: icon,
+                title: title
+            };
             this.firstAchievementShown = true;
             var self = this;
             $timeout(function() {
                 self.currentAchievement = null;
             }, 2000);
         },
-        
+
         currentAchievement: null,
-        
+
         firstAchievementShown: false
     };
 
