@@ -1,7 +1,8 @@
-angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state', 'Lodash', 'ComputerPlayerFactory', 'AchievementFactory', 'SharedNavBarFactory',
-    function($scope, $modal, $state, Lodash, ComputerPlayerFactory, AchievementFactory, SharedNavBarFactory) {
+angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state', 'Lodash', 'ComputerPlayerFactory', 'AchievementFactory', 'SharedNavBarFactory', 'BackgroundMusicFactory',
+    function($scope, $modal, $state, Lodash, ComputerPlayerFactory, AchievementFactory, SharedNavBarFactory, BackgroundMusicFactory) {
         'use strict';
         
+        BackgroundMusicFactory.playMenuMusic();
         SharedNavBarFactory.setNavBar('Ninety-Nine');
 
         var playerNames = ['Lynetta', 'Dorothy', 'Frank', 'Alia', 'Karl',

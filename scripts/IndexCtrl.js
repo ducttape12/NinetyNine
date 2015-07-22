@@ -1,5 +1,5 @@
-angular.module('ninetynine').controller('IndexCtrl', ['$scope', '$state', '$rootScope', 'AchievementDisplayFactory', 'SharedNavBarFactory',
-    function($scope, $state, $rootScope, AchievementDisplayFactory, SharedNavBarFactory) {
+angular.module('ninetynine').controller('IndexCtrl', ['$scope', '$state', '$rootScope', 'AchievementDisplayFactory', 'SharedNavBarFactory', 'BackgroundMusicFactory',
+    function($scope, $state, $rootScope, AchievementDisplayFactory, SharedNavBarFactory, BackgroundMusicFactory) {
         'use strict';
         
         $rootScope.$on('$stateChangeSuccess',
@@ -9,5 +9,6 @@ angular.module('ninetynine').controller('IndexCtrl', ['$scope', '$state', '$root
             
         $scope.achievementDisplay = AchievementDisplayFactory;
         $scope.sharedNavBar = SharedNavBarFactory;
+        $scope.backgroundMusic = BackgroundMusicFactory;
     }
 ]);
