@@ -1,10 +1,11 @@
 body {
     padding-top: 70px;
     height: 100%;
-    
+    min-height: 100%;
 }
 
-html, .container {
+html,
+.container {
     height: 100%;
 }
 
@@ -31,21 +32,32 @@ html, .container {
     cursor: pointer;
 }
 
+/*.card-row {*/
+/*    margin-top: 0;*/
+/*    margin-bottom: 0;*/
+/*    height: 0;*/
+/*}*/
+
 .card {
     border: 1px solid black;
     border-radius: 5px;
     text-align: center;
     font-size: 2em;
     font-weight: bold;
-    padding-top: 5em;
-    padding-bottom: 5em;
     background: linear-gradient(to bottom, white, snow);
+    
+    /*margin-top: 0;*/
+    /*margin-bottom: 0;*/
+    /*height: 0;*/
 }
+
 .player-out {
     text-decoration: line-through;
 }
 
+
 /* Modified from http://lea.verou.me/css3patterns/#marrakesh */
+
 .card-back {
     background-color: white;
     background-image: radial-gradient(midnightblue 3px, transparent 3px), repeating-radial-gradient(midnightblue 0, midnightblue 1px, transparent 2px, transparent 5px, midnightblue 7px, midnightblue 8px, transparent 8px, transparent 17px);
@@ -71,4 +83,14 @@ html, .container {
     padding: 2px;
     font-size: 2em;
     text-align: center;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin-right: -15px;
+    margin-left: -15px;
+    padding-left: 15px;
+    padding-right: 15px;
 }

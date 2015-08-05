@@ -1,19 +1,22 @@
-angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory', 'Lodash', '$timeout', '$modal', 'AchievementFactory', 'SharedNavBarFactory', 'BackgroundMusicFactory',
-    function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory, Lodash, $timeout, $modal, AchievementFactory, SharedNavBarFactory, BackgroundMusicFactory) {
+angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory',
+    'Lodash', '$timeout', '$modal', 'AchievementFactory', 'SharedNavBarFactory', 'BackgroundMusicFactory', '$window',
+    function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
+        Lodash, $timeout, $modal, AchievementFactory, SharedNavBarFactory, BackgroundMusicFactory, $window) {
+
         'use strict';
-        
+
         BackgroundMusicFactory.playGameMusic();
         SharedNavBarFactory.setNavBar('Ninety-Nine', function() {
             $state.go('mainmenu');
         }, null, null);
-        
-        if(angular.isUndefined($stateParams.players) || $stateParams.players == null) {
+
+        if (angular.isUndefined($stateParams.players) || $stateParams.players == null) {
             $state.go('mainmenu');
             return;
         };
-        
+
         var delay = 1500;
-        
+
         $scope.isHuman = function(player) {
             return player.properties.player != null;
         };
@@ -103,12 +106,12 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                             }
                         }
                     });
-                    
-                    if($scope.getHumanPlayer().active) {
+
+                    if ($scope.getHumanPlayer().active) {
                         AchievementFactory.opponentEliminated();
                     }
-                    
-                    if($scope.getHumanPlayer() == result.player) {
+
+                    if ($scope.getHumanPlayer() == result.player) {
                         AchievementFactory.playerEliminated(result.player, result.players);
                     }
 
@@ -132,10 +135,11 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                             }
                         }
                     });
-                    
-                    if($scope.getHumanPlayer().active) {
+
+                    if ($scope.getHumanPlayer().active) {
                         AchievementFactory.gameWon($scope.game.players);
-                    } else {
+                    }
+                    else {
                         AchievementFactory.gameLost($scope.game.players);
                     }
 
@@ -153,10 +157,31 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                     break;
             }
         };
-        
+
         $scope.finishGame = function() {
             AchievementFactory.fastForwardUsed();
             delay = 0;
         };
+
+        var updateMeasurements = function() {
+            var cpuPlayers = angular.element('#cpuPlayers');
+            var footer = angular.element('#footer');
+
+            $scope.cardHeight = footer.offset().top - cpuPlayers.offset().top - cpuPlayers.height();
+            console.log('Footer top: ' + footer.offset().top +
+                ', CpuPlayers top: ' + cpuPlayers.offset().top +
+                ', CpuPlayers height: ' + cpuPlayers.height() +
+                ', cardheight: ' + $scope.cardHeight);
+        };
+
+        angular.element($window).bind('resize', function() {
+            updateMeasurements();
+            $scope.$apply();
+        });
+
+        angular.element(document).ready(function() {
+            updateMeasurements();
+            $timeout(updateMeasurements, 1);
+        });
     }
 ]);
