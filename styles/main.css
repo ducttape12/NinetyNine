@@ -32,12 +32,6 @@ html,
     cursor: pointer;
 }
 
-/*.card-row {*/
-/*    margin-top: 0;*/
-/*    margin-bottom: 0;*/
-/*    height: 0;*/
-/*}*/
-
 .card {
     border: 1px solid black;
     border-radius: 5px;
@@ -45,10 +39,10 @@ html,
     font-size: 2em;
     font-weight: bold;
     background: linear-gradient(to bottom, white, snow);
-    
-    /*margin-top: 0;*/
-    /*margin-bottom: 0;*/
-    /*height: 0;*/
+}
+
+.player-card {
+    padding: 0;
 }
 
 .player-out {

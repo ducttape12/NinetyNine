@@ -3,8 +3,8 @@
         <div class="col-xs-{{12 / cpuPlayerCount}}" ng-repeat="player in game.players | filter:isHuman">
             <div class="panel panel-default" ng-class="{'panel-warning': game.getCurrentPlayer() == player}">
                 <div class="panel-heading text-center">
-                    <h4 class="visible-xs-inline" ng-class="{'player-out': !player.active}"><i class="fa {{player.properties.icon}}"></i><br />{{player.properties.name}}</h4>
-                    <h4 class="hidden-xs" ng-class="{'player-out': !player.active}"><i class="fa {{player.properties.icon}}"></i> {{player.properties.name}}</h4>
+                    <h5 class="visible-xs-inline" ng-class="{'player-out': !player.active}"><i class="fa {{player.properties.icon}}"></i><br />{{player.properties.name}}</h5>
+                    <h5 class="hidden-xs" ng-class="{'player-out': !player.active}"><i class="fa {{player.properties.icon}}"></i> {{player.properties.name}}</h5>
                 </div>
             </div>
         </div>
@@ -12,7 +12,7 @@
 
     <div class="row">
         <div class="col-sm-offset-3 col-sm-3 col-xs-6">
-            <div ng-hide="game.lastCard == null" class="card" ng-bind-html="translateCard(game.lastCard)" ng-style="{height: cardHeight}"></div>
+            <div ng-hide="game.lastCard == null" class="card" ng-bind-html="translateCard(game.lastCard)" ng-style="{'height': cardHeight}"></div>
         </div>
         <div class="col-sm-3 col-xs-6 ">
             <div class="card card-back" ng-show="game.deck.stockRemaining()" ng-style="{height: cardHeight}">
@@ -25,12 +25,12 @@
         <h2 class="text-center count">Count: {{game.count}}</h2>
         <div class="panel panel-default" ng-class="{'panel-warning': game.getCurrentPlayer() == getHumanPlayer()}">
             <div class="panel-heading text-center">
-                <h3 ng-class="{'player-out': !getHumanPlayer().active}"><i class="fa {{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}</h3>
+                <h4 ng-class="{'player-out': !getHumanPlayer().active}"><i class="fa {{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}</h4>
             </div>
             <div class="panel-body">
                 <button ng-if="!getHumanPlayer().active" class="btn btn-lg btn-default btn-block" ng-click="finishGame()">Finish Game</button>
                 <div class="row">
-                    <div class="col-xs-4" ng-repeat="card in getHumanPlayer().hand">
+                    <div class="col-sm-4" ng-repeat="card in getHumanPlayer().hand" ng-class="{'col-xs-6': $index !== 2, 'col-xs-12': $index === 2}">
                         <div class="col-xs-12 panel panel-default" ng-if="card.values.length === 1">
                             <div class="panel-body">
                                 <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="playCard($parent.$index, 0)" ng-disabled="!game.canPlay(card, 0) || getHumanPlayer() != game.getCurrentPlayer()" ng-bind-html="translateCard(card)"></button>
