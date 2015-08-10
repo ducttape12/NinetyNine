@@ -22,7 +22,7 @@
     <nav-bar title="sharedNavBar.title" back-button-func="sharedNavBar.backButtonFunc" options-button-func="sharedNavBar.optionsButtonFunc" options-button-text="sharedNavBar.optionsButtonText"></nav-bar>
 
     <div class="container-fluid">
-        <div class="achievement animated" ng-if="achievementDisplay.firstAchievementShown" ng-hide="hideAchievement" ng-class="{'fadeInDown': achievementDisplay.currentAchievement != null, 'fadeOutUp': achievementDisplay.currentAchievement == null}">
+        <div class="achievement animated" ng-if="achievementDisplay.firstAchievementShown" ng-hide="hideAchievement" ng-class="{'fadeInDownBig': achievementDisplay.show, 'fadeOutUpBig': !achievementDisplay.show}">
             <div class="alert alert-info" role="alert">
                 <div class="media">
                     <div class="media-left">

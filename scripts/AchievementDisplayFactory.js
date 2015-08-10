@@ -2,20 +2,50 @@ angular.module('ninetynine').factory('AchievementDisplayFactory', ['$timeout', f
     'use strict';
 
     var achievements = [];
+    var displayInProgress = false;
+
+    var showAchievement = function(self) {
+        console.log('showAchievement');
+        var achievement = achievements.splice(0, 1);
+
+        // Display achievement
+        self.currentAchievement = achievement[0];
+        self.firstAchievementShown = true;
+        self.show = true;
+
+        $timeout(function() {
+            self.show = false;
+            
+            $timeout(function() {
+                // Hide achievement
+                self.currentAchievement = null;
+
+                // More?
+                if (achievements.length > 0) {
+                    showAchievement(self);
+                }
+                else {
+                    displayInProgress = false;
+                }
+            }, 500);
+            
+        }, 4000);
+    };
 
     return {
         displayAchievement: function(icon, title) {
-            // TODO: Display multiple achievements one right after another
-            this.currentAchievement = {
+            achievements.push({
                 icon: icon,
                 title: title
-            };
-            this.firstAchievementShown = true;
-            var self = this;
-            $timeout(function() {
-                self.currentAchievement = null;
-            }, 2000);
+            });
+
+            if (!displayInProgress) {
+                displayInProgress = true;
+                showAchievement(this);
+            }
         },
+
+        show: false,
 
         currentAchievement: null,
 
