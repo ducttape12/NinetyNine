@@ -8,7 +8,8 @@ angular.module('ninetynine').directive('navBar', [function() {
             title: '&',
             backButtonFunc: '&',
             optionsButtonFunc: '&',
-            optionsButtonText: '&'
+            optionsButtonText: '&',
+            visible: '&'
         },
         link: function(scope, element, attributes, controller) {
         }

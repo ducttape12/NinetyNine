@@ -17,9 +17,9 @@
     <link rel="stylesheet" href="styles/main.css">
 </head>
 
-<body ng-app="ninetynine" ng-controller="IndexCtrl" ng-class="background">
+<body ng-app="ninetynine" ng-controller="IndexCtrl" class="{{background}}" ng-class="{'navbar-padding': sharedNavBar.visible}">
 
-    <nav-bar title="sharedNavBar.title" back-button-func="sharedNavBar.backButtonFunc" options-button-func="sharedNavBar.optionsButtonFunc" options-button-text="sharedNavBar.optionsButtonText"></nav-bar>
+    <nav-bar title="sharedNavBar.title" back-button-func="sharedNavBar.backButtonFunc" options-button-func="sharedNavBar.optionsButtonFunc" options-button-text="sharedNavBar.optionsButtonText" visible="sharedNavBar.visible"></nav-bar>
 
     <div class="container-fluid">
         <div class="achievement animated" ng-if="achievementDisplay.firstAchievementShown" ng-hide="hideAchievement" ng-class="{'fadeInDownBig': achievementDisplay.show, 'fadeOutUpBig': !achievementDisplay.show}">

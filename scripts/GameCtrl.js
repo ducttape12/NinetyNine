@@ -6,9 +6,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         'use strict';
 
         BackgroundMusicFactory.playGameMusic();
-        SharedNavBarFactory.setNavBar('Ninety-Nine', function() {
-            $state.go('mainmenu');
-        }, null, null);
+        SharedNavBarFactory.hideNavBar();
 
         if (angular.isUndefined($stateParams.players) || $stateParams.players == null) {
             $state.go('mainmenu');
