@@ -40,7 +40,7 @@
                             <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="playCard($parent.$index, 0)" ng-disabled="!game.canPlay(card, 0) || getHumanPlayer() != game.getCurrentPlayer()" ng-bind-html="translateCard(card)"></button>
                         </div>
                         <div ng-if="card.values.length !== 1">
-                            <button type="button" popover-template="'multipleCards.html'" popover-trigger="focus" class="btn btn-primary btn-lg btn-block" ng-disabled="!game.canPlayAny(card) || getHumanPlayer() != game.getCurrentPlayer()" ng-bind-html="translateCard(card)"></button>
+                            <button type="button" popover-append-to-body="true" popover-template="'multipleCards.html'" popover-trigger="focus" class="btn btn-primary btn-lg btn-block" ng-disabled="!game.canPlayAny(card) || getHumanPlayer() != game.getCurrentPlayer()" ng-bind-html="translateCard(card)"></button>
                         </div>
                     </div>
 
