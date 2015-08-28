@@ -1,6 +1,6 @@
 angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory', 'Lodash', 'AchievementFactory', function(DeckFactory, CardFactory, Lodash, AchievementFactory) {
     'use strict';
-    
+
     var MoveResult = {
         Continue: 0,
         PlayerOut: 1,
@@ -8,10 +8,10 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
         InvalidMove: 3
     };
     Object.freeze(MoveResult);
-    
+
     var Game = function(players, options) {
         var i;
-        
+
         this.deck = DeckFactory.newDeck();
         this.players = [];
         this.count = 0;
@@ -19,8 +19,8 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
         this.currentPlayerIndex = 0;
         this.options = options;
         this.lastCard = null;
-        
-        for(i = 0; i < players.length; i++) {
+
+        for (i = 0; i < players.length; i++) {
             this.players.push({
                 properties: players[i],
                 active: true,
@@ -28,127 +28,154 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
             });
         }
     };
-    
+
     Game.prototype.playCard = function(cardIndex, valueIndex) {
         var result = [];
-        
+
         var player = this.players[this.currentPlayerIndex];
-        
-        if(!this.canPlay(player.hand[cardIndex], valueIndex)) {
-          return [{result: MoveResult.InvalidMove, player: player}];
+
+        if (!this.canPlay(player.hand[cardIndex], valueIndex)) {
+            return [{
+                result: MoveResult.InvalidMove,
+                player: player
+            }];
         }
-        
+
         // Apply card value to deck
         var card = player.hand[cardIndex];
-        
-        if(player.hand[cardIndex].action === CardFactory.ActionType.NinetyNine) {
+
+        if (player.hand[cardIndex].action === CardFactory.ActionType.NinetyNine) {
             this.count = 99;
-        } else {
+        }
+        else {
             this.count += player.hand[cardIndex].values[valueIndex];
         }
-        if(this.count < 0) {
+        if (this.count < 0) {
             this.count = 0;
         }
-        
+
         // Discard the played card
         this.deck.discard(card);
-        
+
         // Make a copy of the card, containing only the played value
         this.lastCard = angular.copy(card);
         this.lastCard.values = [];
         this.lastCard.values[0] = card.values[valueIndex];
-        
+
         // Draw a new card and put it in place of the discarded card
         player.hand[cardIndex] = this.deck.drawCard();
         AchievementFactory.drewCard(player.hand[cardIndex], player);
-        
-        
+
+
         // Apply card special effects
-        if(card.action === CardFactory.ActionType.Reverse) {
+        if (card.action === CardFactory.ActionType.Reverse) {
             this.order *= -1;
         }
-        
+
         // Determine the number of players to rotate through
         var rotation = card.action === CardFactory.ActionType.Skip ? 2 : 1;
         this.nextPlayer(rotation);
-        result.push({result: MoveResult.Continue, player: player});
-        
-        while(!this.currentPlayerCanPlay()) {
-            result.push({result: MoveResult.PlayerOut, player: angular.copy(this.players[this.currentPlayerIndex]), players: angular.copy(this.players)});
-            while(this.players[this.currentPlayerIndex].hand.length > 0) {
+        result.push({
+            result: MoveResult.Continue,
+            player: player
+        });
+
+        while (!this.currentPlayerCanPlay()) {
+            result.push({
+                result: MoveResult.PlayerOut,
+                player: angular.copy(this.players[this.currentPlayerIndex]),
+                players: angular.copy(this.players)
+            });
+            while (this.players[this.currentPlayerIndex].hand.length > 0) {
                 this.deck.discard(this.players[this.currentPlayerIndex].hand.pop());
             }
             this.nextPlayer(1);
-            
-            if(this.currentPlayerWon()) {
-                result.push({result: MoveResult.PlayerWon, player: angular.copy(this.players[this.currentPlayerIndex]), players: angular.copy(this.players)});
+
+            if (this.currentPlayerWon()) {
+                result.push({
+                    result: MoveResult.PlayerWon,
+                    player: angular.copy(this.players[this.currentPlayerIndex]),
+                    players: angular.copy(this.players)
+                });
                 break;
             }
         }
-        
+
         return result;
     };
-    
+
     Game.prototype.currentPlayerCanPlay = function() {
         var i,
             j,
             currentCard,
             availableMove = false;
-            
-        for(i = 0; i < this.players[this.currentPlayerIndex].hand.length && !availableMove; i++) {
+
+        for (i = 0; i < this.players[this.currentPlayerIndex].hand.length && !availableMove; i++) {
             currentCard = this.players[this.currentPlayerIndex].hand[i];
-            
-            for(j = 0; j < currentCard.values.length; j++) {
-                if(this.canPlay(currentCard, j)) {
+
+            for (j = 0; j < currentCard.values.length; j++) {
+                if (this.canPlay(currentCard, j)) {
                     availableMove = true;
                     break;
                 }
             }
         }
-        
+
         this.players[this.currentPlayerIndex].active = availableMove;
-        
+
         return availableMove;
     };
-    
+
     Game.prototype.currentPlayerWon = function() {
-        return Lodash.where(this.players, {'active': true}).length === 1;
+        return Lodash.where(this.players, {
+            'active': true
+        }).length === 1;
     };
-    
+
     Game.prototype.canPlay = function(card, valueIndex) {
-        if(card.action === CardFactory.ActionType.NinetyNine) {
+        if (card.action === CardFactory.ActionType.NinetyNine) {
             return true;
         }
-        
-        return card.values[valueIndex] + this.count <= 99;
+
+        return card.values[valueIndex] + this.count >= 0 && card.values[valueIndex] + this.count <= 99;
     };
-    
+
+    Game.prototype.canPlayAny = function(card) {
+        for(var i = 0; i < card.values.length; i++) {
+            if(this.canPlay(card, i)) {
+                return true;
+            }
+        }
+        
+        return false;
+    };
+
     Game.prototype.nextPlayer = function(rotation) {
         do {
             this.currentPlayerIndex += this.order;
-            
+
             // Handle wrap around
-            if(this.currentPlayerIndex < 0) {
+            if (this.currentPlayerIndex < 0) {
                 this.currentPlayerIndex = this.players.length - 1
             }
-            if(this.currentPlayerIndex > this.players.length - 1) {
+            if (this.currentPlayerIndex > this.players.length - 1) {
                 this.currentPlayerIndex = 0;
             }
-            
+
             // Only count this as a valid rotation if the player we're on is still in the game
-            if(this.players[this.currentPlayerIndex].active) {
+            if (this.players[this.currentPlayerIndex].active) {
                 rotation--;
             }
-            
-        } while(rotation > 0);
+
+        } while (rotation > 0);
     };
-    
+
     Game.prototype.getCurrentPlayer = function() {
-        return this.players[this.currentPlayerIndex];  
+        return this.players[this.currentPlayerIndex];
     };
-    
-    
-    
+
+
+
     return {
         newGame: function(players, options) {
             return new Game(players, options);
