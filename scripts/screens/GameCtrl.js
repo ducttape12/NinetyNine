@@ -15,7 +15,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
         var delay = 1500;
 
-        $scope.isHuman = function(player) {
+        $scope.isCpu = function(player) {
             return player.properties.player != null;
         };
 
@@ -62,6 +62,25 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                         return card.values[(angular.isUndefined(index) ? 0 : index)] > 0 ? '+10' : '-10';
                     }
             }
+        };
+        
+        $scope.calculateXsCpuSize = function(player) {
+            var playerActive = 12 / $scope.cpuPlayerCount;
+            var cpuInactive = 2; // Minimum size
+            var cpuActive = 12 - (cpuInactive * ($scope.cpuPlayerCount - 1)); // Maximum size, making room for minimum size for other CPUs
+            
+            // Human is playing.  All CPUs are the same size
+            if($scope.game.getCurrentPlayer() == $scope.getHumanPlayer()) {
+                return playerActive;
+            }
+            
+            // This CPU player is playing.  He or she gets the maximum size.
+            if($scope.game.getCurrentPlayer() == player) {
+                return cpuActive;
+            }
+            
+            // Another CPU is playing, but not this one.  He or she gets the minimum size.
+            return cpuInactive;
         };
 
         $scope.playCard = function(cardIndex, valueIndex) {

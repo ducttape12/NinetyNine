@@ -1,10 +1,9 @@
 <div class="game">
     <div class="row" id="cpuPlayers">
-        <div class="col-xs-{{12 / cpuPlayerCount}}" ng-repeat="player in game.players | filter:isHuman">
+        <div class="col-xs-{{calculateXsCpuSize(player)}} col-sm-{{12 / cpuPlayerCount}}" ng-repeat="player in game.players | filter:isCpu">
             <div class="panel panel-default" ng-class="{'panel-warning': game.getCurrentPlayer() == player}">
-                <div class="panel-heading text-center">
-                    <h5 class="visible-xs-inline" ng-class="{'player-out': !player.active}"><i class="fa {{player.properties.icon}}"></i><br />{{player.properties.name}}</h5>
-                    <h5 class="hidden-xs" ng-class="{'player-out': !player.active}"><i class="fa {{player.properties.icon}}"></i> {{player.properties.name}}</h5>
+                <div class="panel-heading text-center" ng-class="{'disabled': !player.active}">
+                    <i class="fa {{player.properties.icon}}"></i><span ng-class="{'hidden-xs': game.getCurrentPlayer() != player}"> {{player.properties.name}}</span>
                 </div>
             </div>
         </div>
