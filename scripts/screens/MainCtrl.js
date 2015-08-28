@@ -22,7 +22,7 @@ angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state
 
         $scope.newGame = function() {
             var modalInstance = $modal.open({
-                templateUrl: 'views/newgame.html',
+                templateUrl: 'views/modals/newgame.html',
                 controller: 'NewGameModalCtrl',
                 resolve: {
                     icons: function() {

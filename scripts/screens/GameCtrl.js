@@ -93,7 +93,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             switch (result.result) {
                 case GameFactory.MoveResult.PlayerOut:
                     var modalInstance = $modal.open({
-                        templateUrl: 'views/playerOutModal.html',
+                        templateUrl: 'views/modals/playerOutModal.html',
                         controller: 'PlayerOutModalCtrl',
                         resolve: {
                             name: function() {
@@ -122,7 +122,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
                 case GameFactory.MoveResult.PlayerWon:
                     var modalInstance = $modal.open({
-                        templateUrl: 'views/playerWonModal.html',
+                        templateUrl: 'views/modals/playerWonModal.html',
                         controller: 'PlayerOutModalCtrl',
                         resolve: {
                             name: function() {

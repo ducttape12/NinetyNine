@@ -7,7 +7,7 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
         $stateProvider
             .state('mainmenu', {
                 url: '/',
-                templateUrl: 'views/main.html',
+                templateUrl: 'views/screens/main.html',
                 params: {
                     background: ''
                 },
@@ -15,7 +15,7 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
             })
             .state('game', {
                 url: '/game',
-                templateUrl: 'views/game.html',
+                templateUrl: 'views/screens/game.html',
                 params: {
                     players: null,
                     background: 'background-game'
@@ -24,12 +24,12 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
             })
             .state('instructions', {
                 url: '/instructions',
-                templateUrl: 'views/instructions.html',
+                templateUrl: 'views/screens/instructions.html',
                 controller: 'InstructionsCtrl'
             })
             .state('stats', {
                 url: '/stats',
-                templateUrl: 'views/stats.html',
+                templateUrl: 'views/screens/stats.html',
                 controller: 'StatsCtrl'
             });
 

@@ -3,7 +3,7 @@ angular.module('ninetynine').directive('audioPlayer', ['$timeout', function($tim
 
     return {
         restrict: 'E',
-        templateUrl: 'views/audioPlayerDirective.html',
+        templateUrl: 'views/directives/audioPlayerDirective.html',
         scope: {
             source: '&',
             playing: '&'

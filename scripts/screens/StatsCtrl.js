@@ -14,7 +14,7 @@ angular.module('ninetynine').controller('StatsCtrl', ['$scope', 'AchievementFact
 
         $scope.resetAll = function() {
             var modalInstance = $modal.open({
-                templateUrl: 'views/resetStatsModal.html',
+                templateUrl: 'views/modals/resetStatsModal.html',
                 controller: 'ResetStatsModalCtrl'
             });
 

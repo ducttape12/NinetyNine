@@ -3,7 +3,7 @@ angular.module('ninetynine').directive('navBar', [function() {
     
     return {
         restrict: 'E',
-        templateUrl: 'views/navBarDirective.html',
+        templateUrl: 'views/directives/navBarDirective.html',
         scope: {
             title: '&',
             backButtonFunc: '&',
