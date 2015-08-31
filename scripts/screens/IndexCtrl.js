@@ -1,14 +1,9 @@
-angular.module('ninetynine').controller('IndexCtrl', ['$scope', '$state', '$rootScope', 'AchievementDisplayFactory', 'SharedNavBarFactory', 'BackgroundMusicFactory',
-    function($scope, $state, $rootScope, AchievementDisplayFactory, SharedNavBarFactory, BackgroundMusicFactory) {
+angular.module('ninetynine').controller('IndexCtrl', ['$scope', '$state', 'AchievementDisplayFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory',
+    function($scope, $state, AchievementDisplayFactory, ScreenSettingsFactory, BackgroundMusicFactory) {
         'use strict';
         
-        $rootScope.$on('$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams) {
-                $scope.background = toParams.background;
-            });
-            
         $scope.achievementDisplay = AchievementDisplayFactory;
-        $scope.sharedNavBar = SharedNavBarFactory;
+        $scope.screenSettings = ScreenSettingsFactory;
         $scope.backgroundMusic = BackgroundMusicFactory;
     }
 ]);

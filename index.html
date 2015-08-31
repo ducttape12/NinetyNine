@@ -17,9 +17,9 @@
     <link rel="stylesheet" href="styles/main.css">
 </head>
 
-<body ng-app="ninetynine" ng-controller="IndexCtrl" class="{{background}}" ng-class="{'navbar-padding': sharedNavBar.visible}">
+<body ng-app="ninetynine" ng-controller="IndexCtrl" class="{{screenSettings.backgroundClass}}" ng-class="{'navbar-padding': screenSettings.navBarVisible}">
 
-    <nav-bar title="sharedNavBar.title" back-button-func="sharedNavBar.backButtonFunc" options-button-func="sharedNavBar.optionsButtonFunc" options-button-text="sharedNavBar.optionsButtonText" visible="sharedNavBar.visible"></nav-bar>
+    <nav-bar title="screenSettings.title" back-button-func="screenSettings.backButtonFunc" options-button-func="screenSettings.optionsButtonFunc" options-button-text="screenSettings.optionsButtonText" visible="screenSettings.navBarVisible"></nav-bar>
 
     <div class="container-fluid">
         <div class="achievement animated" ng-if="achievementDisplay.firstAchievementShown" ng-hide="hideAchievement" ng-class="{'fadeInDownBig': achievementDisplay.show, 'fadeOutUpBig': !achievementDisplay.show}">
@@ -64,7 +64,7 @@
     <script src="scripts/screens/IndexCtrl.js"></script>
     <script src="scripts/screens/InstructionsCtrl.js"></script>
     <script src="scripts/shared/AchievementDisplayFactory.js"></script>
-    <script src="scripts/shared/SharedNavBarFactory.js"></script>
+    <script src="scripts/shared/ScreenSettingsFactory.js"></script>
     <script src="scripts/shared/BackgroundMusicFactory.js"></script>
     <script src="scripts/modals/PlayerOutModalCtrl.js"></script>
     <script src="scripts/modals/ResetStatsModalCtrl.js"></script>
@@ -72,8 +72,8 @@
     <script src="scripts/directives/NavBarDirective.js"></script>
     <script src="scripts/directives/AudioPlayerDirective.js"></script>
     
-    <audio-player source="'music/Yinyues-Triangles.mp3'" playing="backgroundMusic.menuMusic"></audio-player>
-    <audio-player source="'music/CyanMusic-Nachtwerk.mp3'" playing="backgroundMusic.gameMusic"></audio-player>
+    <!--<audio-player source="'music/Yinyues-Triangles.mp3'" playing="backgroundMusic.menuMusic"></audio-player>-->
+    <!--<audio-player source="'music/CyanMusic-Nachtwerk.mp3'" playing="backgroundMusic.gameMusic"></audio-player>-->
 </body>
 
 </html>

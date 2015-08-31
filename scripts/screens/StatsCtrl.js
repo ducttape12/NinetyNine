@@ -1,10 +1,11 @@
-angular.module('ninetynine').controller('StatsCtrl', ['$scope', 'AchievementFactory', '$modal', 'SharedNavBarFactory', '$state',
-    function($scope, AchievementFactory, $modal, SharedNavBarFactory, $state) {
+angular.module('ninetynine').controller('StatsCtrl', ['$scope', 'AchievementFactory', '$modal', 'ScreenSettingsFactory', '$state',
+    function($scope, AchievementFactory, $modal, ScreenSettingsFactory, $state) {
         'use strict';
         
-        SharedNavBarFactory.setNavBar('Stats and Unlockables', function() {
+        ScreenSettingsFactory.setNavBar('Stats and Unlockables', function() {
             $state.go('mainmenu');
         }, null, null);
+        ScreenSettingsFactory.clearBackgroundClass();
 
         var initialize = function() {
             $scope.achievements = AchievementFactory.getAchievements();

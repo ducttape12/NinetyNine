@@ -1,4 +1,4 @@
-angular.module('ninetynine').factory('SharedNavBarFactory', [function() {
+angular.module('ninetynine').factory('ScreenSettingsFactory', [function() {
     'use strict';
 
     return {
@@ -7,15 +7,22 @@ angular.module('ninetynine').factory('SharedNavBarFactory', [function() {
             this.backButtonFunc = angular.isUndefined(backButtonFunc) ? null : backButtonFunc;
             this.optionsButtonText = angular.isUndefined(optionsButtonText) ? null : optionsButtonText;
             this.optionsButtonFunc = angular.isUndefined(optionsButtonFunc) ? null : optionsButtonFunc;
-            this.visible = true;
+            this.navBarVisible = true;
         },
         hideNavBar: function() {
-            this.visible = false;
+            this.navBarVisible = false;
+        },
+        setBackgroundClass: function(cssClass) {
+            this.backgroundClass = cssClass;
+        },
+        clearBackgroundClass: function() {
+            this.backgroundClass = '';
         },
         title: null,
         backButtonFunc: null,
         optionsButtonFunc: null,
         optionsButtonText: null,
-        visible: true
+        navBarVisible: true,
+        backgroundClass: ''
     };
 }]);

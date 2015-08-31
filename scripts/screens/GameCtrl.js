@@ -1,12 +1,13 @@
 angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory',
-    'Lodash', '$timeout', '$modal', 'AchievementFactory', 'SharedNavBarFactory', 'BackgroundMusicFactory', '$window',
+    'Lodash', '$timeout', '$modal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window',
     function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
-        Lodash, $timeout, $modal, AchievementFactory, SharedNavBarFactory, BackgroundMusicFactory, $window) {
+        Lodash, $timeout, $modal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window) {
 
         'use strict';
 
         BackgroundMusicFactory.playGameMusic();
-        SharedNavBarFactory.hideNavBar();
+        ScreenSettingsFactory.hideNavBar();
+        ScreenSettingsFactory.setBackgroundClass('background-game');
 
         if (angular.isUndefined($stateParams.players) || $stateParams.players == null) {
             $state.go('mainmenu');

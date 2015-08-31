@@ -8,9 +8,6 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
             .state('mainmenu', {
                 url: '/',
                 templateUrl: 'views/screens/main.html',
-                params: {
-                    background: ''
-                },
                 controller: 'MainCtrl'
             })
             .state('game', {
@@ -18,7 +15,6 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
                 templateUrl: 'views/screens/game.html',
                 params: {
                     players: null,
-                    background: 'background-game'
                 },
                 controller: 'GameCtrl'
             })

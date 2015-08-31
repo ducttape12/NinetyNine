@@ -1,9 +1,10 @@
-angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state', 'Lodash', 'ComputerPlayerFactory', 'AchievementFactory', 'SharedNavBarFactory', 'BackgroundMusicFactory',
-    function($scope, $modal, $state, Lodash, ComputerPlayerFactory, AchievementFactory, SharedNavBarFactory, BackgroundMusicFactory) {
+angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state', 'Lodash', 'ComputerPlayerFactory', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory',
+    function($scope, $modal, $state, Lodash, ComputerPlayerFactory, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory) {
         'use strict';
         
         BackgroundMusicFactory.playMenuMusic();
-        SharedNavBarFactory.setNavBar('Ninety-Nine');
+        ScreenSettingsFactory.setNavBar('Ninety-Nine');
+        ScreenSettingsFactory.clearBackgroundClass();
 
         var playerNames = ['Lynetta', 'Dorothy', 'Frank', 'Alia', 'Karl',
             'Margaret', 'Hattie', 'Randall', 'Janet', 'Ana',
