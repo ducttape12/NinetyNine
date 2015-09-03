@@ -1,0 +1,23 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Game Paused</h3>
+</div>
+<div class="modal-body">
+    <div ng-hide="confirmQuit">
+        <button type="button" class="btn btn-primary btn-block btn-lg" ng-change="musicChange()" ng-model="music" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+            <i class="fa fa-volume-{{music ? 'up' : 'off'}}"></i> Music is {{music ? 'Enabled' : 'Disabled'}}
+        </button>
+        <button type="button" class="btn btn-danger btn-block btn-lg" ng-click="confirmQuit = true">
+            <i class="fa fa-sign-out"></i> Quit to Main Menu
+        </button>
+        <button type="button" class="btn btn-success btn-block btn-lg" ng-click="close()">
+            <i class="fa fa-play"></i> Continue
+        </button>
+    </div>
+    <div ng-show="confirmQuit">
+        <p class="lead">Do you really want to quit this game and return to the main menu?</p>
+        <button type="button" class="btn btn-danger btn-block btn-lg" ng-click="quit()">Yes</button>
+        <button type="button" class="btn btn-success btn-block btn-lg" ng-click="confirmQuit = false">No</button>
+    </div>
+</div>
+<div class="modal-footer">
+</div>

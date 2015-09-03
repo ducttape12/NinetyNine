@@ -3,5 +3,8 @@
         <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="newGame()">New Game</button>
         <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="viewInstructions()">Instructions</button>
         <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="viewStats()">Stats and Unlockables</button>
+        <button type="button" class="btn btn-primary btn-block btn-lg" ng-change="musicChange()" ng-model="music" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+            <i class="fa fa-volume-{{music ? 'up' : 'off'}}"></i> Music is {{music ? 'Enabled' : 'Disabled'}}
+        </button>
     </div>
 </div>

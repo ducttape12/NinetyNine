@@ -1,7 +1,9 @@
-angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state', 'Lodash', 'ComputerPlayerFactory', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory',
-    function($scope, $modal, $state, Lodash, ComputerPlayerFactory, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory) {
+angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state', 'Lodash', 'ComputerPlayerFactory', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', 'SettingsFactory',
+    function($scope, $modal, $state, Lodash, ComputerPlayerFactory, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, SettingsFactory) {
         'use strict';
-        
+
+        $scope.music = SettingsFactory.getMusicEnabled();
+
         BackgroundMusicFactory.playMenuMusic();
         ScreenSettingsFactory.setNavBar('Ninety-Nine');
         ScreenSettingsFactory.clearBackgroundClass();
@@ -76,6 +78,11 @@ angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state
             }
 
             return players;
+        };
+
+        $scope.musicChange = function () {
+            SettingsFactory.setMusicEnabled($scope.music);
+            BackgroundMusicFactory.playMenuMusic();
         };
     }
 ]);

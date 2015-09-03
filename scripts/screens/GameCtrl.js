@@ -1,6 +1,6 @@
 angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory',
     'Lodash', '$timeout', '$modal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window',
-    function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
+    function ($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
         Lodash, $timeout, $modal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window) {
 
         'use strict';
@@ -9,6 +9,14 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         ScreenSettingsFactory.hideNavBar();
         ScreenSettingsFactory.setBackgroundClass('background-game');
 
+        // When the game is paused, the processNextResult function will stop processing and place the
+        // remaining results into remainingResults.  Any open cpuTimeoutPromise will be cancelled.  When the user
+        // unpauses the game, the remaining results will continue to be processed.  If there aren't any, then
+        // a new timeout will be created for the current CPU player.
+        var paused = false,
+            remainingResults = [],
+            cpuTimeoutPromise = null;
+
         if (angular.isUndefined($stateParams.players) || $stateParams.players == null) {
             $state.go('mainmenu');
             return;
@@ -16,7 +24,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
         var delay = 1500;
 
-        $scope.isCpu = function(player) {
+        $scope.isCpu = function (player) {
             return player.properties.player != null;
         };
 
@@ -29,7 +37,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             }
         }
 
-        $scope.getHumanPlayer = function() {
+        $scope.getHumanPlayer = function () {
             var i;
             for (i = 0; i < $scope.game.players.length; i++) {
                 if ($scope.game.players[i].properties.player == null) {
@@ -38,7 +46,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             }
         };
 
-        $scope.translateCard = function(card, index) {
+        $scope.translateCard = function (card, index) {
 
             if (card == null) {
                 return '';
@@ -64,27 +72,47 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                     }
             }
         };
-        
-        $scope.calculateXsCpuSize = function(player) {
+
+        $scope.calculateXsCpuSize = function (player) {
             var playerActive = 12 / $scope.cpuPlayerCount;
             var cpuInactive = 2; // Minimum size
             var cpuActive = 12 - (cpuInactive * ($scope.cpuPlayerCount - 1)); // Maximum size, making room for minimum size for other CPUs
-            
+
             // Human is playing.  All CPUs are the same size
-            if($scope.game.getCurrentPlayer() == $scope.getHumanPlayer()) {
+            if ($scope.game.getCurrentPlayer() == $scope.getHumanPlayer()) {
                 return playerActive;
             }
-            
+
             // This CPU player is playing.  He or she gets the maximum size.
-            if($scope.game.getCurrentPlayer() == player) {
+            if ($scope.game.getCurrentPlayer() == player) {
                 return cpuActive;
             }
-            
+
             // Another CPU is playing, but not this one.  He or she gets the minimum size.
             return cpuInactive;
         };
 
-        $scope.playCard = function(cardIndex, valueIndex) {
+        $scope.pause = function () {
+            // This will stop all results from processing
+            remainingResults = [];
+            paused = true;
+            $timeout.cancel(cpuTimeoutPromise);
+
+            var modalInstance = $modal.open({
+                templateUrl: 'views/modals/pause.html',
+                controller: 'PauseModalCtrl'
+            });
+
+            modalInstance.result.then(function () {
+                $state.go('mainmenu');
+            }, function () {
+                // Continue processing results
+                paused = false;
+                processNextResult(remainingResults);
+            });
+        };
+
+        $scope.playCard = function (cardIndex, valueIndex) {
             var i,
                 currentResult,
                 result,
@@ -94,13 +122,19 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             processNextResult(result);
         };
 
-        var processNextResult = function(results) {
+        var processNextResult = function (results) {
+            // If the game is paused, stop processing results and save them for future processing
+            if (paused) {
+                remainingResults = results;
+                return;
+            }
+
             if (results.length === 0) {
                 if (!$scope.game.currentPlayerWon()) {
                     var nextPlayer = $scope.game.getCurrentPlayer();
                     if (nextPlayer.properties.player != null) {
                         var card = nextPlayer.properties.player.makeMove($scope.game.count, nextPlayer.hand);
-                        $timeout(function() {
+                        cpuTimeoutPromise = $timeout(function () {
                             $scope.playCard(card.cardIndex, card.valueIndex);
                         }, delay);
                     }
@@ -116,10 +150,10 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                         templateUrl: 'views/modals/playerOutModal.html',
                         controller: 'PlayerOutModalCtrl',
                         resolve: {
-                            name: function() {
+                            name: function () {
                                 return result.player.properties.name;
                             },
-                            hand: function() {
+                            hand: function () {
                                 return result.player.hand;
                             }
                         }
@@ -133,9 +167,9 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                         AchievementFactory.playerEliminated(result.player, result.players);
                     }
 
-                    modalInstance.result.then(function() {
+                    modalInstance.result.then(function () {
                         processNextResult(results);
-                    }, function() {
+                    }, function () {
                         processNextResult(results);
                     });
                     break;
@@ -145,10 +179,10 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                         templateUrl: 'views/modals/playerWonModal.html',
                         controller: 'PlayerOutModalCtrl',
                         resolve: {
-                            name: function() {
+                            name: function () {
                                 return result.player.properties.name;
                             },
-                            hand: function() {
+                            hand: function () {
                                 return result.player.hand;
                             }
                         }
@@ -161,9 +195,9 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                         AchievementFactory.gameLost($scope.game.players);
                     }
 
-                    modalInstance.result.then(function() {
+                    modalInstance.result.then(function () {
                         processNextResult(results);
-                    }, function() {
+                    }, function () {
                         processNextResult(results);
                     });
                     break;
@@ -176,12 +210,12 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             }
         };
 
-        $scope.finishGame = function() {
+        $scope.finishGame = function () {
             AchievementFactory.fastForwardUsed();
             delay = 0;
         };
 
-        var updateMeasurements = function() {
+        var updateMeasurements = function () {
             var cpuPlayers = angular.element('#cpuPlayers');
             var footer = angular.element('#footer');
 
@@ -192,12 +226,12 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                 ', cardheight: ' + $scope.cardHeight);
         };
 
-        angular.element($window).bind('resize', function() {
+        angular.element($window).bind('resize', function () {
             updateMeasurements();
             $scope.$apply();
         });
 
-        angular.element(document).ready(function() {
+        angular.element(document).ready(function () {
             updateMeasurements();
             $timeout(updateMeasurements, 1);
         });
