@@ -1,17 +1,17 @@
-angular.module('ninetynine').factory('BackgroundMusicFactory', [function() {
+angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory', function(SettingsFactory) {
     'use strict';
 
     return {
         playMenuMusic: function() {
-            console.log('playMenuMusic');
-            this.menuMusic = true;
+            var enabled = SettingsFactory.getMusicEnabled();
+            this.menuMusic = enabled && true;
             this.gameMusic = false;
         },
         
         playGameMusic: function() {
-            console.log('playGameMusic');
+            var enabled = SettingsFactory.getMusicEnabled();
             this.menuMusic = false;
-            this.gameMusic = true;
+            this.gameMusic = enabled && true;
         },
         
         menuMusic: false,

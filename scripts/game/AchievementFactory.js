@@ -1,23 +1,8 @@
-angular.module('ninetynine').factory('AchievementFactory', ['localStorageService', 'Moment', 'Lodash', 'AchievementDisplayFactory', function(localStorageService, Moment, Lodash, AchievementDisplayFactory) {
+angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper', 'Moment', 'Lodash', 'AchievementDisplayFactory', function(LocalStorageHelper, Moment, Lodash, AchievementDisplayFactory) {
     'use strict';
-
-    var achievements,
-        stats,
-        lastGamePlayed;
-
-    var loadOrInitialize = function(key, initialized) {
-        var loaded = localStorageService.get(key);
-        if (angular.isUndefined(loaded) || loaded == null) {
-            return initialized;
-        }
-        else {
-            return loaded;
-        }
-    };
-
-    var initialize = function() {
-        achievements = loadOrInitialize('achievements', [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]);
-        stats = loadOrInitialize('stats', {
+    
+    var initialAchievements = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        initialStats = {
             gamesWon: 0,
             gamesLost: 0,
             cardsDrawn: 0,
@@ -28,8 +13,17 @@ angular.module('ninetynine').factory('AchievementFactory', ['localStorageService
             opponentsEliminated: 0,
             firstOut: false,
             playedAgainstBandit: false
-        });
-        lastGamePlayed = loadOrInitialize('lastGamePlayed', null);
+        },
+        initialLastGamePlayed = null;
+
+    var achievements,
+        stats,
+        lastGamePlayed;
+
+    var initialize = function() {
+        achievements = LocalStorageHelper.LoadOrInitialize('achievements', initialAchievements);
+        stats = LocalStorageHelper.LoadOrInitialize('stats', initialStats);
+        lastGamePlayed = LocalStorageHelper.LoadOrInitialize('lastGamePlayed', initialLastGamePlayed);
     };
 
     initialize();
@@ -48,13 +42,13 @@ angular.module('ninetynine').factory('AchievementFactory', ['localStorageService
         }
         // else, do nothing
 
-        localStorageService.set('lastGamePlayed', today);
+        LocalStorageHelper.Save('lastGamePlayed', today);
         lastGamePlayed = today;
     };
 
     var save = function() {
-        localStorageService.set('stats', stats);
-        localStorageService.set('achievements', achievements);
+        LocalStorageHelper.Save('stats', stats);
+        LocalStorageHelper.Save('achievements', achievements);
     };
 
     var achievementList = [{
@@ -450,7 +444,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['localStorageService
         },
 
         resetAll: function() {
-            localStorageService.clearAll();
+            LocalStorageHelper.save('achievements', initialAchievements);
+            LocalStorageHelper.save('stats', initialStats);
+            LocalStorageHelper.save('lastGamePlayed', initialLastGamePlayed);
             initialize();
         }
     }
