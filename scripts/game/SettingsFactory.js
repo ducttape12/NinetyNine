@@ -13,6 +13,21 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', f
         },
         setMusicEnabled: function(enabled) {
             LocalStorageHelper.save('music', enabled);
+        },
+        getPlayerCountIndex: function () {
+            return LocalStorageHelper.loadOrInitialize('playerCountIndex', 2);
+        },
+        setPlayerCountIndex: function (index) {
+            LocalStorageHelper.save('playerCountIndex', index);
+        },
+        getIconIndex: function () {
+            return LocalStorageHelper.loadOrInitialize('iconIndex', 0);
+        },
+        setIconIndex: function (index) {
+            LocalStorageHelper.save('iconIndex', index);
+        },
+        resetSettings: function () {
+            LocalStorageHelper.save('iconIndex', 0);
         }
     }
 }]);

@@ -1,13 +1,12 @@
-angular.module('ninetynine').controller('NewGameModalCtrl', ['$scope', '$modalInstance', 'icons', 'cpuPlayers',
-    function($scope, $modalInstance, icons, cpuPlayers) {
+angular.module('ninetynine').controller('NewGameModalCtrl', ['$scope', '$modalInstance', 'icons', 'cpuPlayers', 'SettingsFactory', 'Lodash',
+    function ($scope, $modalInstance, icons, cpuPlayers, SettingsFactory, Lodash) {
         'use strict';
 
         $scope.icons = icons;
-        $scope.selectedIcon = $scope.icons[0];
-        $scope.test = ['Left', 'Middle', 'Right'];
+        $scope.selectedIcon = $scope.icons[SettingsFactory.getIconIndex()];
         $scope.cpuPlayers = cpuPlayers;
-        $scope.cpuPlayersCount = cpuPlayers[2];
-        $scope.name = '';
+        $scope.cpuPlayersCount = cpuPlayers[SettingsFactory.getPlayerCountIndex()];
+        $scope.name = SettingsFactory.getName();
         
         $scope.nameError = false;
 
@@ -15,8 +14,14 @@ angular.module('ninetynine').controller('NewGameModalCtrl', ['$scope', '$modalIn
             $scope.nameError = $scope.name.trim().length === 0;
             
             if (!$scope.nameError) {
+                var name = $scope.name == null || $scope.name.trim().length == 0 ? 'Player' : $scope.name.trim();
+
+                SettingsFactory.setName(name);
+                SettingsFactory.setIconIndex(Lodash.indexOf(icons, $scope.selectedIcon));
+                SettingsFactory.setPlayerCountIndex(Lodash.indexOf(cpuPlayers, $scope.cpuPlayersCount));
+
                 $modalInstance.close({
-                    name: $scope.name == null || $scope.name.trim().length == 0 ? 'Player' : $scope.name.trim(),
+                    name: name,
                     icon: $scope.selectedIcon,
                     cpuPlayers: $scope.cpuPlayersCount
                 });
