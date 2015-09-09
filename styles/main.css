@@ -42,6 +42,7 @@ html,
     font-size: 2em;
     font-weight: bold;
     background: linear-gradient(to bottom, white, snow);
+    position: absolute;
 }
 
 .player-card {
