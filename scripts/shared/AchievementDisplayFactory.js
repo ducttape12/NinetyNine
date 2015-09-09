@@ -5,7 +5,6 @@ angular.module('ninetynine').factory('AchievementDisplayFactory', ['$timeout', f
     var displayInProgress = false;
 
     var showAchievement = function(self) {
-        console.log('showAchievement');
         var achievement = achievements.splice(0, 1);
 
         // Display achievement

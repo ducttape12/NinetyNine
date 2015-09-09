@@ -1,17 +1,15 @@
 <div class="game">
     <div class="row" id="cpuPlayers">
-        <div class="col-xs-{{calculateXsCpuSize(player)}} col-sm-{{12 / cpuPlayerCount}}" ng-repeat="player in game.players | filter:isCpu">
-            <div class="panel panel-default" ng-class="{'panel-warning': game.getCurrentPlayer() == player}">
-                <div class="panel-heading text-center" ng-class="{'disabled': !player.active}">
-                    <i class="fa {{player.properties.icon}}"></i><span ng-class="{'hidden-xs': game.getCurrentPlayer() != player}"> {{player.properties.name}}</span>
-                </div>
+        <div class="text-center col-xs-{{calculateXsCpuSize(player)}} col-sm-{{12 / cpuPlayerCount}}" ng-repeat="player in game.players | filter:isCpu">
+            <div class="no-padding alert" ng-class="{'alert-eliminated': !player.active, 'alert-warning': (player.active && game.getCurrentPlayer() == player), 'alert-default': (player.active && game.getCurrentPlayer() != player)}">
+                <p class="lead"><i class="fa {{player.properties.icon}}"></i><span ng-class="{'hidden-xs': game.getCurrentPlayer() != player}"> {{player.properties.name}}</span></p>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-offset-3 col-sm-3 col-xs-6">
-            <div ng-hide="game.lastCard == null" class="card" ng-bind-html="translateCard(game.lastCard)" ng-style="{'height': cardHeight}"></div>
+            <div ng-hide="game.lastCard == null" class="card" ng-bind-html="translateCard(game.lastCard).full" ng-style="{'height': cardHeight}"></div>
         </div>
         <div class="col-sm-3 col-xs-6 ">
             <div class="card card-back" ng-show="game.deck.stockRemaining()" ng-style="{height: cardHeight}">
@@ -25,9 +23,9 @@
         <div class="panel panel-default" ng-class="{'panel-warning': game.getCurrentPlayer() == getHumanPlayer()}">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-10">
+                    <div class="col-xs-9 col-sm-10">
                         <h4 ng-class="{'player-out': !getHumanPlayer().active}"><i class="fa {{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}</h4></div>
-                    <div class="col-xs-2">
+                    <div class="col-xs-3 col-sm-2">
                         <button type="button" class="btn btn-default btn-lg btn-block" ng-click="pause()"><i class="fa fa-pause"></i></button>
                     </div>
                 </div>
@@ -35,19 +33,19 @@
             <div class="panel-body">
                 <button ng-if="!getHumanPlayer().active" class="btn btn-lg btn-default btn-block" ng-click="finishGame()">Finish Game</button>
                 <div class="row">
-                    <div class="col-xs-4" ng-repeat="card in getHumanPlayer().hand">
+                    <div class="col-xs-4" ng-repeat="card in getHumanPlayer().hand track by $index">
                         <div ng-if="card.values.length === 1">
-                            <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="playCard($parent.$index, 0)" ng-disabled="!game.canPlay(card, 0) || getHumanPlayer() != game.getCurrentPlayer()" ng-bind-html="translateCard(card)"></button>
+                            <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="playCard($parent.$index, 0)" ng-disabled="!game.canPlay(card, 0) || getHumanPlayer() != game.getCurrentPlayer()" ng-bind-html="translateCard(card).mini"></button>
                         </div>
                         <div ng-if="card.values.length !== 1">
-                            <button type="button" popover-append-to-body="true" popover-template="'multipleCards.html'" popover-trigger="focus" class="btn btn-primary btn-lg btn-block" ng-disabled="!game.canPlayAny(card) || getHumanPlayer() != game.getCurrentPlayer()" ng-bind-html="translateCard(card)"></button>
+                            <button type="button" popover-append-to-body="true" popover-template="'multipleCards.html'" popover-trigger="focus" class="btn btn-primary btn-lg btn-block" ng-disabled="!game.canPlayAny(card) || getHumanPlayer() != game.getCurrentPlayer()" ng-bind-html="translateCard(card).mini"></button>
                         </div>
                     </div>
 
                     <script type="text/ng-template" id="multipleCards.html">
                         <div class="row">
                             <div class="col-xs-{{12 / card.values.length}}" ng-repeat="choice in card.values track by $index">
-                                <button type="button" class="btn btn-primary btn-lg btn-block" ng-disabled="!game.canPlay(card, $index) || getHumanPlayer() != game.getCurrentPlayer()" ng-click="playCard($parent.$index, $index)">{{choice}}</button>
+                                <button type="button" class="btn btn-primary btn-lg btn-block" ng-disabled="!game.canPlay(card, $index) || getHumanPlayer() != game.getCurrentPlayer()" ng-click="playCard($parent.$index, $index)"><span class="visible-xs-inline">{{translateCard(card, $index).mini}}</span><span class="hidden-xs">{{translateCard(card, $index).full}}</span></button>
                             </div>
                         </div>
                     </script>

@@ -49,26 +49,29 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         $scope.translateCard = function (card, index) {
 
             if (card == null) {
-                return '';
+                return { mini: '', full: '' };
             }
 
             switch (card.action) {
                 case CardFactory.ActionType.NinetyNine:
-                    return '99';
+                    return { mini: '99', full: '99' };
                 case CardFactory.ActionType.None:
-                    return '+' + card.values[0];
+                    return { mini: '+' + card.values[0], full: '+' + card.values[0] };
                 case CardFactory.ActionType.Pass:
-                    return '<i class="fa fa-long-arrow-right"></i> Pass';
+                    return { mini: '<i class="fa fa-long-arrow-right"></i>', full: '<i class="fa fa-long-arrow-right"></i> Pass' };
                 case CardFactory.ActionType.Reverse:
-                    return '<i class="fa fa-retweet"></i> Reverse';
+                    return { mini: '<i class="fa fa-retweet"></i>', full: '<i class="fa fa-retweet"></i> Reverse' };
                 case CardFactory.ActionType.Skip:
-                    return '+3, <i class="fa fa-share"></i> Skip';
+                    return { mini: '+3, <i class="fa fa-share"></i>', full: '+3, <i class="fa fa-share"></i> Skip' };
                 case CardFactory.ActionType.Ten:
                     if (angular.isUndefined(index) && card.values.length > 1) {
-                        return "+/-10";
+                        return { mini: '+/-10', full: '+/-10' };
                     }
                     else {
-                        return card.values[(angular.isUndefined(index) ? 0 : index)] > 0 ? '+10' : '-10';
+                        return {
+                            mini: card.values[(angular.isUndefined(index) ? 0 : index)] > 0 ? '+' : '-',
+                            full: card.values[(angular.isUndefined(index) ? 0 : index)] > 0 ? '+10' : '-10'
+                        };
                     }
             }
         };
@@ -90,6 +93,18 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
             // Another CPU is playing, but not this one.  He or she gets the minimum size.
             return cpuInactive;
+        }
+
+        $scope.popoverPlacement = function (index) {
+            var length = $scope.getHumanPlayer().hand.length;
+
+            if (index === 0) {
+                return 'right';
+            } else if (index === (length - 1)) {
+                return 'left';
+            } else {
+                return 'top';
+            }
         };
 
         $scope.pause = function () {
@@ -220,10 +235,6 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             var footer = angular.element('#footer');
 
             $scope.cardHeight = footer.offset().top - cpuPlayers.offset().top - cpuPlayers.height();
-            console.log('Footer top: ' + footer.offset().top +
-                ', CpuPlayers top: ' + cpuPlayers.offset().top +
-                ', CpuPlayers height: ' + cpuPlayers.height() +
-                ', cardheight: ' + $scope.cardHeight);
         };
 
         angular.element($window).bind('resize', function () {

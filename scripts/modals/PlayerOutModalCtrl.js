@@ -4,7 +4,6 @@ angular.module('ninetynine').controller('PlayerOutModalCtrl', ['$scope', 'CardFa
         
         $scope.name = name;
         $scope.hand = hand;
-        console.log(JSON.stringify(hand));
 
         $scope.translateCard = function(card) {
             switch (card.action) {

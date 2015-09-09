@@ -91,3 +91,21 @@ html,
     padding-left: 15px;
     padding-right: 15px;
 }
+
+.alert-eliminated {
+  background-color: #444444;
+  border-color: #444444;
+  color: #7c7c7c;
+  text-decoration: line-through;
+}
+
+.alert-default {
+  background-color: #c8c8c8;
+  border-color: #c8c8c8;
+  color: black;
+}
+
+.no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
