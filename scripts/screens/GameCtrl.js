@@ -49,28 +49,29 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         $scope.translateCard = function (card, index) {
 
             if (card == null) {
-                return { mini: '', full: '' };
+                return { mini: '', full: '', played: '' };
             }
 
             switch (card.action) {
                 case CardFactory.ActionType.NinetyNine:
-                    return { mini: '99', full: '99' };
+                    return { mini: '99', full: '99', played: '99' };
                 case CardFactory.ActionType.None:
-                    return { mini: '+' + card.values[0], full: '+' + card.values[0] };
+                    return { mini: '+' + card.values[0], full: '+' + card.values[0], played: '+' + card.values[0] };
                 case CardFactory.ActionType.Pass:
-                    return { mini: '<i class="fa fa-long-arrow-right"></i>', full: '<i class="fa fa-long-arrow-right"></i> Pass' };
+                    return { mini: '<i class="fa fa-long-arrow-right"></i>', full: '<i class="fa fa-long-arrow-right"></i> Pass', played: '<i class="fa fa-long-arrow-right"></i><br />Pass' };
                 case CardFactory.ActionType.Reverse:
-                    return { mini: '<i class="fa fa-retweet"></i>', full: '<i class="fa fa-retweet"></i> Reverse' };
+                    return { mini: '<i class="fa fa-retweet"></i>', full: '<i class="fa fa-retweet"></i> Reverse', played: '<i class="fa fa-retweet"></i><br />Reverse' };
                 case CardFactory.ActionType.Skip:
-                    return { mini: '+3, <i class="fa fa-share"></i>', full: '+3, <i class="fa fa-share"></i> Skip' };
+                    return { mini: '+3, <i class="fa fa-share"></i>', full: '+3, <i class="fa fa-share"></i> Skip', played: '+3, <i class="fa fa-share"></i><br />Skip' };
                 case CardFactory.ActionType.Ten:
                     if (angular.isUndefined(index) && card.values.length > 1) {
-                        return { mini: '+/-10', full: '+/-10' };
+                        return { mini: '+/-10', full: '+/-10', played: '+/-10' };
                     }
                     else {
                         return {
                             mini: card.values[(angular.isUndefined(index) ? 0 : index)] > 0 ? '+' : '-',
-                            full: card.values[(angular.isUndefined(index) ? 0 : index)] > 0 ? '+10' : '-10'
+                            full: card.values[(angular.isUndefined(index) ? 0 : index)] > 0 ? '+10' : '-10',
+                            played: card.values[(angular.isUndefined(index) ? 0 : index)] > 0 ? '+10' : '-10'
                         };
                     }
             }
