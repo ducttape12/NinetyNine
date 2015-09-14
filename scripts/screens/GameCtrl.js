@@ -235,15 +235,15 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             var cpuPlayers = angular.element('#cpuPlayers');
             var footer = angular.element('#footer');
 
-            //$scope.cardHeight = footer.offset().top - cpuPlayers.offset().top - cpuPlayers.height();
-
             // A playing card is 2 7/16" x 3 7/16", giving us the magic ratio of 39/55
+
+            var sideMargin = 15; // Set by bootstrap
 
             var maxCardHeight = footer.offset().top - cpuPlayers.offset().top - cpuPlayers.height();
             var horizontalScreenCenter = $window.innerWidth / 2;
             var horizontalMargin = Math.floor($window.innerWidth / 300) * 5; // Every 300 pixels of screen width get another 5 px of padding
             horizontalMargin = horizontalMargin < 5 ? 5 : horizontalMargin; // At least 5px padding
-            var maxCardWidth = horizontalScreenCenter - (horizontalMargin * 2);
+            var maxCardWidth = horizontalScreenCenter - (horizontalMargin + sideMargin);
 
             // Try to make the card as tall as possible
             var preferredWidth = maxCardHeight * (39 / 55);
