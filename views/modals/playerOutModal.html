@@ -5,10 +5,10 @@
     <p class="lead">{{name}} has been eliminated. Their hand:</p>
     <div class="row">
         <div class="col-xs-4" ng-repeat="card in hand">
-            <div class="card" ng-bind-html="translateCard(card)"></div>
+            <div class="card-basic"><span class="visible-xs-inline" ng-bind-html="card.mini"></span><span class="hidden-xs" ng-bind-html="card.full"></span></div>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-primary btn-lg" ng-click="ok()">OK</button>
 </div>

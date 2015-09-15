@@ -16,8 +16,6 @@
         </div>
     </div>
 
-    <!--<div ng-hide="game.lastCard == null" class="card" ng-bind-html="translateCard(game.lastCard).played" ng-style="{'height': cardHeight}"></div>-->
-
 
     <div class="card card-back" ng-show="game.deck.stockRemaining()" ng-style="{'height': cardHeight, 'width': cardWidth, 'margin-top': verticalMargin, 'margin-bottom': verticalMargin, 'left': cardPosition}">
         &nbsp;
@@ -27,17 +25,17 @@
     <footer class="footer" id="footer">
         <h2 class="text-center count">Count: {{game.count}}</h2>
         <div class="panel panel-default" ng-class="{'panel-warning': game.getCurrentPlayer() == getHumanPlayer()}">
-            <div class="panel-heading">
+            <div class="panel-heading" ng-class="{'player-eliminated': !getHumanPlayer().active}">
                 <div class="row">
                     <div class="col-xs-9 col-sm-10">
-                        <h4 ng-class="{'player-out': !getHumanPlayer().active}"><i class="fa {{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}</h4>
+                        <h4 ng-class="{'player-eliminated': !getHumanPlayer().active}"><i class="fa {{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}</h4>
                     </div>
                     <div class="col-xs-3 col-sm-2">
                         <button type="button" class="btn btn-default btn-lg btn-block" ng-click="pause()"><i class="fa fa-pause"></i></button>
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" ng-class="{'player-eliminated': !getHumanPlayer().active}">
                 <button ng-if="!getHumanPlayer().active" class="btn btn-lg btn-default btn-block" ng-click="finishGame()">Finish Game</button>
                 <div class="row">
                     <div class="col-xs-4" ng-repeat="card in getHumanPlayer().hand track by $index">

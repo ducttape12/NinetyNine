@@ -39,18 +39,23 @@ html,
     border: 1px solid black;
     border-radius: 5px;
     text-align: center;
-    font-size: 2em;
+    font-size: 3em;
     font-weight: bold;
     background: linear-gradient(to bottom, white, snow);
     position: absolute;
 }
 
-.player-card {
-    padding: 0;
+.card-basic {
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    background: linear-gradient(to bottom, white, snow);
 }
 
-.player-out {
-    text-decoration: line-through;
+.player-card {
+    padding: 0;
 }
 
 
@@ -97,7 +102,11 @@ html,
   background-color: #444444;
   border-color: #444444;
   color: #7c7c7c;
-  text-decoration: line-through;
+}
+
+.player-eliminated {
+    background-color: #444444;
+    color: #7c7c7c;
 }
 
 .alert-default {

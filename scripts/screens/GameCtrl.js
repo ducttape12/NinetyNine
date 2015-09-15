@@ -62,7 +62,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                 case CardFactory.ActionType.Reverse:
                     return { mini: '<i class="fa fa-retweet"></i>', full: '<i class="fa fa-retweet"></i> Reverse', played: '<i class="fa fa-retweet"></i><br />Reverse' };
                 case CardFactory.ActionType.Skip:
-                    return { mini: '+3, <i class="fa fa-share"></i>', full: '+3, <i class="fa fa-share"></i> Skip', played: '+3, <i class="fa fa-share"></i><br />Skip' };
+                    return { mini: '+3, <i class="fa fa-share"></i>', full: '+3, <i class="fa fa-share"></i> Skip', played: '+3 <i class="fa fa-share"></i><br />Skip' };
                 case CardFactory.ActionType.Ten:
                     if (angular.isUndefined(index) && card.values.length > 1) {
                         return { mini: '+/-10', full: '+/-10', played: '+/-10' };
@@ -75,6 +75,16 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                         };
                     }
             }
+        };
+
+        var translateFullHand = function (hand) {
+            var translated = [];
+
+            for (var i = 0; i < hand.length; i++) {
+                translated.push($scope.translateCard(hand[i]));
+            }
+
+            return translated;
         };
 
         $scope.calculateXsCpuSize = function (player) {
@@ -159,9 +169,11 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             }
 
             var result = results.splice(0, 1)[0];
+            var translatedHand;
 
             switch (result.result) {
                 case GameFactory.MoveResult.PlayerOut:
+                    translatedHand = translateFullHand(result.player.hand);
                     var modalInstance = $modal.open({
                         templateUrl: 'views/modals/playerOutModal.html',
                         controller: 'PlayerOutModalCtrl',
@@ -170,7 +182,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                                 return result.player.properties.name;
                             },
                             hand: function () {
-                                return result.player.hand;
+                                return translatedHand;
                             }
                         }
                     });
@@ -191,6 +203,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                     break;
 
                 case GameFactory.MoveResult.PlayerWon:
+                    translatedHand = translateFullHand(result.player.hand);
                     var modalInstance = $modal.open({
                         templateUrl: 'views/modals/playerWonModal.html',
                         controller: 'PlayerOutModalCtrl',
@@ -199,7 +212,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                                 return result.player.properties.name;
                             },
                             hand: function () {
-                                return result.player.hand;
+                                return translatedHand;
                             }
                         }
                     });
