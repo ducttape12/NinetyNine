@@ -1,14 +1,42 @@
-angular.module('ninetynine').controller('NewGameModalCtrl', ['$scope', '$modalInstance', 'icons', 'cpuPlayers', 'SettingsFactory', 'Lodash',
-    function ($scope, $modalInstance, icons, cpuPlayers, SettingsFactory, Lodash) {
+angular.module('ninetynine').controller('NewGameModalCtrl', ['$scope', '$modalInstance', 'SettingsFactory', 'Lodash', 'AchievementFactory',
+    function ($scope, $modalInstance, SettingsFactory, Lodash, AchievementFactory) {
         'use strict';
 
-        $scope.icons = icons;
+        $scope.icons = AchievementFactory.getIcons();
         $scope.selectedIcon = $scope.icons[SettingsFactory.getIconIndex()];
-        $scope.cpuPlayers = cpuPlayers;
-        $scope.cpuPlayersCount = cpuPlayers[SettingsFactory.getPlayerCountIndex()];
+        $scope.cpuPlayers = SettingsFactory.getPlayerSelection();
+        $scope.cpuPlayersCount = $scope.cpuPlayers[SettingsFactory.getPlayerCountIndex()];
         $scope.name = SettingsFactory.getName();
         
         $scope.nameError = false;
+
+        var assemblePlayers = function (playerName, playerIcon, playerCount) {
+            var players = [{
+                name: playerName,
+                icon: playerIcon,
+                player: null
+            }];
+            var nextPlayer;
+
+            var remainingIcons = exclude(AchievementFactory.getIcons(true), playerIcon);
+            var remainingCpu = angular.copy(playerNames);
+
+            for (var i = 0; i < playerCount; i++) {
+                nextPlayer = {
+                    name: remainingCpu[Math.floor(Math.random() * remainingCpu.length)],
+                    icon: remainingIcons[Math.floor(Math.random() * remainingIcons.length)],
+                    player: ComputerPlayerFactory.createPlayer()
+                };
+
+                remainingCpu = exclude(remainingCpu, nextPlayer.name);
+                remainingIcons = exclude(remainingIcons, nextPlayer.icon);
+
+                players.push(nextPlayer);
+            }
+
+            return players;
+        };
+
 
         $scope.ok = function() {
             $scope.nameError = $scope.name.trim().length === 0;
@@ -17,14 +45,10 @@ angular.module('ninetynine').controller('NewGameModalCtrl', ['$scope', '$modalIn
                 var name = $scope.name == null || $scope.name.trim().length == 0 ? 'Player' : $scope.name.trim();
 
                 SettingsFactory.setName(name);
-                SettingsFactory.setIconIndex(Lodash.indexOf(icons, $scope.selectedIcon));
-                SettingsFactory.setPlayerCountIndex(Lodash.indexOf(cpuPlayers, $scope.cpuPlayersCount));
+                SettingsFactory.setIcon($scope.icon);
+                SettingsFactory.setPlayerCount($scope.cpuPlayersCount);
 
-                $modalInstance.close({
-                    name: name,
-                    icon: $scope.selectedIcon,
-                    cpuPlayers: $scope.cpuPlayersCount
-                });
+                return assemblePlayers(name, $scope.icon, $scope.cpuPlayersCount);
             }
         };
 
