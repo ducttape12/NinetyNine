@@ -17,22 +17,17 @@ angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state
         };
 
         $scope.newGame = function() {
-            var modalInstance = $modal.open({
-                templateUrl: 'views/modals/newgame.html',
-                controller: 'NewGameModalCtrl'
-            });
+            //var modalInstance = $modal.open({
+            //    templateUrl: 'views/modals/newgame.html',
+            //    controller: 'NewGameModalCtrl'
+            //});
 
-            modalInstance.result.then(function(results) {
-                $state.go('game', {
-                    players: results
-                });
-            }, function() {});
-        };
-
-        var exclude = function(source, filter) {
-            return Lodash.filter(source, function(current) {
-                return current !== filter;
-            })
+            //modalInstance.result.then(function(results) {
+            //    $state.go('game', {
+            //        players: results
+            //    });
+            //}, function() {});
+            $state.go('newgame');
         };
 
         $scope.musicChange = function () {

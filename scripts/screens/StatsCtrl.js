@@ -24,7 +24,7 @@ angular.module('ninetynine').controller('StatsCtrl', ['$scope', 'AchievementFact
                     AchievementFactory.resetAll();
                 }
                 
-                initialize();
+                $state.go('mainmenu');
             }, function() {});
         };
 

@@ -1,4 +1,4 @@
-angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', function (LocalStorageHelper) {
+angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', 'Lodash', function (LocalStorageHelper, Lodash) {
     'use strict';
 
     return {
@@ -32,14 +32,14 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', f
             return LocalStorageHelper.loadOrInitialize('playerCountIndex', 2);
         },
         setPlayerCount: function (count) {
-            LocalStorageHelper.save('playerCountIndex', Lodash.indexOf(cpuPlayers, count));
+            LocalStorageHelper.save('playerCountIndex', Lodash.indexOf(this.getCpuPlayerSelection(), count));
         },
 
         getIconIndex: function () {
             return LocalStorageHelper.loadOrInitialize('iconIndex', 0);
         },
-        setIcon: function (icon) {
-            LocalStorageHelper.save('iconIndex', Lodash.indexOf(icons, selectedIcon));
+        setIcon: function (icon, iconPool) {
+            LocalStorageHelper.save('iconIndex', Lodash.indexOf(iconPool, icon));
         },
 
         resetSettings: function () {

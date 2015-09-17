@@ -1,0 +1,27 @@
+﻿<div class="form-group" ng-class="{'has-error': nameError}">
+    <label class="control-label" for="name">Your Name:</label>
+    <input ng-model="name" type="text" class="form-control" id="name" placeholder="Enter your name" autofocus>
+</div>
+<div class="alert alert-danger" role="alert" ng-show="nameError">Please enter your name</div>
+<div class="form-group">
+    <label class="control-label">Your Icon:</label>
+    <div class="btn-group">
+        <label class="btn btn-lg btn-default" ng-model="$parent.selectedIcon" ng-repeat="icon in icons" btn-radio="icon">
+            <i class="fa {{icon}}"></i>
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">Number of CPU Players:</label>
+    <div class="btn-group">
+        <label class="btn btn-lg btn-default" ng-model="$parent.cpuPlayersCount" ng-repeat="players in cpuPlayers" btn-radio="players">
+            {{players}}
+        </label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+        <button class="btn btn-success btn-block btn-lg" ng-click="ok()">Start Game</button>
+    </div>
+</div>

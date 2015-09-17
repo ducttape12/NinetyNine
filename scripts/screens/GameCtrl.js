@@ -206,7 +206,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                     translatedHand = translateFullHand(result.player.hand);
                     var modalInstance = $modal.open({
                         templateUrl: 'views/modals/playerWonModal.html',
-                        controller: 'PlayerOutModalCtrl',
+                        controller: 'PlayerWonModalCtrl',
                         resolve: {
                             name: function () {
                                 return result.player.properties.name;

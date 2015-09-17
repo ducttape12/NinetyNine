@@ -10,6 +10,11 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
                 templateUrl: 'views/screens/main.html',
                 controller: 'MainCtrl'
             })
+            .state('newgame', {
+                url: '/newgame',
+                templateUrl: 'views/screens/newgame.html',
+                controller: 'NewGameCtrl'
+            })
             .state('game', {
                 url: '/game',
                 templateUrl: 'views/screens/game.html',
