@@ -9,7 +9,7 @@
 
         $scope.icons = AchievementFactory.getIcons();
         $scope.selectedIcon = $scope.icons[SettingsFactory.getIconIndex()];
-        $scope.cpuPlayers = SettingsFactory.getCpuPlayerSelection();
+        $scope.cpuPlayers = SettingsFactory.getCpuPlayerConfigurations();
         $scope.cpuPlayersCount = $scope.cpuPlayers[SettingsFactory.getPlayerCountIndex()];
         $scope.name = SettingsFactory.getName();
 
@@ -30,7 +30,7 @@
             var nextPlayer;
 
             var remainingIcons = exclude(AchievementFactory.getIcons(true), playerIcon);
-            var remainingCpu = angular.copy(SettingsFactory.getCpuPlayerSelection());
+            var remainingCpu = angular.copy(SettingsFactory.getCpuPlayerNames());
 
             for (var i = 0; i < playerCount; i++) {
                 nextPlayer = {

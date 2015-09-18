@@ -169,12 +169,12 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             }
 
             var result = results.splice(0, 1)[0];
-            var translatedHand;
+            var translatedHand, modalInstance;
 
             switch (result.result) {
                 case GameFactory.MoveResult.PlayerOut:
                     translatedHand = translateFullHand(result.player.hand);
-                    var modalInstance = $modal.open({
+                    modalInstance = $modal.open({
                         templateUrl: 'views/modals/playerOutModal.html',
                         controller: 'PlayerOutModalCtrl',
                         resolve: {
@@ -204,7 +204,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
                 case GameFactory.MoveResult.PlayerWon:
                     translatedHand = translateFullHand(result.player.hand);
-                    var modalInstance = $modal.open({
+                    modalInstance = $modal.open({
                         templateUrl: 'views/modals/playerWonModal.html',
                         controller: 'PlayerWonModalCtrl',
                         resolve: {
@@ -225,10 +225,12 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                     }
 
                     modalInstance.result.then(function () {
-                        processNextResult(results);
+                        $state.go('newgame');
                     }, function () {
-                        processNextResult(results);
+                        $state.go('mainmenu');
                     });
+
+                    // There won't be any other items in results (since the game is now over), so we can stop processing here
                     break;
 
                 case GameFactory.MoveResult.Continue:

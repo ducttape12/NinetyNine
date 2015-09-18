@@ -2,7 +2,7 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
     'use strict';
 
     return {
-        getPlayerSelection: function () {
+        getCpuPlayerNames: function () {
             return ['Lynetta', 'Dorothy', 'Frank', 'Alia', 'Karl',
                 'Margaret', 'Hattie', 'Randall', 'Janet', 'Ana',
                 'Christopher', 'Leona', 'Marlene', 'Darell', 'Cindy',
@@ -10,7 +10,7 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
                 'Trula', 'Yvonne', 'Daniel', 'Matthew', 'Bandit'
             ];
         },
-        getCpuPlayerSelection: function() {
+        getCpuPlayerConfigurations: function() {
             return [1, 2, 3, 4];
         },
 
@@ -32,7 +32,7 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
             return LocalStorageHelper.loadOrInitialize('playerCountIndex', 2);
         },
         setPlayerCount: function (count) {
-            LocalStorageHelper.save('playerCountIndex', Lodash.indexOf(this.getCpuPlayerSelection(), count));
+            LocalStorageHelper.save('playerCountIndex', Lodash.indexOf(this.getCpuPlayerConfigurations(), count));
         },
 
         getIconIndex: function () {

@@ -5,12 +5,12 @@ angular.module('ninetynine').controller('PlayerWonModalCtrl', ['$scope', 'CardFa
         $scope.name = name;
         $scope.hand = hand;
 
-        $scope.newgame = function() {
-            $state.go('newgame');
+        $scope.newgame = function () {
+            $modalInstance.close();
         };
 
         $scope.mainmenu = function () {
-            $state.go('mainmenu');
+            $modalInstance.dismiss();
         };
     }
 ]);

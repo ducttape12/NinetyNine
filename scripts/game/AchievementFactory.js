@@ -34,11 +34,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
 
             if (lastGamePlayed == null) {
                 stats.consecutiveDaysPlayed = 1;
-            }
-            else if (lastGamePlayed.add(1, 'days').isSame(today, 'days')) { // This game was done the next day
+            } else if (new Moment(lastGamePlayed).add(1, 'days').isSame(today, 'days')) { // This game was done the next day
                 stats.consecutiveDaysPlayed++;
-            }
-            else if (lastGamePlayed.isBefore(today, 'days')) { // There was a gap between the last game played and this game greater than 1 day
+            } else if (new Moment(lastGamePlayed).isBefore(today, 'days')) { // There was a gap between the last game played and this game greater than 1 day
                 stats.consecutiveDaysPlayed = 1;
             }
             // else, do nothing
@@ -302,7 +300,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
 
                 var i;
                 for (i = 0; i < players.length; i++) {
-                    if (players[i].properties.name.toUpperCase() === 'BANDIT' && players[i].properties.player != null) { // != null is a CPU player
+                    if (players[i].properties.name.toString().toUpperCase() === 'BANDIT' && players[i].properties.player != null) { // != null is a CPU player
                         achievements[12] = true;
                         return this;
                     }
