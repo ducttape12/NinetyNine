@@ -72,13 +72,47 @@ html,
     padding: 2em 0em;
 }
 
-.achievement {
-    position: fixed;
-    width: 40%;
-    left: 30%;
-    top: 50px;
-    z-index: 9999;
+@media all and (max-width: 480px) {
+    .achievement {
+        position: fixed;
+        width: 80%;
+        left: 10%;
+        bottom: 50px;
+        z-index: 9999;
+    }
 }
+
+@media all and (max-width: 768px) and (min-width: 480px) {
+    .achievement {
+        position: fixed;
+        width: 60%;
+        left: 20%;
+        bottom: 50px;
+        z-index: 9999;
+    }
+}
+
+@media all and (max-width: 992px) and (min-width: 768px) {
+    .achievement {
+        position: fixed;
+        width: 50%;
+        left: 25%;
+        bottom: 50px;
+        z-index: 9999;
+    }
+}
+
+@media all and (min-width: 992px) {
+    .achievement {
+        position: fixed;
+        width: 30%;
+        left: 35%;
+        bottom: 50px;
+        z-index: 9999;
+    }
+}
+
+
 
 .achievement-image {
     width: 60px;
@@ -99,9 +133,9 @@ html,
 }
 
 .alert-eliminated {
-  background-color: #444444;
-  border-color: #444444;
-  color: #7c7c7c;
+    background-color: #444444;
+    border-color: #444444;
+    color: #7c7c7c;
 }
 
 .player-eliminated {
@@ -110,9 +144,9 @@ html,
 }
 
 .alert-default {
-  background-color: #c8c8c8;
-  border-color: #c8c8c8;
-  color: black;
+    background-color: #c8c8c8;
+    border-color: #c8c8c8;
+    color: black;
 }
 
 .no-padding {
