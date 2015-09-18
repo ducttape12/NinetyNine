@@ -2,7 +2,7 @@ angular.module('ninetynine').controller('InstructionsCtrl', ['$scope', '$state',
     function($scope, $state, AchievementFactory, ScreenSettingsFactory) {
         'use strict';
         
-        ScreenSettingsFactory.setNavBar('Stats and Unlockables', function() {
+        ScreenSettingsFactory.setNavBar('Instructions', function() {
             $state.go('mainmenu');
         }, null, null);
         ScreenSettingsFactory.clearBackgroundClass();
