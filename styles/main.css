@@ -16,11 +16,38 @@ html,
     cursor: pointer;
 }
 
-.background-game {
-    background-color: #004700;
-    background-image: "images/felt.jpg";
+.no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+/* Background Themes */
+.background-blue {
+	background: dodgerblue;
+	background-image: linear-gradient(dodgerblue, skyblue);
 }
 
+.background-green {
+	background: darkgreen;
+	background-image: linear-gradient(darkgreen, green);
+}
+
+.background-yellow {
+	background: peru;
+	background-image: linear-gradient(peru, khaki);
+}
+
+.background-red {
+	background: darkred;
+	background-image: linear-gradient(lightcoral, white);
+}
+
+.background-purple {
+	background: purple;
+	background-image: linear-gradient(purple, darkviolet);
+}
+
+
+/* Game Appearance */
 .count {
     color: white;
 }
@@ -35,16 +62,6 @@ html,
     cursor: pointer;
 }
 
-.card {
-    border: 1px solid black;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 3em;
-    font-weight: bold;
-    background: linear-gradient(to bottom, white, snow);
-    position: absolute;
-}
-
 .card-basic {
     border: 1px solid black;
     border-radius: 5px;
@@ -54,24 +71,93 @@ html,
     background: linear-gradient(to bottom, white, snow);
 }
 
+.card {
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+    background: linear-gradient(to bottom, white, snow);
+    position: absolute;
+    box-shadow: 3px 3px 2px black;
+}
+
 .player-card {
     padding: 0;
 }
 
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin-right: -15px;
+    margin-left: -15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 
-/* Modified from http://lea.verou.me/css3patterns/#marrakesh */
+.alert-eliminated {
+    background-color: #444444;
+    border-color: #444444;
+    color: #7c7c7c;
+}
 
-.card-back {
-    background-color: white;
-    background-image: radial-gradient(midnightblue 3px, transparent 3px), repeating-radial-gradient(midnightblue 0, midnightblue 1px, transparent 2px, transparent 5px, midnightblue 7px, midnightblue 8px, transparent 8px, transparent 17px);
-    background-size: 10px 10px, 30px 30px;
-    background-position: 0 0;
+.player-eliminated {
+    background-color: #444444;
+    color: #7c7c7c;
+}
+
+.alert-default {
+    background-color: #c8c8c8;
+    border-color: #c8c8c8;
+    color: black;
 }
 
 .game {
     padding: 2em 0em;
 }
 
+
+/* Card Designs */
+/* Modified from http://lea.verou.me/css3patterns/#marrakesh */
+.card-back {
+    background-size: 1em 1em;
+}
+
+.card-ornate {
+    background-color: white;
+    background-image: radial-gradient(midnightblue 3px, transparent 3px), repeating-radial-gradient(midnightblue 0, midnightblue 1px, transparent 2px, transparent 5px, midnightblue 7px, midnightblue 8px, transparent 8px, transparent 17px);
+    background-size: 10px 10px, 30px 30px;
+    background-position: 0 0;
+}
+
+.card-blue {
+  background-color: blue;
+  background-image: linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%), linear-gradient(90deg, rgba(255, 255, 255, .2) 50%, transparent 50%);
+}
+
+.card-pink {
+  background-color: #c16;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+}
+
+.card-red {
+    background-color: darkred;
+    background-image: linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+}
+
+.card-brown {
+  background-color: sienna;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+}
+
+.card-stripe {
+  background-color: #026873;
+  background-size: 13px 13px, 29px 29px, 37px 37px, 53px 53px;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, .07) 50%, transparent 50%), linear-gradient(90deg, rgba(255, 255, 255, .13) 50%, transparent 50%), linear-gradient(90deg, transparent 50%, rgba(255, 255, 255, .17) 50%), linear-gradient(90deg, transparent 50%, rgba(255, 255, 255, .19) 50%);
+}
+
+/* Achievement Popups */
 @media all and (max-width: 480px) {
     .achievement {
         position: fixed;
@@ -112,44 +198,10 @@ html,
     }
 }
 
-
-
 .achievement-image {
     width: 60px;
     height: 60px;
     padding: 2px;
     font-size: 2em;
     text-align: center;
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    margin-right: -15px;
-    margin-left: -15px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.alert-eliminated {
-    background-color: #444444;
-    border-color: #444444;
-    color: #7c7c7c;
-}
-
-.player-eliminated {
-    background-color: #444444;
-    color: #7c7c7c;
-}
-
-.alert-default {
-    background-color: #c8c8c8;
-    border-color: #c8c8c8;
-    color: black;
-}
-
-.no-padding {
-    padding-left: 0;
-    padding-right: 0;
 }

@@ -17,7 +17,7 @@
     </div>
 
 
-    <div class="card card-back" ng-show="game.deck.stockRemaining()" ng-style="{'height': cardHeight, 'width': cardWidth, 'margin-top': verticalMargin, 'margin-bottom': verticalMargin, 'left': cardPosition}">
+    <div class="card card-back {{settings.getCardDesigns()[settings.getCardDesignIndex()]}}" ng-show="game.deck.stockRemaining()" ng-style="{'height': cardHeight, 'width': cardWidth, 'margin-top': verticalMargin, 'margin-bottom': verticalMargin, 'left': cardPosition}">
         &nbsp;
     </div>
 

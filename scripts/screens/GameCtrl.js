@@ -1,13 +1,26 @@
 angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory',
-    'Lodash', '$timeout', '$modal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window',
+    'Lodash', '$timeout', '$modal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window', 'SettingsFactory',
     function ($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
-        Lodash, $timeout, $modal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window) {
+        Lodash, $timeout, $modal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory) {
 
         'use strict';
 
+        var applyThemes = function () {
+            console.log('background options: ' + JSON.stringify(SettingsFactory.getBackgroundDesigns()));
+            console.log('teh index: ' + JSON.stringify(SettingsFactory.getBackgroundDesignIndex()));
+            console.log('soda: ' + JSON.stringify(SettingsFactory.getBackgroundDesigns()[SettingsFactory.getBackgroundDesignIndex()]));
+
+            ScreenSettingsFactory.setBackgroundClass(SettingsFactory.getBackgroundDesigns()[SettingsFactory.getBackgroundDesignIndex()].cssClass);
+            $scope.cardDesign = SettingsFactory.getCardDesigns()[SettingsFactory.getCardDesignIndex()].cssClass;
+        };
+
         BackgroundMusicFactory.playGameMusic();
         ScreenSettingsFactory.hideNavBar();
-        ScreenSettingsFactory.setBackgroundClass('background-game');
+        applyThemes();
+
+        $scope.settings = SettingsFactory;
+
+        
 
         // When the game is paused, the processNextResult function will stop processing and place the
         // remaining results into remainingResults.  Any open cpuTimeoutPromise will be cancelled.  When the user
@@ -133,6 +146,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                 $state.go('mainmenu');
             }, function () {
                 // Continue processing results
+                applyThemes();
                 paused = false;
                 processNextResult(remainingResults);
             });

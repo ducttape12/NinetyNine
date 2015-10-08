@@ -13,6 +13,25 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
         getCpuPlayerConfigurations: function() {
             return [1, 2, 3, 4];
         },
+        getCardDesigns: function() {
+            return [
+                { name: 'Stripe', cssClass: 'card-stripe' },
+                { name: 'Ornate', cssClass: 'card-ornate' },
+                { name: 'Blue', cssClass: 'card-blue' },
+                { name: 'Pink', cssClass: 'card-pink' },
+                { name: 'Red', cssClass: 'card-red' },
+                { name: 'Brown', cssClass: 'card-brown' }
+            ];
+        },
+        getBackgroundDesigns: function () {
+            return [
+                { name: 'Green', cssClass: 'background-green' },
+                { name: 'Blue', cssClass: 'background-blue' },
+                { name: 'Yellow', cssClass: 'background-yellow' },
+                { name: 'Red', cssClass: 'background-red' },
+                { name: 'Purple', cssClass: 'background-purple' },
+            ];
+        },
 
         getName: function () {
             return LocalStorageHelper.loadOrInitialize('name', '');
@@ -40,6 +59,21 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
         },
         setIcon: function (icon, iconPool) {
             LocalStorageHelper.save('iconIndex', Lodash.indexOf(iconPool, icon));
+        },
+
+        getCardDesignIndex: function() {
+            return LocalStorageHelper.loadOrInitialize('cardDesignIndex', 0);
+        },
+        setCardDesign: function (design) {
+            LocalStorageHelper.save('cardDesignIndex', Lodash.findIndex(this.getCardDesigns(), { 'name': design.name }));
+        },
+
+        getBackgroundDesignIndex: function () {
+            return LocalStorageHelper.loadOrInitialize('backgroundDesignIndex', 0);
+        },
+        setBackgroundDesign: function (design) {
+            console.log(JSON.stringify(design));
+            LocalStorageHelper.save('backgroundDesignIndex', Lodash.findIndex(this.getBackgroundDesigns(), { 'name': design.name }));
         },
 
         resetSettings: function () {

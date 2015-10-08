@@ -17,16 +17,6 @@ angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state
         };
 
         $scope.newGame = function() {
-            //var modalInstance = $modal.open({
-            //    templateUrl: 'views/modals/newgame.html',
-            //    controller: 'NewGameModalCtrl'
-            //});
-
-            //modalInstance.result.then(function(results) {
-            //    $state.go('game', {
-            //        players: results
-            //    });
-            //}, function() {});
             $state.go('newgame');
         };
 

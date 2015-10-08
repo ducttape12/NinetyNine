@@ -3,9 +3,17 @@
 </div>
 <div class="modal-body">
     <div ng-hide="confirmQuit">
+        <h4>Settings</h4>
         <button type="button" class="btn btn-primary btn-block btn-lg" ng-change="musicChange()" ng-model="music" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
             <i class="fa fa-volume-{{music ? 'up' : 'off'}}"></i> Music is {{music ? 'Enabled' : 'Disabled'}}
         </button>
+        <div class="btn-group">
+            <label class="btn btn-primary" ng-repeat="design in cardDesigns" ng-model="cardDesign" btn-radio="design.name">{{design.name}}</label>
+        </div>
+        <div class="btn-group">
+            <label class="btn btn-primary" ng-repeat="design in backgroundDesigns" ng-model="backgroundDesign" btn-radio="design.name">{{design.name}}</label>
+        </div>
+        <h4>Options</h4>
         <button type="button" class="btn btn-danger btn-block btn-lg" ng-click="confirmQuit = true">
             <i class="fa fa-sign-out"></i> Quit to Main Menu
         </button>
