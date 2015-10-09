@@ -205,3 +205,12 @@ html,
     font-size: 2em;
     text-align: center;
 }
+
+
+/* Settings */
+.sample-card {
+    width: 2em;
+    height: 3em;
+    position: relative!important;
+    margin: 0 auto 0.5em auto!important;
+}

@@ -20,9 +20,8 @@ angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state
             $state.go('newgame');
         };
 
-        $scope.musicChange = function () {
-            SettingsFactory.setMusicEnabled($scope.music);
-            BackgroundMusicFactory.playMenuMusic();
+        $scope.settings = function () {
+            $state.go('settings');
         };
     }
 ]);

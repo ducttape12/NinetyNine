@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Music</h3>
+    </div>
+    <div class="panel-body">
+        <button id="music" type="button" class="btn btn-default btn-block btn-lg" ng-change="musicChange()" ng-model="music" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+            <i class="fa fa-volume-{{music ? 'up' : 'off'}}"></i> Music is {{music ? 'Enabled' : 'Disabled'}}
+        </button>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Card Design</h3>
+    </div>
+    <div class="panel-body">
+        <div class="text-center">
+            <div class="card card-back sample-card" ng-class="cardDesign.cssClass" ng-show="sampleCard()"></div>
+            <div class="btn-group btn-group-lg">
+                <label class="btn btn-default" ng-repeat="design in cardDesigns" ng-model="$parent.cardDesign" btn-radio="design">{{design.name}}</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Background Design</h3>
+    </div>
+    <div class="panel-body">
+        <div class="text-center">
+            <div class="btn-group btn-group-lg">
+                <label class="btn btn-default" ng-repeat="design in backgroundDesigns" ng-model="$parent.backgroundDesign" btn-radio="design">{{design.name}}</label>
+            </div>
+        </div>
+    </div>
+</div>
