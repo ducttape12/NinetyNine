@@ -6,12 +6,8 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         'use strict';
 
         var applyThemes = function () {
-            console.log('background options: ' + JSON.stringify(SettingsFactory.getBackgroundDesigns()));
-            console.log('teh index: ' + JSON.stringify(SettingsFactory.getBackgroundDesignIndex()));
-            console.log('soda: ' + JSON.stringify(SettingsFactory.getBackgroundDesigns()[SettingsFactory.getBackgroundDesignIndex()]));
-
-            ScreenSettingsFactory.setBackgroundClass(SettingsFactory.getBackgroundDesigns()[SettingsFactory.getBackgroundDesignIndex()].cssClass);
-            $scope.cardDesign = SettingsFactory.getCardDesigns()[SettingsFactory.getCardDesignIndex()].cssClass;
+            ScreenSettingsFactory.setBackgroundClass(SettingsFactory.getBackgroundDesign().cssClass);
+            $scope.cardDesign = SettingsFactory.getCardDesign().cssClass;
         };
 
         BackgroundMusicFactory.playGameMusic();

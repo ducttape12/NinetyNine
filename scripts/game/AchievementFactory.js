@@ -1,5 +1,5 @@
-angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper', 'Moment', 'Lodash', 'AchievementDisplayFactory', 'SettingsFactory',
-    function (LocalStorageHelper, Moment, Lodash, AchievementDisplayFactory, SettingsFactory) {
+angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper', 'Moment', 'Lodash', 'AchievementDisplayFactory',
+    function (LocalStorageHelper, Moment, Lodash, AchievementDisplayFactory) {
         'use strict';
 
         var initialAchievements = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
@@ -430,23 +430,10 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 return angular.copy(stats);
             },
 
-            getIcons: function (forceAll) {
-                var allIcons = ['fa-smile-o', 'fa-suitcase', 'fa-tree', 'fa-bicycle', 'fa-fighter-jet'];
-
-                for (var i = 0; i < achievementList.length; i++) {
-                    if (achievementList[i].isCompleted() || forceAll) {
-                        allIcons.push(achievementList[i].icon);
-                    }
-                }
-
-                return allIcons;
-            },
-
             resetAll: function () {
                 LocalStorageHelper.save('achievements', initialAchievements);
                 LocalStorageHelper.save('stats', initialStats);
                 LocalStorageHelper.save('lastGamePlayed', initialLastGamePlayed);
-                SettingsFactory.resetSettings();
                 initialize();
             }
         }

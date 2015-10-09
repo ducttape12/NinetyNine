@@ -1,5 +1,5 @@
-﻿angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$modal', '$state', 'AchievementFactory', 'SettingsFactory', 'ScreenSettingsFactory', 'Lodash', 'ComputerPlayerFactory',
-    function ($scope, $modal, $state, AchievementFactory, SettingsFactory, ScreenSettingsFactory, Lodash, ComputerPlayerFactory) {
+﻿angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$modal', '$state', 'SettingsFactory', 'ScreenSettingsFactory', 'Lodash', 'ComputerPlayerFactory', 'ConfigurationFactory',
+    function ($scope, $modal, $state, SettingsFactory, ScreenSettingsFactory, Lodash, ComputerPlayerFactory, ConfigurationFactory) {
         'use strict';
 
         ScreenSettingsFactory.setNavBar('New Game', function () {
@@ -7,9 +7,9 @@
         }, null, null);
         ScreenSettingsFactory.clearBackgroundClass();
 
-        $scope.icons = AchievementFactory.getIcons();
+        $scope.icons = ConfigurationFactory.getAvailablePlayerIcons();
         $scope.selectedIcon = $scope.icons[SettingsFactory.getIconIndex()];
-        $scope.cpuPlayers = SettingsFactory.getCpuPlayerConfigurations();
+        $scope.cpuPlayers = ConfigurationFactory.getCpuPlayerConfigurations();
         $scope.cpuPlayersCount = $scope.cpuPlayers[SettingsFactory.getPlayerCountIndex()];
         $scope.name = SettingsFactory.getName();
 
@@ -29,8 +29,8 @@
             }];
             var nextPlayer;
 
-            var remainingIcons = exclude(AchievementFactory.getIcons(true), playerIcon);
-            var remainingCpu = angular.copy(SettingsFactory.getCpuPlayerNames());
+            var remainingIcons = exclude(ConfigurationFactory.getAllIcons(), playerIcon);
+            var remainingCpu = angular.copy(ConfigurationFactory.getCpuPlayerNames());
 
             for (var i = 0; i < playerCount; i++) {
                 nextPlayer = {
@@ -56,7 +56,7 @@
                 var name = $scope.name == null || $scope.name.trim().length == 0 ? 'Player' : $scope.name.trim();
 
                 SettingsFactory.setName(name);
-                SettingsFactory.setIcon($scope.selectedIcon, $scope.icons);
+                SettingsFactory.setIcon($scope.selectedIcon);
                 SettingsFactory.setPlayerCount($scope.cpuPlayersCount);
 
                 var players = assemblePlayers(name, $scope.selectedIcon, $scope.cpuPlayersCount);

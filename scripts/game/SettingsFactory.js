@@ -1,38 +1,23 @@
-angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', 'Lodash', function (LocalStorageHelper, Lodash) {
+angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', 'Lodash', 'ConfigurationFactory', 'AchievementFactory', function (LocalStorageHelper, Lodash, ConfigurationFactory, AchievementFactory) {
     'use strict';
 
-    return {
-        getCpuPlayerNames: function () {
-            return ['Lynetta', 'Dorothy', 'Frank', 'Alia', 'Karl',
-                'Margaret', 'Hattie', 'Randall', 'Janet', 'Ana',
-                'Christopher', 'Leona', 'Marlene', 'Darell', 'Cindy',
-                'Billy', 'Angel', 'Nathaniel', 'Phyllis', 'Lincoln',
-                'Trula', 'Yvonne', 'Daniel', 'Matthew', 'Bandit'
-            ];
-        },
-        getCpuPlayerConfigurations: function() {
-            return [1, 2, 3, 4];
-        },
-        getCardDesigns: function() {
-            return [
-                { name: 'Stripe', cssClass: 'card-stripe' },
-                { name: 'Ornate', cssClass: 'card-ornate' },
-                { name: 'Blue', cssClass: 'card-blue' },
-                { name: 'Pink', cssClass: 'card-pink' },
-                { name: 'Red', cssClass: 'card-red' },
-                { name: 'Brown', cssClass: 'card-brown' }
-            ];
-        },
-        getBackgroundDesigns: function () {
-            return [
-                { name: 'Green', cssClass: 'background-green' },
-                { name: 'Blue', cssClass: 'background-blue' },
-                { name: 'Yellow', cssClass: 'background-yellow' },
-                { name: 'Red', cssClass: 'background-red' },
-                { name: 'Purple', cssClass: 'background-purple' },
-            ];
-        },
+    var loadIndex = function (key, defaultValue, min, max) {
+        var index = LocalStorageHelper.loadOrInitialize(key, defaultValue);
+        return index < min || index > max ? defaultValue : index;
+    };
 
+    var saveSimple = function (key, element, searchArray, defaultValue) {
+        var index = Lodash.indexOf(searchArray, element);
+        LocalStorageHelper.save(key, index >= 0 ? index : defaultValue);
+    };
+
+    var saveComplex = function (key, element, searchCriteria, searchArray, defaultValue) {
+        var index = Lodash.findIndex(searchArray, searchCriteria);
+        LocalStorageHelper.save(key, index >= 0 ? index : defaultValue);
+    };
+
+    return {
+        // Name
         getName: function () {
             return LocalStorageHelper.loadOrInitialize('name', '');
         },
@@ -40,6 +25,7 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
             LocalStorageHelper.save('name', name);
         },
 
+        // Music
         getMusicEnabled: function () {
             return LocalStorageHelper.loadOrInitialize('music', true);
         },
@@ -47,37 +33,42 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
             LocalStorageHelper.save('music', enabled);
         },
 
+        // Player Count
         getPlayerCountIndex: function () {
-            return LocalStorageHelper.loadOrInitialize('playerCountIndex', 2);
+            return loadIndex('playerCountIndex', ConfigurationFactory.getDefaultCpuPlayerConfigurationIndex(), 0, ConfigurationFactory.getCpuPlayerConfigurations().length);
         },
         setPlayerCount: function (count) {
-            LocalStorageHelper.save('playerCountIndex', Lodash.indexOf(this.getCpuPlayerConfigurations(), count));
+            saveSimple('playerCountIndex', count, ConfigurationFactory.getCpuPlayerConfigurations(), ConfigurationFactory.getDefaultCpuPlayerConfigurationIndex());
         },
 
+        // Icon
         getIconIndex: function () {
-            return LocalStorageHelper.loadOrInitialize('iconIndex', 0);
+            return loadIndex('iconIndex', ConfigurationFactory.getDefaultIconIndex(), 0, ConfigurationFactory.getAvailablePlayerIcons().length);
         },
-        setIcon: function (icon, iconPool) {
-            LocalStorageHelper.save('iconIndex', Lodash.indexOf(iconPool, icon));
+        setIcon: function (icon) {
+            saveSimple('icon', icon, ConfigurationFactory.getAvailablePlayerIcons(), ConfigurationFactory.getDefaultIconIndex());
         },
 
-        getCardDesignIndex: function() {
-            return LocalStorageHelper.loadOrInitialize('cardDesignIndex', 0);
+        // Card Design
+        getCardDesignIndex: function () {
+            return loadIndex('cardDesignIndex', ConfigurationFactory.getDefaultCardDesignIndex(), 0, ConfigurationFactory.getCardDesigns().length);
+        },
+        getCardDesign: function () {
+            return ConfigurationFactory.getCardDesigns()[this.getCardDesignIndex()];
         },
         setCardDesign: function (design) {
-            LocalStorageHelper.save('cardDesignIndex', Lodash.findIndex(this.getCardDesigns(), { 'name': design.name }));
+            saveComplex('cardDesignIndex', design, ConfigurationFactory.getCardDesigns(), { 'name': design.name }, ConfigurationFactory.getDefaultCardDesignIndex());
         },
 
+        // Background
         getBackgroundDesignIndex: function () {
-            return LocalStorageHelper.loadOrInitialize('backgroundDesignIndex', 0);
+            return loadIndex('backgroundDesignIndex', ConfigurationFactory.getDefaultBackgroundDesignIndex(), 0, ConfigurationFactory.getBackgroundDesigns().length);
+        },
+        getBackgroundDesign: function()  {
+            return ConfigurationFactory.getBackgroundDesigns()[this.getBackgroundDesignIndex()];
         },
         setBackgroundDesign: function (design) {
-            console.log(JSON.stringify(design));
-            LocalStorageHelper.save('backgroundDesignIndex', Lodash.findIndex(this.getBackgroundDesigns(), { 'name': design.name }));
-        },
-
-        resetSettings: function () {
-            LocalStorageHelper.save('iconIndex', 0);
+            saveComplex('backgroundDesignIndex', design, ConfigurationFactory.getBackgroundDesigns(), { 'name': design.name }, ConfigurationFactory.getDefaultBackgroundDesignIndex());
         }
     }
 }]);
