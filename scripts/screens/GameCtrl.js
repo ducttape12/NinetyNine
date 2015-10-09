@@ -2,19 +2,13 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
     'Lodash', '$timeout', '$modal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window', 'SettingsFactory',
     function ($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
         Lodash, $timeout, $modal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory) {
-
         'use strict';
-
-        var applyThemes = function () {
-            ScreenSettingsFactory.setBackgroundClass(SettingsFactory.getBackgroundDesign().cssClass);
-            $scope.cardDesign = SettingsFactory.getCardDesign().cssClass;
-        };
 
         BackgroundMusicFactory.playGameMusic();
         ScreenSettingsFactory.hideNavBar();
-        applyThemes();
 
         $scope.settings = SettingsFactory;
+        ScreenSettingsFactory.setBackgroundClass(SettingsFactory.getBackgroundDesign().cssClass);
 
         
 
@@ -142,7 +136,6 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                 $state.go('mainmenu');
             }, function () {
                 // Continue processing results
-                applyThemes();
                 paused = false;
                 processNextResult(remainingResults);
             });

@@ -1,5 +1,5 @@
-angular.module('ninetynine').controller('PauseModalCtrl', ['$scope', '$modalInstance', 'SettingsFactory', 'BackgroundMusicFactory',
-    function ($scope, $modalInstance, SettingsFactory, BackgroundMusicFactory) {
+angular.module('ninetynine').controller('PauseModalCtrl', ['$scope', '$modalInstance', 'SettingsFactory', 'BackgroundMusicFactory', 'ConfigurationFactory', 'ScreenSettingsFactory',
+    function ($scope, $modalInstance, SettingsFactory, BackgroundMusicFactory, ConfigurationFactory, ScreenSettingsFactory) {
         'use strict';
 
         $scope.music = SettingsFactory.getMusicEnabled();
@@ -9,23 +9,26 @@ angular.module('ninetynine').controller('PauseModalCtrl', ['$scope', '$modalInst
             BackgroundMusicFactory.playGameMusic();
         };
 
-        $scope.cardDesigns = SettingsFactory.getCardDesigns();
-        $scope.cardDesign = $scope.cardDesigns[SettingsFactory.getCardDesignIndex()];
+        $scope.cardDesigns = ConfigurationFactory.getCardDesigns();
+        $scope.cardDesign = SettingsFactory.getCardDesign();
 
-        $scope.backgroundDesigns = SettingsFactory.getBackgroundDesigns();
-        $scope.backgroundDesign = $scope.backgroundDesigns[SettingsFactory.getBackgroundDesignIndex()];
+        $scope.backgroundDesigns = ConfigurationFactory.getBackgroundDesigns();
+        $scope.backgroundDesign = SettingsFactory.getBackgroundDesign();
+
+        $scope.$watch('cardDesign', function () {
+            SettingsFactory.setCardDesign($scope.cardDesign);
+        });
+
+        $scope.$watch('backgroundDesign', function () {
+            SettingsFactory.setBackgroundDesign($scope.backgroundDesign);
+            ScreenSettingsFactory.setBackgroundClass($scope.backgroundDesign.cssClass);
+        });
 
         $scope.close = function () {
-            SettingsFactory.setCardDesign($scope.cardDesign);
-            SettingsFactory.setBackgroundDesign($scope.backgroundDesign);
-
             $modalInstance.dismiss();
         };
 
         $scope.quit = function() {
-            SettingsFactory.setCardDesign($scope.cardDesign);
-            SettingsFactory.setBackgroundDesign($scope.backgroundDesign);
-
             $modalInstance.close();
         };
     }

@@ -57,7 +57,7 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
             return ConfigurationFactory.getCardDesigns()[this.getCardDesignIndex()];
         },
         setCardDesign: function (design) {
-            saveComplex('cardDesignIndex', design, ConfigurationFactory.getCardDesigns(), { 'name': design.name }, ConfigurationFactory.getDefaultCardDesignIndex());
+            saveComplex('cardDesignIndex', design, { 'name': design.name }, ConfigurationFactory.getCardDesigns(), ConfigurationFactory.getDefaultCardDesignIndex());
         },
 
         // Background
@@ -68,7 +68,7 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
             return ConfigurationFactory.getBackgroundDesigns()[this.getBackgroundDesignIndex()];
         },
         setBackgroundDesign: function (design) {
-            saveComplex('backgroundDesignIndex', design, ConfigurationFactory.getBackgroundDesigns(), { 'name': design.name }, ConfigurationFactory.getDefaultBackgroundDesignIndex());
+            saveComplex('backgroundDesignIndex', design, { 'name': design.name }, ConfigurationFactory.getBackgroundDesigns(), ConfigurationFactory.getDefaultBackgroundDesignIndex());
         }
     }
 }]);

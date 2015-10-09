@@ -3,16 +3,25 @@
 </div>
 <div class="modal-body">
     <div ng-hide="confirmQuit">
-        <h4>Settings</h4>
-        <button type="button" class="btn btn-primary btn-block btn-lg" ng-change="musicChange()" ng-model="music" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
-            <i class="fa fa-volume-{{music ? 'up' : 'off'}}"></i> Music is {{music ? 'Enabled' : 'Disabled'}}
-        </button>
-        <div class="btn-group">
-            <label class="btn btn-primary" ng-repeat="design in cardDesigns" ng-model="cardDesign" btn-radio="design.name">{{design.name}}</label>
+        <div class="form-group">
+            <label for="music" class="control-label">Music</label>
+            <button id="music" type="button" class="btn btn-primary btn-block btn-lg" ng-change="musicChange()" ng-model="music" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+                <i class="fa fa-volume-{{music ? 'up' : 'off'}}"></i> Music is {{music ? 'Enabled' : 'Disabled'}}
+            </button>
         </div>
-        <div class="btn-group">
-            <label class="btn btn-primary" ng-repeat="design in backgroundDesigns" ng-model="backgroundDesign" btn-radio="design.name">{{design.name}}</label>
+        <div class="form-group">
+            <label class="control-label">Cards</label>
+            <div class="btn-group btn-group-lg">
+                <label class="btn btn-primary" ng-repeat="design in cardDesigns" ng-model="$parent.cardDesign" btn-radio="design">{{design.name}}</label>
+            </div>
         </div>
+        <div class="form-group">
+            <label class="control-label">Background</label>
+            <div class="btn-group btn-group-lg">
+                <label class="btn btn-primary" ng-repeat="design in backgroundDesigns" ng-model="$parent.backgroundDesign" btn-radio="design">{{design.name}}</label>
+            </div>
+        </div>
+
         <h4>Options</h4>
         <button type="button" class="btn btn-danger btn-block btn-lg" ng-click="confirmQuit = true">
             <i class="fa fa-sign-out"></i> Quit to Main Menu
