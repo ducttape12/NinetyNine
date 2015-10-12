@@ -1,5 +1,5 @@
-angular.module('ninetynine').controller('StatsCtrl', ['$scope', 'AchievementFactory', '$modal', 'ScreenSettingsFactory', '$state',
-    function($scope, AchievementFactory, $modal, ScreenSettingsFactory, $state) {
+angular.module('ninetynine').controller('StatsCtrl', ['$scope', 'AchievementFactory', '$uibModal', 'ScreenSettingsFactory', '$state',
+    function($scope, AchievementFactory, $uibModal, ScreenSettingsFactory, $state) {
         'use strict';
         
         ScreenSettingsFactory.setNavBar('Stats and Unlockables', function() {
@@ -14,7 +14,7 @@ angular.module('ninetynine').controller('StatsCtrl', ['$scope', 'AchievementFact
 
 
         $scope.resetAll = function() {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'views/modals/resetStatsModal.html',
                 controller: 'ResetStatsModalCtrl'
             });

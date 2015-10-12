@@ -1,5 +1,5 @@
-﻿angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$modal', '$state', 'SettingsFactory', 'ScreenSettingsFactory', 'Lodash', 'ComputerPlayerFactory', 'ConfigurationFactory',
-    function ($scope, $modal, $state, SettingsFactory, ScreenSettingsFactory, Lodash, ComputerPlayerFactory, ConfigurationFactory) {
+﻿angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$uibModal', '$state', 'SettingsFactory', 'ScreenSettingsFactory', 'Lodash', 'ComputerPlayerFactory', 'ConfigurationFactory',
+    function ($scope, $uibModal, $state, SettingsFactory, ScreenSettingsFactory, Lodash, ComputerPlayerFactory, ConfigurationFactory) {
         'use strict';
 
         ScreenSettingsFactory.setNavBar('New Game', function () {

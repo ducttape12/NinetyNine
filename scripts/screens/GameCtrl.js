@@ -1,7 +1,7 @@
 angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory',
-    'Lodash', '$timeout', '$modal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window', 'SettingsFactory',
+    'Lodash', '$timeout', '$uibModal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window', 'SettingsFactory',
     function ($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
-        Lodash, $timeout, $modal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory) {
+        Lodash, $timeout, $uibModal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory) {
         'use strict';
 
         BackgroundMusicFactory.playGameMusic();
@@ -127,7 +127,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             paused = true;
             $timeout.cancel(cpuTimeoutPromise);
 
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'views/modals/pause.html',
                 controller: 'PauseModalCtrl'
             });
@@ -177,7 +177,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             switch (result.result) {
                 case GameFactory.MoveResult.PlayerOut:
                     translatedHand = translateFullHand(result.player.hand);
-                    modalInstance = $modal.open({
+                    modalInstance = $uibModal.open({
                         templateUrl: 'views/modals/playerOutModal.html',
                         controller: 'PlayerOutModalCtrl',
                         resolve: {
@@ -207,7 +207,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
                 case GameFactory.MoveResult.PlayerWon:
                     translatedHand = translateFullHand(result.player.hand);
-                    modalInstance = $modal.open({
+                    modalInstance = $uibModal.open({
                         templateUrl: 'views/modals/playerWonModal.html',
                         controller: 'PlayerWonModalCtrl',
                         resolve: {

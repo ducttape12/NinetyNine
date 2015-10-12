@@ -6,7 +6,7 @@
 <div class="form-group">
     <label class="control-label">Your Icon:</label>
     <div class="btn-group">
-        <label class="btn btn-lg btn-default" ng-model="$parent.selectedIcon" ng-repeat="icon in icons" btn-radio="icon">
+        <label class="btn btn-lg btn-default" ng-model="$parent.selectedIcon" ng-repeat="icon in icons" uib-btn-radio="icon">
             <i class="fa {{icon}}"></i>
         </label>
     </div>
@@ -14,7 +14,7 @@
 <div class="form-group">
     <label class="control-label">Number of CPU Players:</label>
     <div class="btn-group">
-        <label class="btn btn-lg btn-default" ng-model="$parent.cpuPlayersCount" ng-repeat="players in cpuPlayers" btn-radio="players">
+        <label class="btn btn-lg btn-default" ng-model="$parent.cpuPlayersCount" ng-repeat="players in cpuPlayers" uib-btn-radio="players">
             {{players}}
         </label>
     </div>

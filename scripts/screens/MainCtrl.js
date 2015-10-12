@@ -1,5 +1,5 @@
-angular.module('ninetynine').controller('MainCtrl', ['$scope', '$modal', '$state', 'Lodash', 'ComputerPlayerFactory', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', 'SettingsFactory',
-    function($scope, $modal, $state, Lodash, ComputerPlayerFactory, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, SettingsFactory) {
+angular.module('ninetynine').controller('MainCtrl', ['$scope', '$uibModal', '$state', 'Lodash', 'ComputerPlayerFactory', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', 'SettingsFactory',
+    function($scope, $uibModal, $state, Lodash, ComputerPlayerFactory, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, SettingsFactory) {
         'use strict';
 
         $scope.music = SettingsFactory.getMusicEnabled();
