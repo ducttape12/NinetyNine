@@ -23,15 +23,15 @@
 
 
     <footer class="footer" id="footer">
-        <h2 class="text-center count">Count: {{game.count}}</h2>
-        <div class="panel panel-default" ng-class="{'panel-warning': game.getCurrentPlayer() == getHumanPlayer()}">
-            <div class="panel-heading" ng-class="{'player-eliminated': !getHumanPlayer().active}">
+        <h2 class="text-center count" ng-if="!heightLimited()">Count: {{game.count}}</h2>
+        <div class="panel panel-default" ng-class="{'panel-warning': game.getCurrentPlayer() == getHumanPlayer(), 'panel-limited-height': heightLimited()}">
+            <div class="panel-heading" ng-class="{'player-eliminated': !getHumanPlayer().active, 'panel-heading-limited-height': heightLimited()}">
                 <div class="row">
                     <div class="col-xs-9 col-sm-10">
-                        <h4 ng-class="{'player-eliminated': !getHumanPlayer().active}"><i class="fa {{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}</h4>
+                        <p ng-class="{'player-eliminated': !getHumanPlayer().active, 'h4': !heightLimited(), 'h6': heightLimited()}"><i class="fa {{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}<span ng-show="heightLimited()"> - Count: {{game.count}}</span></p>
                     </div>
                     <div class="col-xs-3 col-sm-2">
-                        <button type="button" class="btn btn-default btn-lg btn-block" ng-click="pause()"><i class="fa fa-pause"></i></button>
+                        <button type="button" class="btn btn-default btn-block" ng-class="{'btn-lg': !heightLimited(), 'btn-sm': heightLimited()}" ng-click="pause()"><i class="fa fa-pause"></i></button>
                     </div>
                 </div>
             </div>

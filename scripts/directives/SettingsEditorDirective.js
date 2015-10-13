@@ -13,7 +13,7 @@
             
             scope.musicChange = function () {
                 SettingsFactory.setMusicEnabled(scope.music);
-                BackgroundMusicFactory.playGameMusic();
+                BackgroundMusicFactory.playLast();
             };
 
             scope.cardDesigns = ConfigurationFactory.getCardDesigns();

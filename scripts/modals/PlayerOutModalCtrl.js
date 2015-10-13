@@ -6,7 +6,7 @@ angular.module('ninetynine').controller('PlayerOutModalCtrl', ['$scope', 'CardFa
         $scope.hand = hand;
 
         $scope.ok = function() {
-            $uibModalInstance.close();
+            $modalInstance.close();
         };
     }
 ]);

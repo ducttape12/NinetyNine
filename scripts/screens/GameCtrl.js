@@ -50,6 +50,8 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         };
 
         $scope.translateCard = function (card, index) {
+            
+            var lineFeed = $scope.heightLimited() ? ' ' : '<br />';
 
             if (card == null) {
                 return { mini: '', full: '', played: '' };
@@ -61,11 +63,11 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                 case CardFactory.ActionType.None:
                     return { mini: '+' + card.values[0], full: '+' + card.values[0], played: '+' + card.values[0] };
                 case CardFactory.ActionType.Pass:
-                    return { mini: '<i class="fa fa-long-arrow-right"></i>', full: '<i class="fa fa-long-arrow-right"></i> Pass', played: '<i class="fa fa-long-arrow-right"></i><br />Pass' };
+                    return { mini: '<i class="fa fa-long-arrow-right"></i>', full: '<i class="fa fa-long-arrow-right"></i> Pass', played: '<i class="fa fa-long-arrow-right"></i>' + lineFeed + 'Pass' };
                 case CardFactory.ActionType.Reverse:
-                    return { mini: '<i class="fa fa-retweet"></i>', full: '<i class="fa fa-retweet"></i> Reverse', played: '<i class="fa fa-retweet"></i><br />Reverse' };
+                    return { mini: '<i class="fa fa-retweet"></i>', full: '<i class="fa fa-retweet"></i> Reverse', played: '<i class="fa fa-retweet"></i>' + lineFeed + 'Reverse' };
                 case CardFactory.ActionType.Skip:
-                    return { mini: '+3, <i class="fa fa-share"></i>', full: '+3, <i class="fa fa-share"></i> Skip', played: '+3 <i class="fa fa-share"></i><br />Skip' };
+                    return { mini: '+3, <i class="fa fa-share"></i>', full: '+3, <i class="fa fa-share"></i> Skip', played: '+3 <i class="fa fa-share"></i>' + lineFeed + 'Skip' };
                 case CardFactory.ActionType.Ten:
                     if (angular.isUndefined(index) && card.values.length > 1) {
                         return { mini: '+/-10', full: '+/-10', played: '+/-10' };
@@ -248,6 +250,10 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             AchievementFactory.fastForwardUsed();
             delay = 0;
         };
+        
+        $scope.heightLimited = function() {
+            return $window.innerHeight <= 500;  
+        };
 
         var updateMeasurements = function () {
             var cpuPlayers = angular.element('#cpuPlayers');
@@ -281,14 +287,22 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             $scope.cardWidth = preferredWidth;
             $scope.cardPosition = cardPosition;
             $scope.verticalMargin = verticalMargin;
+            
+            if($scope.heightLimited()) {
+                $scope.cardWidth = maxCardWidth;
+            }
         };
         
         var resizeHandler = function() {
             updateMeasurements();
             $scope.$apply();
+            
+            // Do it twice to account for screen rotation issues
+            $timeout(updateMeasurements, 1);
         };
 
         angular.element($window).bind('resize', resizeHandler);
+        angular.element($window).bind('orientationchange', resizeHandler);
 
         angular.element(document).ready(function () {
             updateMeasurements();
@@ -297,6 +311,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         
         $scope.$on('$destroy', function() {
             angular.element($window).off('resize', resizeHandler);
+            angular.element($window).off('orientationchange', resizeHandler);
         });
     }
 ]);

@@ -120,6 +120,14 @@ body {
     padding: 2em 0em;
 }
 
+.panel-limited-height {
+    margin-top: 2em;
+}
+
+.panel-heading-limited-height {
+    height: 3.5em;
+}
+
 
 /* Card Designs */
 /* Modified from http://lea.verou.me/css3patterns/#marrakesh */
