@@ -284,6 +284,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         };
 
         angular.element($window).bind('resize', function () {
+            console.log('resize fired ' + (new Date()).getTime());
             updateMeasurements();
             $scope.$apply();
         });

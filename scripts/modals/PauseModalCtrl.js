@@ -4,6 +4,7 @@ angular.module('ninetynine').controller('PauseModalCtrl', ['$scope', '$modalInst
 
         $scope.music = SettingsFactory.getMusicEnabled();
         $scope.confirmQuit = false;
+        $scope.displaySettings = false;
         $scope.musicChange = function () {
             SettingsFactory.setMusicEnabled($scope.music);
             BackgroundMusicFactory.playGameMusic();
