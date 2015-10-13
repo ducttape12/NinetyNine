@@ -282,16 +282,21 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             $scope.cardPosition = cardPosition;
             $scope.verticalMargin = verticalMargin;
         };
-
-        angular.element($window).bind('resize', function () {
-            console.log('resize fired ' + (new Date()).getTime());
+        
+        var resizeHandler = function() {
             updateMeasurements();
             $scope.$apply();
-        });
+        };
+
+        angular.element($window).bind('resize', resizeHandler);
 
         angular.element(document).ready(function () {
             updateMeasurements();
             $timeout(updateMeasurements, 1);
+        });
+        
+        $scope.$on('$destroy', function() {
+            angular.element($window).off('resize', resizeHandler);
         });
     }
 ]);
