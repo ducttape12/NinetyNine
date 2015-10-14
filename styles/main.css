@@ -106,7 +106,7 @@ body {
 }
 
 .player-eliminated {
-    background-color: #444444;
+    background-color: #444444!important;
     color: #7c7c7c;
 }
 
