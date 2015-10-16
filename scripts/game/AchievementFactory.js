@@ -147,8 +147,8 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
             }
         }, {
             icon: 'fa-fire',
-            title: 'You\'re on a Fire',
-            description: 'Win 10 games.',
+            title: 'On Fire!',
+            description: 'Win 50 games.',
             isCompleted: function () {
                 return achievements[5];
             },
@@ -157,7 +157,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     return null;
                 }
 
-                if (stats.gamesWon > 9) {
+                if (stats.gamesWon > 49) {
                     achievements[5] = true;
                     return this;
                 }
@@ -167,7 +167,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
         }, {
             icon: 'fa-beer',
             title: 'Drown your Sorrows',
-            description: 'Lose 10 games.',
+            description: 'Lose 50 games.',
             isCompleted: function () {
                 return achievements[6];
             },
@@ -176,7 +176,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     return null;
                 }
 
-                if (stats.gamesLost > 9) {
+                if (stats.gamesLost > 49) {
                     achievements[6] = true;
                     return this;
                 }
@@ -205,7 +205,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
         }, {
             icon: 'fa-pencil',
             title: 'Let me Draw you a Picture',
-            description: 'Draw 99 cards.',
+            description: 'Draw 999 cards.',
             isCompleted: function () {
                 return achievements[8];
             },
@@ -214,7 +214,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     return null;
                 }
 
-                if (stats.cardsDrawn > 98) {
+                if (stats.cardsDrawn > 998) {
                     achievements[8] = true;
                     return this;
                 }
@@ -275,11 +275,11 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     i = 0;
                 for (i = 0; i < players.length; i++) {
                     if (players[i].active && players[i].properties.player != null) {
-                        i++;
+                        cpuPlayersIn++;
                     }
                 }
 
-                if (i >= 2 && i === players.length - 1) { // Human has been eliminated, everyone else is in
+                if (cpuPlayersIn >= 2 && cpuPlayersIn === players.length - 1) { // Human has been eliminated, everyone else is in
                     achievements[11] = true;
                     return this;
                 }
@@ -311,7 +311,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
         }, {
             icon: 'fa-diamond',
             title: 'All Decked Out',
-            description: 'In a game, exhaust the stock and have it reshuffled.',
+            description: 'Exhaust the stock and have it reshuffled 99 times.',
             isCompleted: function () {
                 return achievements[13];
             },
@@ -320,7 +320,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     return null;
                 }
 
-                if (stats.decksReshuffledDuringGame > 0) {
+                if (stats.decksReshuffledDuringGame > 98) {
                     achievements[13] = true;
                     return this;
                 }
@@ -362,7 +362,6 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
             }
 
-            // TODO: Temporary
             for (i = 0; i < unlocked.length; i++) {
                 AchievementDisplayFactory.displayAchievement(unlocked[i].icon, unlocked[i].title);
             }

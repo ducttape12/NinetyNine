@@ -10,7 +10,7 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
     Object.freeze(MoveResult);
 
     var Game = function(players, options) {
-        var i;
+        var i, j;
 
         this.deck = DeckFactory.newDeck();
         this.players = [];
@@ -21,11 +21,17 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
         this.lastCard = null;
 
         for (i = 0; i < players.length; i++) {
-            this.players.push({
+            var player = {
                 properties: players[i],
                 active: true,
                 hand: [this.deck.drawCard(), this.deck.drawCard(), this.deck.drawCard()]
-            });
+            };
+            this.players.push(player);
+            
+            // The initial hand counts towards total cards drawn
+            for(j = 0; j < player.hand.length; j++) {
+                AchievementFactory.drewCard(player.hand[j], player);
+            }
         }
     };
 

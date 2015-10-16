@@ -46,7 +46,7 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
             return loadIndex('iconIndex', ConfigurationFactory.getDefaultIconIndex(), 0, ConfigurationFactory.getAvailablePlayerIcons().length);
         },
         setIcon: function (icon) {
-            saveSimple('icon', icon, ConfigurationFactory.getAvailablePlayerIcons(), ConfigurationFactory.getDefaultIconIndex());
+            saveSimple('iconIndex', icon, ConfigurationFactory.getAvailablePlayerIcons(), ConfigurationFactory.getDefaultIconIndex());
         },
 
         // Card Design
