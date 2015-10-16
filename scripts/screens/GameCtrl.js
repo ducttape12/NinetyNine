@@ -4,10 +4,14 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         Lodash, $timeout, $uibModal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory, $document) {
         'use strict';
 
-        $scope.$on('$stateChangeStart',
-            function(event, toState, toParams, fromState, fromParams) {
-                console.log('$stateChangeStart fired');
-            });
+        var promptForNavigationConfirm = true;
+
+        $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+            if(promptForNavigationConfirm) {
+                $scope.pause(true);
+                event.preventDefault();
+            }
+        });
 
         BackgroundMusicFactory.playGameMusic();
         ScreenSettingsFactory.hideNavBar();
@@ -26,6 +30,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             cpuTimeoutPromise = null;
 
         if (angular.isUndefined($stateParams.players) || $stateParams.players == null) {
+            promptForNavigationConfirm = false;
             $state.go('mainmenu');
             return;
         };
@@ -158,7 +163,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             }
         };
 
-        $scope.pause = function() {
+        $scope.pause = function(promptForQuit) {
             // This will stop all results from processing
             remainingResults = [];
             paused = true;
@@ -166,10 +171,16 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
             var modalInstance = $uibModal.open({
                 templateUrl: 'views/modals/pause.html',
-                controller: 'PauseModalCtrl'
+                controller: 'PauseModalCtrl',
+                resolve: {
+                    promptForQuit: function() {
+                        return promptForQuit;
+                    }
+                }
             });
 
             modalInstance.result.then(function() {
+                promptForNavigationConfirm = false;
                 $state.go('mainmenu');
             }, function() {
                 // Continue processing results
@@ -265,8 +276,10 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                     }
 
                     modalInstance.result.then(function() {
+                        promptForNavigationConfirm = false;
                         $state.go('newgame');
                     }, function() {
+                        promptForNavigationConfirm = false;
                         $state.go('mainmenu');
                     });
 

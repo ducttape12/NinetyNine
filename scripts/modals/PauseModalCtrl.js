@@ -1,9 +1,9 @@
-angular.module('ninetynine').controller('PauseModalCtrl', ['$scope', '$modalInstance', 'SettingsFactory', 'BackgroundMusicFactory', 'ConfigurationFactory', 'ScreenSettingsFactory',
-    function ($scope, $modalInstance, SettingsFactory, BackgroundMusicFactory, ConfigurationFactory, ScreenSettingsFactory) {
+angular.module('ninetynine').controller('PauseModalCtrl', ['$scope', '$modalInstance', 'SettingsFactory', 'BackgroundMusicFactory', 'ConfigurationFactory', 'ScreenSettingsFactory', 'promptForQuit',
+    function ($scope, $modalInstance, SettingsFactory, BackgroundMusicFactory, ConfigurationFactory, ScreenSettingsFactory, promptForQuit) {
         'use strict';
 
         $scope.music = SettingsFactory.getMusicEnabled();
-        $scope.confirmQuit = false;
+        $scope.confirmQuit = promptForQuit;
         $scope.displaySettings = false;
         $scope.musicChange = function () {
             SettingsFactory.setMusicEnabled($scope.music);

@@ -31,7 +31,7 @@
                         <p ng-class="{'player-eliminated': !getHumanPlayer().active, 'h4': !heightLimited(), 'h6': heightLimited()}"><i class="fa {{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}<span ng-show="heightLimited()"> - Count: {{game.count}}</span></p>
                     </div>
                     <div class="col-xs-3 col-sm-2">
-                        <button type="button" class="btn btn-default btn-block" ng-class="{'btn-lg': !heightLimited(), 'btn-sm': heightLimited()}" ng-click="pause()"><i class="fa fa-pause"></i></button>
+                        <button type="button" class="btn btn-default btn-block" ng-class="{'btn-lg': !heightLimited(), 'btn-sm': heightLimited()}" ng-click="pause(false)"><i class="fa fa-pause"></i></button>
                     </div>
                 </div>
             </div>
