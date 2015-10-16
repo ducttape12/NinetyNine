@@ -1,7 +1,7 @@
 angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory',
-    'Lodash', '$timeout', '$uibModal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window', 'SettingsFactory',
+    'Lodash', '$timeout', '$uibModal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window', 'SettingsFactory', '$document',
     function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
-        Lodash, $timeout, $uibModal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory) {
+        Lodash, $timeout, $uibModal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory, $document) {
         'use strict';
 
         $scope.$on('$stateChangeStart',
@@ -336,10 +336,10 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             $timeout(updateMeasurements, 1);
         };
 
-        angular.element($window).bind('resize', resizeHandler);
-        angular.element($window).bind('orientationchange', resizeHandler);
+        angular.element($window).on('resize', resizeHandler);
+        angular.element($window).on('orientationchange', resizeHandler);
 
-        angular.element(document).ready(function() {
+        $document.ready(function() {
             updateMeasurements();
             $timeout(updateMeasurements, 1);
         });
