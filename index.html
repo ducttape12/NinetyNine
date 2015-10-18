@@ -40,7 +40,7 @@
     </div>
 
     <script type="text/javascript" src="cordova.js"></script>
-    
+
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/lodash/lodash.min.js"></script>
@@ -79,9 +79,27 @@
     <script src="scripts/directives/AudioPlayerDirective.js"></script>
     <script src="scripts/directives/SettingsEditorDirective.js"></script>
     <script src="scripts/helpers/LocalStorageHelperFactory.js"></script>
-    
-    <audio-player source="'music/CMA-WithoutYou.mp3'" playing="backgroundMusic.menuMusic"></audio-player>
-    <audio-player source="'music/CMA-YoureNotAlone.mp3'" playing="backgroundMusic.gameMusic"></audio-player>
+
+    <audio-player source="'music/CMA-WithoutYou.ogg'" playing="backgroundMusic.menuMusic"></audio-player>
+    <audio-player source="'music/CMA-YoureNotAlone.ogg'" playing="backgroundMusic.gameMusic"></audio-player>
+
+    <script>
+        var isCordova = false;
+
+        $(document).ready(function() {
+            'use strict';
+
+            if (isCordova) {
+                $(document).on('deviceready', function() {
+                    initializeAngular();
+                });
+            }
+            else {
+                initializeAngular();
+            }
+
+        });
+    </script>
 </body>
 
 </html>
