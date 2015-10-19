@@ -2,6 +2,7 @@ angular.module('ninetynine').factory('CordovaMessageHandlerFactory', ['$document
     'use strict';
 
     var initialized = false;
+    var deviceReady = false;
 
 
     return {
@@ -9,6 +10,7 @@ angular.module('ninetynine').factory('CordovaMessageHandlerFactory', ['$document
 
             if (!initialized && IS_CORDOVA) {
                 $document.on('deviceready', function() {
+                    deviceReady = true;
                     $rootScope.$broadcast('deviceready');
                     $rootScope.$apply();
 
@@ -26,6 +28,10 @@ angular.module('ninetynine').factory('CordovaMessageHandlerFactory', ['$document
             }
 
             initialized = true;
+        },
+        
+        isDeviceReady: function() {
+            return deviceReady;
         }
     }
 }]);
