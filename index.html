@@ -18,6 +18,8 @@
 
 <body ng-app="ninetynine" ng-controller="IndexCtrl" class="{{screenSettings.backgroundClass}}" ng-class="{'navbar-padding': screenSettings.navBarVisible}">
 
+    {{pants}}
+
     <nav-bar title="screenSettings.title" back-button-func="screenSettings.backButtonFunc" options-button-func="screenSettings.optionsButtonFunc" options-button-text="screenSettings.optionsButtonText" visible="screenSettings.navBarVisible"></nav-bar>
 
     <div class="container-fluid">
@@ -79,27 +81,11 @@
     <script src="scripts/directives/AudioPlayerDirective.js"></script>
     <script src="scripts/directives/SettingsEditorDirective.js"></script>
     <script src="scripts/helpers/LocalStorageHelperFactory.js"></script>
+    <script src="scripts/helpers/CordovaMessageHandlerFactory.js"></script>
 
-    <audio-player source="'music/CMA-WithoutYou.ogg'" playing="backgroundMusic.menuMusic"></audio-player>
-    <audio-player source="'music/CMA-YoureNotAlone.ogg'" playing="backgroundMusic.gameMusic"></audio-player>
+    <!--<audio-player source="'music/CMA-WithoutYou.ogg'" playing="backgroundMusic.menuMusic"></audio-player>-->
+    <!--<audio-player source="'music/CMA-YoureNotAlone.ogg'" playing="backgroundMusic.gameMusic"></audio-player>-->
 
-    <script>
-        var isCordova = false;
-
-        $(document).ready(function() {
-            'use strict';
-
-            if (isCordova) {
-                $(document).on('deviceready', function() {
-                    initializeAngular();
-                });
-            }
-            else {
-                initializeAngular();
-            }
-
-        });
-    </script>
 </body>
 
 </html>
