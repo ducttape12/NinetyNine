@@ -7,7 +7,7 @@ angular.module('ninetynine').factory('CordovaMessageHandlerFactory', ['$document
     return {
         initialize: function() {
 
-            if (!initialized) {
+            if (!initialized && IS_CORDOVA) {
                 $document.on('deviceready', function() {
                     $rootScope.$broadcast('deviceready');
                     $rootScope.$apply();
