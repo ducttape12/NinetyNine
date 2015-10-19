@@ -42,4 +42,23 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
     }]).config(['localStorageServiceProvider', function(localStorageServiceProvider) {
         localStorageServiceProvider
             .setPrefix('ninteynine');
-    }]).constant('IS_CORDOVA', true);
+    }])
+    
+    
+    // --------------------------------
+    // - Configuration of Ninety-Nine -
+    // --------------------------------
+    
+    // Whether this is running as an app (true) or a website (false)
+    .constant('IS_CORDOVA', true)
+    
+    // Where the files are in the file system
+    .constant('CORDOVA_FILE_ROOT', '/android_asset/www')
+    
+    // The music that plays on the menu (relative to the path where index.html lies)
+    .constant('MENU_MUSIC', ['music/CMA-WithoutYou.mp3'])
+    
+    // The game music that plays when the game is on (relative to the path where index.html lies)
+    .constant('GAME_MUSIC', ['music/CMA-YoureNotAlone.mpg'])
+    
+    ;

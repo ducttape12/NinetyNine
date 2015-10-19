@@ -1,8 +1,8 @@
-angular.module('ninetynine').controller('IndexCtrl', ['$scope', '$state', 'AchievementDisplayFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', 'CordovaMessageHandlerFactory',
-    function($scope, $state, AchievementDisplayFactory, ScreenSettingsFactory, BackgroundMusicFactory, CordovaMessageHandlerFactory) {
+angular.module('ninetynine').controller('IndexCtrl', ['$scope', '$state', 'AchievementDisplayFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', 'CordovaMessageHelperFactory',
+    function($scope, $state, AchievementDisplayFactory, ScreenSettingsFactory, BackgroundMusicFactory, CordovaMessageHelperFactory) {
         'use strict';
         
-        CordovaMessageHandlerFactory.initialize();
+        CordovaMessageHelperFactory.initialize();
         
         $scope.achievementDisplay = AchievementDisplayFactory;
         $scope.screenSettings = ScreenSettingsFactory;
