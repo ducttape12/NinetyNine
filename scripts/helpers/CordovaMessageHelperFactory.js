@@ -1,4 +1,4 @@
-angular.module('ninetynine').factory('CordovaMessageHandlerFactory', ['$document', '$rootScope', 'IS_CORDOVA', function($document, $rootScope, IS_CORDOVA) {
+angular.module('ninetynine').factory('CordovaMessageHelperFactory', ['$document', '$rootScope', 'IS_CORDOVA', function($document, $rootScope, IS_CORDOVA) {
     'use strict';
 
     var initialized = false;
@@ -33,5 +33,5 @@ angular.module('ninetynine').factory('CordovaMessageHandlerFactory', ['$document
         isDeviceReady: function() {
             return deviceReady;
         }
-    }
+    };
 }]);
