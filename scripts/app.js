@@ -19,7 +19,7 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
                 url: '/game',
                 templateUrl: 'views/screens/game.html',
                 params: {
-                    players: null,
+                    players: null
                 },
                 controller: 'GameCtrl'
             })
@@ -59,6 +59,13 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
     .constant('MENU_MUSIC', ['music/CMA-WithoutYou.mp3'])
     
     // The game music that plays when the game is on (relative to the path where index.html lies)
-    .constant('GAME_MUSIC', ['music/CMA-YoureNotAlone.mpg'])
+    .constant('GAME_MUSIC', ['music/CMA-YoureNotAlone.mp3'])
     
-    ;
+
+    // ------------------------------
+    // - Application Initialization -
+    // ------------------------------
+
+    .run(['CordovaMessageHelperFactory', function(CordovaMessageHelperFactory) {
+        CordovaMessageHelperFactory.initialize();
+    }]);

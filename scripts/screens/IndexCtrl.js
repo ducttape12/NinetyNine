@@ -2,8 +2,6 @@ angular.module('ninetynine').controller('IndexCtrl', ['$scope', '$state', 'Achie
     function($scope, $state, AchievementDisplayFactory, ScreenSettingsFactory, BackgroundMusicFactory, CordovaMessageHelperFactory) {
         'use strict';
         
-        CordovaMessageHelperFactory.initialize();
-        
         $scope.achievementDisplay = AchievementDisplayFactory;
         $scope.screenSettings = ScreenSettingsFactory;
         $scope.backgroundMusic = BackgroundMusicFactory;
