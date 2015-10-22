@@ -3,8 +3,9 @@ angular.module('ninetynine').factory('Html5AudioFactory', [function() {
     
     var Html5Audio = function(path, playbackFinishCallback) {
         this.audio = new Audio(path);
+        this.id = path;
         
-        this.audio.on('ended', playbackFinishCallback);
+        this.audio.addEventListener('ended', playbackFinishCallback);
     };
     
     Html5Audio.prototype.play = function() {

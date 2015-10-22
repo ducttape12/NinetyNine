@@ -1,4 +1,4 @@
-angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory', '$document', '$rootScope', function(SettingsFactory, $document, $rootScope) {
+angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory', '$rootScope', 'AudioFactory', 'MENU_MUSIC', 'GAME_MUSIC', function(SettingsFactory, $rootScope, AudioFactory, MENU_MUSIC, GAME_MUSIC) {
     'use strict';
 
     var SongType = {
@@ -7,55 +7,63 @@ angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory
     };
     Object.freeze(SongType);
 
-    var lastPlayed = SongType.Menu;
-
-    var cordovaOverride = true;
+    var lastPlayed = null;
+    
+    var songs = [];
+    var nowPlaying = null;
+    
+    var playSong = function() {
+        var randomSong = songs[Math.floor(Math.random() * (songs.length))];
+        while(songs.length > 1 && nowPlaying != null && randomSong == nowPlaying.id) {
+            randomSong = songs[Math.floor(Math.random() * (songs.length))];
+        }
+        
+        if(nowPlaying != null) {
+            nowPlaying.media.stop();
+            nowPlaying = null;
+        }
+        
+        if(!SettingsFactory.getMusicEnabled()) {
+            return;
+        }
+        
+        nowPlaying = {id: randomSong, media: AudioFactory.create(randomSong, playSong)};
+        nowPlaying.media.play();
+    };
 
     var musicFactory = {
         playMenuMusic: function() {
-            var enabled = SettingsFactory.getMusicEnabled() && cordovaOverride;
-            this.menuMusic = enabled && true;
-            this.gameMusic = false;
-            lastPlayed = SongType.Menu;
-        },
-
-        playGameMusic: function() {
-            var enabled = SettingsFactory.getMusicEnabled() && cordovaOverride;
-            this.menuMusic = false;
-            this.gameMusic = enabled && true;
-            lastPlayed = SongType.Game;
-        },
-
-        playLast: function() {
-            switch (lastPlayed) {
-                case SongType.Menu:
-                    this.playMenuMusic();
-                    break;
-
-                case SongType.Game:
-                    this.playGameMusic();
-                    break;
+            // If they're equal, then we're already playing menu music
+            if(songs !== MENU_MUSIC) {
+                songs = MENU_MUSIC;
+                playSong();
             }
         },
 
-        menuMusic: false,
-
-        gameMusic: false
+        playGameMusic: function() {
+            // If they're equal, then we're already playing game music
+            if(songs !== GAME_MUSIC) {
+                songs = GAME_MUSIC;
+                playSong();
+            }
+        },
+        
+        enableDisableMusic: function(enabled) {
+            SettingsFactory.setMusicEnabled(enabled);
+            playSong();
+        }
     };
-
-    // Cordova specific code for pausing music when the app goes into the background
-    $document.on('deviceready', function() {
-        $document.on('pause', function() {
-            cordovaOverride = false;
-            musicFactory.playLast();
-            $rootScope.$apply();
-        });
-        $document.on('resume', function() {
-            cordovaOverride = true;
-            musicFactory.playLast();
-            $rootScope.$apply();
-        });
-    });
+    
+    // TODO: Cordova specific logic
+    $rootScope.$on('pause', function() {
+        cordovaOverride = false;
+        musicFactory.playLast();
+    })
+    
+    $rootScope.$on('resume', function() {
+        cordovaOverride = true;
+        musicFactory.playLast();
+    })
 
     return musicFactory;
 

@@ -7,8 +7,6 @@ angular.module('ninetynine').factory('CordovaMessageHelperFactory', ['$document'
 
     return {
         initialize: function() {
-            console.log('in initialize now');
-
             if (!initialized && IS_CORDOVA) {
                 $document.on('deviceready', function() {
                     deviceReady = true;

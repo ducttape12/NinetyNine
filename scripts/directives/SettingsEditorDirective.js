@@ -1,4 +1,4 @@
-﻿angular.module('ninetynine').directive('settingsEditor', ['SettingsFactory', 'BackgroundMusicFactory', 'ConfigurationFactory', 'ScreenSettingsFactory', function (SettingsFactory, BackgroundMusicFactory, ConfigurationFactory, ScreenSettingsFactory) {
+angular.module('ninetynine').directive('settingsEditor', ['SettingsFactory', 'BackgroundMusicFactory', 'ConfigurationFactory', 'ScreenSettingsFactory', function (SettingsFactory, BackgroundMusicFactory, ConfigurationFactory, ScreenSettingsFactory) {
     'use strict';
 
     return {
@@ -12,8 +12,7 @@
             scope.music = SettingsFactory.getMusicEnabled();
             
             scope.musicChange = function () {
-                SettingsFactory.setMusicEnabled(scope.music);
-                BackgroundMusicFactory.playLast();
+                BackgroundMusicFactory.enableDisableMusic(scope.music);
             };
 
             scope.cardDesigns = ConfigurationFactory.getCardDesigns();

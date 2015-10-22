@@ -50,7 +50,7 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
     // --------------------------------
     
     // Whether this is running as an app (true) or a website (false)
-    .constant('IS_CORDOVA', true)
+    .constant('IS_CORDOVA', false)
     
     // Where the files are in the file system
     .constant('CORDOVA_FILE_ROOT', '/android_asset/www')
@@ -59,7 +59,7 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
     .constant('MENU_MUSIC', ['music/CMA-WithoutYou.mp3'])
     
     // The game music that plays when the game is on (relative to the path where index.html lies)
-    .constant('GAME_MUSIC', ['music/CMA-YoureNotAlone.mp3'])
+    .constant('GAME_MUSIC', ['music/CMA-YoureNotAlone.mp3', 'music/CMA-CaughtInOurThoughts.mp3', 'music/CMA-Kuuipo.mp3', 'music/CMA-MovingForward.mp3'])
     
 
     // ------------------------------

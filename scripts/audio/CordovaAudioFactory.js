@@ -5,6 +5,7 @@ angular.module('ninetynine').factory('CordovaAudioFactory', [function() {
     
     var CordovaAudio = function(path, playbackFinishCallback) {
         this.audio = new Media(path, playbackFinishCallback);
+        this.id = path;
     };
     
     CordovaAudio.prototype.play = function() {
