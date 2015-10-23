@@ -51,7 +51,7 @@ angular.module('ninetynine').factory('Html5AudioFactory', ['$timeout', function(
         this.fadeOut(function() {
             self.audio.pause();
             self.audio.currentTime = 0;
-            this.audio.removeEventListener('ended', this.playbackFinishCallback);
+            self.audio.removeEventListener('ended', self.playbackFinishCallback);
         })
     };
     

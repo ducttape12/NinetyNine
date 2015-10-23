@@ -3,6 +3,14 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
     function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
         Lodash, $timeout, $uibModal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory, $document) {
         'use strict';
+        
+        // Ensure we're in the right place
+        if (angular.isUndefined($stateParams.players) || $stateParams.players == null) {
+            promptForNavigationConfirm = false;
+            $state.go('mainmenu');
+            return;
+        };
+        
 
         var promptForNavigationConfirm = true;
 
@@ -20,7 +28,6 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         ScreenSettingsFactory.setBackgroundClass(SettingsFactory.getBackgroundDesign().cssClass);
 
 
-
         // When the game is paused, the processNextResult function will stop processing and place the
         // remaining results into remainingResults.  Any open cpuTimeoutPromise will be cancelled.  When the user
         // unpauses the game, the remaining results will continue to be processed.  If there aren't any, then
@@ -29,11 +36,6 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             remainingResults = [],
             cpuTimeoutPromise = null;
 
-        if (angular.isUndefined($stateParams.players) || $stateParams.players == null) {
-            promptForNavigationConfirm = false;
-            $state.go('mainmenu');
-            return;
-        };
 
         var delay = 1500;
 
