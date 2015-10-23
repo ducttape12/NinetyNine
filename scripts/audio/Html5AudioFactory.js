@@ -9,12 +9,12 @@ angular.module('ninetynine').factory('Html5AudioFactory', ['$timeout', function(
         this.audio = new Audio(path);
         this.id = path;
         this.playbackFinishCallback = playbackFinishCallback;
+        this.audio.volume = 0;
     };
     
     Html5Audio.prototype.play = function() {
         this.audio.addEventListener('ended', this.playbackFinishCallback);
         this.audio.play();
-        this.setVolume(0);
         this.fadeIn();
     };
     
@@ -43,6 +43,7 @@ angular.module('ninetynine').factory('Html5AudioFactory', ['$timeout', function(
         var self = this;
         this.fadeOut(function() {
             self.audio.pause();
+            self.audio.removeEventListener('ended', self.playbackFinishCallback);
         })
     };
     
