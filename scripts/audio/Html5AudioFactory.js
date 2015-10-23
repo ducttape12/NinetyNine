@@ -5,8 +5,6 @@ angular.module('ninetynine').factory('Html5AudioFactory', ['$timeout', function(
     var volumeChangeDelta = 0.1;
     
     
-    
-    
     var Html5Audio = function(path, playbackFinishCallback) {
         this.audio = new Audio(path);
         this.id = path;
@@ -16,21 +14,28 @@ angular.module('ninetynine').factory('Html5AudioFactory', ['$timeout', function(
     
     Html5Audio.prototype.play = function() {
         this.audio.play();
+        this.setVolume(0);
         this.fadeIn();
     };
     
-    Html5Audio.prototype.fadeIn = function() {
-        if (this.audio.volume <= 1 - volumeChangeDelta) {
-            this.audio.volume += volumeChangeDelta;
-            this.audio.volume = Math.round(audio.volume * 10) / 10;
+    Html5Audio.prototype.fadeIn = function(fadeCompleteCallback) {
+        var self = this;
+        if (this.getVolume() <= 1 - volumeChangeDelta) {
+            var newVolume = this.getVolume() + volumeChangeDelta;
+            this.setVolume(Math.round(newVolume * 10) / 10);
         }
 
 
-        if (this.audio.volume < 1) {
-            $timeout(this.turnVolumeUp, volumeChangeDelay);
+        if (this.getVolume() < 1) {
+            $timeout(function() {
+                self.fadeIn(fadeCompleteCallback);
+            }, volumeChangeDelay);
         }
         else {
-            this.audio.volume = 1;
+            this.setVolume(1);
+            if(!angular.isUndefined(fadeCompleteCallback)) {
+                fadeCompleteCallback();
+            }
         }
     };
     
@@ -52,24 +57,30 @@ angular.module('ninetynine').factory('Html5AudioFactory', ['$timeout', function(
     Html5Audio.prototype.fadeOut = function(fadeCompleteCallback) {
         var self = this;
         
-        if (this.audio.volume >= volumeChangeDelta) {
-            this.audio.volume -= volumeChangeDelta;
-            this.audio.volume = Math.round(this.audio.volume * 10) / 10;
+        if (this.getVolume() >= volumeChangeDelta) {
+            var newVolume = this.getVolume() - volumeChangeDelta;
+            this.setVolume(Math.round(newVolume * 10) / 10);
         }
 
-        if (this.audio.volume > 0) {
+        if (this.getVolume() > 0) {
             $timeout(function() {
                 self.fadeOut(fadeCompleteCallback);
             }, volumeChangeDelay);
         }
         else {
-            this.audio.volume = 0;
-            fadeCompleteCallback();
+            this.setVolume(0);
+            if(!angular.isUndefined(fadeCompleteCallback)) {
+                fadeCompleteCallback();
+            }
         }
     };
     
     Html5Audio.prototype.setVolume = function(volume) {
         this.audio.volume = volume;
+    };
+    
+    Html5Audio.prototype.getVolume = function() {
+        return this.audio.volume;  
     };
     
     return {
