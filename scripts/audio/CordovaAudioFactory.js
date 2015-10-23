@@ -7,13 +7,25 @@ angular.module('ninetynine').factory('CordovaAudioFactory', ['$timeout', 'CORDOV
     var volumeChangeDelta = 0.1;
     
     var CordovaAudio = function(path, playbackFinishCallback) {
-        this.audio = new Media(CORDOVA_FILE_ROOT + path, playbackFinishCallback);
+        var self = this;
+        
         this.id = path;
+        this.manualStop = false;
+        
+        this.audio = new Media(CORDOVA_FILE_ROOT + path, function() {
+            // We only want to call the finish callback if the track stopped by itself (not from a .stop)
+            if(!self.manualStop) {
+                playbackFinishCallback();
+            }
+        });
+        
         this.setVolume(0);
+        
     };
     
 
     CordovaAudio.prototype.play = function() {
+        this.manualStop = false;
         this.audio.play();
         this.fadeIn();
     };
@@ -49,6 +61,7 @@ angular.module('ninetynine').factory('CordovaAudioFactory', ['$timeout', 'CORDOV
     CordovaAudio.prototype.stop = function() {
         var self = this;
         this.fadeOut(function() {
+            self.manualStop = true;
             self.audio.stop();
             self.audio.release();
         });
