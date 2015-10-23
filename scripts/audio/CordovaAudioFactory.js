@@ -1,4 +1,4 @@
-angular.module('ninetynine').factory('CordovaAudioFactory', ['$timeout', function($timeout) {
+angular.module('ninetynine').factory('CordovaAudioFactory', ['$timeout', 'CORDOVA_FILE_ROOT', function($timeout, CORDOVA_FILE_ROOT) {
     'use strict';
     
     // See https://www.npmjs.com/package/cordova-plugin-media for details
@@ -7,7 +7,7 @@ angular.module('ninetynine').factory('CordovaAudioFactory', ['$timeout', functio
     var volumeChangeDelta = 0.1;
     
     var CordovaAudio = function(path, playbackFinishCallback) {
-        this.audio = new Media(path, playbackFinishCallback);
+        this.audio = new Media(CORDOVA_FILE_ROOT + path, playbackFinishCallback);
         this.id = path;
         this.setVolume(0);
     };
