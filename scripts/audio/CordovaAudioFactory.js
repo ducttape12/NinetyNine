@@ -35,7 +35,7 @@ angular.module('ninetynine').factory('CordovaAudioFactory', ['$timeout', 'CORDOV
             this.setVolume(1);
             if(!angular.isUndefined(fadeCompleteCallback)) {
                 fadeCompleteCallback();
-            }
+            };
         }
     };
     
@@ -51,7 +51,7 @@ angular.module('ninetynine').factory('CordovaAudioFactory', ['$timeout', 'CORDOV
         this.fadeOut(function() {
             self.audio.stop();
             self.audio.release();
-        })
+        });
     };
     
     CordovaAudio.prototype.fadeOut = function(fadeCompleteCallback) {

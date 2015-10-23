@@ -44,7 +44,7 @@ angular.module('ninetynine').factory('Html5AudioFactory', ['$timeout', function(
         this.fadeOut(function() {
             self.audio.pause();
             self.audio.removeEventListener('ended', self.playbackFinishCallback);
-        })
+        });
     };
     
     Html5Audio.prototype.stop = function() {
@@ -53,7 +53,7 @@ angular.module('ninetynine').factory('Html5AudioFactory', ['$timeout', function(
             self.audio.pause();
             self.audio.currentTime = 0;
             self.audio.removeEventListener('ended', self.playbackFinishCallback);
-        })
+        });
     };
     
     Html5Audio.prototype.fadeOut = function(fadeCompleteCallback) {
