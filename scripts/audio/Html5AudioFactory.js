@@ -8,11 +8,11 @@ angular.module('ninetynine').factory('Html5AudioFactory', ['$timeout', function(
     var Html5Audio = function(path, playbackFinishCallback) {
         this.audio = new Audio(path);
         this.id = path;
-        
-        this.audio.addEventListener('ended', playbackFinishCallback);
+        this.playbackFinishCallback = playbackFinishCallback;
     };
     
     Html5Audio.prototype.play = function() {
+        this.audio.addEventListener('ended', this.playbackFinishCallback);
         this.audio.play();
         this.setVolume(0);
         this.fadeIn();
@@ -51,6 +51,7 @@ angular.module('ninetynine').factory('Html5AudioFactory', ['$timeout', function(
         this.fadeOut(function() {
             self.audio.pause();
             self.audio.currentTime = 0;
+            this.audio.removeEventListener('ended', this.playbackFinishCallback);
         })
     };
     
