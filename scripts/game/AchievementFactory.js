@@ -137,8 +137,14 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 if (this.isCompleted()) {
                     return null;
                 }
+                
+                var i,
+                    activePlayers = 0;
+                for (i = 0; i < players.length; i++) {
+                    activePlayers += players[i].active ? 1 : 0;
+                }
 
-                if (players.length === 5) { // 1 human, 4 CPU
+                if (players.length === 5 && activePlayers === 1) { // 1 human, 4 CPU && game is over
                     achievements[4] = true;
                     return this;
                 }
@@ -298,12 +304,19 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     return null;
                 }
 
-                var i;
+                var i,
+                    activePlayers = 0,
+                    againstBandit = false;
                 for (i = 0; i < players.length; i++) {
+                    activePlayers += players[i].active ? 1 : 0;
                     if (players[i].properties.name.toString().toUpperCase() === 'BANDIT' && players[i].properties.player != null) { // != null is a CPU player
-                        achievements[12] = true;
-                        return this;
+                        againstBandit = true;
                     }
+                }
+                
+                if(activePlayers === 1 && againstBandit) {
+                    achievements[12] = true;
+                    return this;
                 }
 
                 return null;
