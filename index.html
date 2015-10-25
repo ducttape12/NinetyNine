@@ -17,26 +17,27 @@
 </head>
 
 <body ng-app="ninetynine" ng-controller="IndexCtrl" class="{{screenSettings.backgroundClass}}" ng-class="{'navbar-padding': screenSettings.navBarVisible}">
+    <div class="ng-cloak">
+        <nav-bar title="screenSettings.title" back-button-func="screenSettings.backButtonFunc" options-button-func="screenSettings.optionsButtonFunc" options-button-text="screenSettings.optionsButtonText" visible="screenSettings.navBarVisible"></nav-bar>
 
-    <nav-bar title="screenSettings.title" back-button-func="screenSettings.backButtonFunc" options-button-func="screenSettings.optionsButtonFunc" options-button-text="screenSettings.optionsButtonText" visible="screenSettings.navBarVisible"></nav-bar>
-
-    <div class="container-fluid">
-        <div class="achievement animated" ng-if="achievementDisplay.firstAchievementShown" ng-hide="hideAchievement" ng-class="{'fadeInUpBig': achievementDisplay.show, 'fadeOutDownBig': !achievementDisplay.show}">
-            <div class="alert alert-info" role="alert">
-                <div class="media">
-                    <div class="media-left">
-                        <div class="achievement-image">
-                            <i class="fa" ng-class="achievementDisplay.currentAchievement.icon"></i>
+        <div class="container-fluid">
+            <div class="achievement animated" ng-if="achievementDisplay.firstAchievementShown" ng-hide="hideAchievement" ng-class="{'fadeInUpBig': achievementDisplay.show, 'fadeOutDownBig': !achievementDisplay.show}">
+                <div class="alert alert-info" role="alert">
+                    <div class="media">
+                        <div class="media-left">
+                            <div class="achievement-image">
+                                <i class="fa" ng-class="achievementDisplay.currentAchievement.icon"></i>
+                            </div>
                         </div>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading">Icon Unlocked</h4> {{achievementDisplay.currentAchievement.title}}
+                        <div class="media-body">
+                            <h4 class="media-heading">Icon Unlocked</h4> {{achievementDisplay.currentAchievement.title}}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div ui-view></div>
+            <div ui-view></div>
+        </div>
     </div>
 
     <script type="text/javascript" src="cordova.js"></script>
@@ -83,9 +84,6 @@
     <script src="scripts/directives/SettingsEditorDirective.js"></script>
     <script src="scripts/helpers/LocalStorageHelperFactory.js"></script>
     <script src="scripts/helpers/CordovaMessageHelperFactory.js"></script>
-
-    <!--<audio-player source="'music/CMA-WithoutYou.ogg'" playing="backgroundMusic.menuMusic"></audio-player>-->
-    <!--<audio-player source="'music/CMA-YoureNotAlone.ogg'" playing="backgroundMusic.gameMusic"></audio-player>-->
 
 </body>
 
