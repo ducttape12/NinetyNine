@@ -50,7 +50,7 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
     // --------------------------------
     
     // Whether this is running as an app (true) or a website (false)
-    .constant('IS_CORDOVA', true)
+    .constant('IS_CORDOVA', false)
     
     // Where the files are in the file system
     .constant('CORDOVA_FILE_ROOT', '/android_asset/www/')

@@ -4,6 +4,8 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         Lodash, $timeout, $uibModal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory, $document) {
         'use strict';
         
+        var promptForNavigationConfirm = true;
+        
         // Ensure we're in the right place
         if (angular.isUndefined($stateParams.players) || $stateParams.players == null) {
             promptForNavigationConfirm = false;
@@ -11,8 +13,6 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             return;
         };
         
-
-        var promptForNavigationConfirm = true;
 
         $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
             if(promptForNavigationConfirm) {
@@ -244,7 +244,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                         AchievementFactory.opponentEliminated();
                     }
 
-                    if ($scope.getHumanPlayer() == result.player) {
+                    if (result.player.properties.player == null) { // A human player was elminated
                         AchievementFactory.playerEliminated(result.player, result.players);
                     }
 
