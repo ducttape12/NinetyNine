@@ -249,7 +249,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
         }, {
             icon: 'fa-coffee',
             title: 'Addict',
-            description: 'Finish a game every day for seven consecutive days.',
+            description: 'Finish a game every day for five consecutive days.',
             isCompleted: function () {
                 return achievements[10];
             },
@@ -258,7 +258,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     return null;
                 }
 
-                if (stats.consecutiveDaysPlayed > 6) {
+                if (stats.consecutiveDaysPlayed > 4) {
                     achievements[10] = true;
                     return this;
                 }
