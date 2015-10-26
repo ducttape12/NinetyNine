@@ -7,6 +7,12 @@ body {
     min-height: 100%;
 }
 
+.brand-icon {
+    height: 32px;
+    width: 32px;
+    margin-top: -4px;
+}
+
 .navbar-padding {
     padding-top: 70px;
 }
@@ -41,7 +47,7 @@ body {
 
 .background-red {
 	background: darkred;
-	background-image: linear-gradient(lightcoral, white);
+	background-image: linear-gradient(lightcoral, darkred);
 }
 
 .background-purple {
