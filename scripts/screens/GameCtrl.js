@@ -245,7 +245,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                     }
 
                     if (result.player.properties.player == null) { // A human player was elminated
-                        AchievementFactory.playerEliminated(result.player, result.players);
+                        AchievementFactory.playerEliminated(result.players);
                     }
 
                     modalInstance.result.then(function() {
