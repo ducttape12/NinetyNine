@@ -352,8 +352,8 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     return null;
                 }
 
-                if (Lodash(achievements, true).length === achievements.length - 1) { // This is the only achievement not accomplished
-                    achievements[14] == true;
+                if (Lodash.without(achievements, false).length === achievements.length - 1) { // This is the only achievement not accomplished
+                    achievements[14] = true;
                     return this;
                 }
 
