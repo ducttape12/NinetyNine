@@ -37,6 +37,11 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
                 url: '/settings',
                 templateUrl: 'views/screens/settings.html',
                 controller: 'SettingsCtrl'
+            })
+            .state('credits', {
+                url: '/credits',
+                templateUrl: 'views/screens/credits.html',
+                controller: 'CreditsCtrl'
             });
 
     }]).config(['localStorageServiceProvider', function(localStorageServiceProvider) {
