@@ -17,6 +17,10 @@ body {
     padding-top: 70px;
 }
 
+.banner-ad-padding {
+    padding-bottom: 45px;
+}
+
 .container {
     height: 100%;
 }

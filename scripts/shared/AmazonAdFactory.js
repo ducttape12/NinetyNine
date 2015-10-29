@@ -5,47 +5,13 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
         var mobileAds = null;
         var bannerAd = null;
         var interstitialAd = null;
-        var lastBannerRequest = null;
-        var lastInterstitialRequest = null;
-
-        var showBannerAd = function() {
-            mobileAds.loadAndShowFloatingBannerAd(function(operationResponse) {}, function(errorResponse) {}, [bannerAd]);
-        };
-
-        var closeBannerAd = function() {
-            mobileAds.closeFloatingBannerAd(function(operationResponse) {}, function(errorResponse) {}, [bannerAd]);
-        };
-
-        var showInterstitialAd = function() {
-            mobileAds.loadInterstitialAd(
-                function(operationResponse) {
-                    // Handle success
-                    var loadingStarted = operationResponse.booleanValue;
-                },
-                function(errorResponse) {
-                    // Handle error
-                }, []
-            );
-        };
-
-        var prepareInterstitialAd = function() {
-            mobileAds.loadInterstitialAd(function(operationResponse) {}, function(errorResponse) {}, []);
-        };
-
-        var showInterstitialAd = function() {
-            // Ensure there's an ad ready to be shown.  If there isn't, oh well, guess the user gets an ad free experience!
-            mobileAds.isInterstitialAdReady(function(operationResponse) {
-                var isReady = operationResponse.booleanValue;
-
-                if (isReady) {
-                    mobileAds.showInterstitialAd(function(operationResponse) { }, function(errorResponse) { }, [interstitialAd]);
-                }
-            }, function(errorResponse) {
-                // Handle error
-            }, []);
-        };
+        var showBannerWhenReady = false;
+        var prepareInterstitialAdWhenReady = false;
+        
 
         return {
+            bannerAdVisible: false,
+            
             initialize: function() {
                 if (!SHOW_ADS) {
                     return;
@@ -67,14 +33,13 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
 
                                     // If a request to display an ad was made before the ad was ready,
                                     // it would have been queued up.  Display it now.
-                                    if (lastBannerRequest !== null) {
-                                        lastBannerRequest();
-                                        lastBannerRequest = null;
+                                    if (showBannerWhenReady) {
+                                        this.showBannerAd();
                                     }
                                 }, function(errorResponse) {
                                     // Handle error
                                 }, [{
-                                    "dock": AmazonMobileAds.Dock.TOP,
+                                    "dock": AmazonMobileAds.Dock.BOTTOM,
                                     "horizontalAlign": AmazonMobileAds.HorizontalAlign.CENTER,
                                     "adFit": AmazonMobileAds.AdFit.FIT_AD_SIZE
                                 }]);
@@ -85,9 +50,8 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
 
                                     // If a request to display an ad was made before the ad was ready,
                                     // it would have been queued up.  Display it now.
-                                    if (lastInterstitialRequest !== null) {
-                                        lastInterstitialRequest();
-                                        lastInterstitialRequest = null;
+                                    if (prepareInterstitialAdWhenReady !== null) {
+                                        this.prepareInterstitialAd();
                                     }
                                 }, function(errorResponse) {
                                     // Handle error
@@ -113,10 +77,16 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
                 // If this request is made before the banner ad is ready, queue it up to be displayed
                 // after the ad is ready
                 if (bannerAd !== null) {
-                    showBannerAd();
+                    if (this.bannerAdVisible) {
+                        return;
+                    }
+
+                    mobileAds.loadAndShowFloatingBannerAd(function(operationResponse) {
+                        this.bannerAdVisible = true;
+                    }, function(errorResponse) {}, [bannerAd]);
                 }
                 else {
-                    lastBannerRequest = showBannerAd;
+                    showBannerWhenReady = true;
                 }
             },
 
@@ -127,7 +97,9 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
 
                 // If this request is made before the banner ad is ready, do nothing (since it couldn't have been displayed yet)
                 if (bannerAd !== null) {
-                    closeBannerAd();
+                    mobileAds.closeFloatingBannerAd(function(operationResponse) {
+                        this.bannerAdVisible = false;
+                    }, function(errorResponse) {}, [bannerAd]);
                 }
             },
 
@@ -137,10 +109,10 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
                 }
 
                 if (interstitialAd !== null) {
-                    prepareInterstitialAd();
+                    mobileAds.loadInterstitialAd(function(operationResponse) {}, function(errorResponse) {}, []);
                 }
                 else {
-                    lastInterstitialRequest = prepareInterstitialAd;
+                    prepareInterstitialAdWhenReady = true;
                 }
             },
 
@@ -152,7 +124,15 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
                 // If this request is made before the interstitial ad is ready, then there's no way it could be loaded.  Don't
                 // display it
                 if (interstitialAd !== null) {
-                    showInterstitialAd();
+                    // Ensure there's an ad ready to be shown.  If there isn't, oh well, guess the user gets an ad free experience!
+                    mobileAds.isInterstitialAdReady(function(operationResponse) {
+                        var isReady = operationResponse.booleanValue;
+                        if (isReady) {
+                            mobileAds.showInterstitialAd(function(operationResponse) {}, function(errorResponse) {}, [interstitialAd]);
+                        }
+                    }, function(errorResponse) {
+                        // Handle error
+                    }, []);
                 }
             }
         };
