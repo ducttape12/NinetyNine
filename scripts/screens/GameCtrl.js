@@ -1,7 +1,9 @@
 angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory',
-    'Lodash', '$timeout', '$uibModal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window', 'SettingsFactory', '$document',
+    'Lodash', '$timeout', '$uibModal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window', 'SettingsFactory',
+    '$document', 'AmazonAdFactory',
     function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
-        Lodash, $timeout, $uibModal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory, $document) {
+        Lodash, $timeout, $uibModal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory,
+        $document, AmazonAdFactory) {
         'use strict';
         
         var promptForNavigationConfirm = true;
@@ -183,6 +185,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
             modalInstance.result.then(function() {
                 promptForNavigationConfirm = false;
+                AmazonAdFactory.showInterstitialAd();
                 $state.go('mainmenu');
             }, function() {
                 // Continue processing results
@@ -279,9 +282,11 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
                     modalInstance.result.then(function() {
                         promptForNavigationConfirm = false;
+                        AmazonAdFactory.showInterstitialAd();
                         $state.go('newgame');
                     }, function() {
                         promptForNavigationConfirm = false;
+                        AmazonAdFactory.showInterstitialAd();
                         $state.go('mainmenu');
                     });
 

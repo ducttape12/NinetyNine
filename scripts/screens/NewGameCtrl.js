@@ -1,11 +1,13 @@
-﻿angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$uibModal', '$state', 'SettingsFactory', 'ScreenSettingsFactory', 'Lodash', 'ComputerPlayerFactory', 'ConfigurationFactory',
-    function ($scope, $uibModal, $state, SettingsFactory, ScreenSettingsFactory, Lodash, ComputerPlayerFactory, ConfigurationFactory) {
+angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$uibModal', '$state', 'SettingsFactory', 'ScreenSettingsFactory', 'Lodash', 'ComputerPlayerFactory', 'ConfigurationFactory', 'AmazonAdFactory',
+    function ($scope, $uibModal, $state, SettingsFactory, ScreenSettingsFactory, Lodash, ComputerPlayerFactory, ConfigurationFactory, AmazonAdFactory) {
         'use strict';
 
         ScreenSettingsFactory.setNavBar('New Game', function () {
             $state.go('mainmenu');
         }, null, null);
         ScreenSettingsFactory.clearBackgroundClass();
+        
+        AmazonAdFactory.showBannerAd();
 
         $scope.icons = ConfigurationFactory.getAvailablePlayerIcons();
         $scope.selectedIcon = $scope.icons[SettingsFactory.getIconIndex()];
@@ -60,6 +62,8 @@
                 SettingsFactory.setPlayerCount($scope.cpuPlayersCount);
 
                 var players = assemblePlayers(name, $scope.selectedIcon, $scope.cpuPlayersCount);
+
+                AmazonAdFactory.closeBannerAd();
 
                 $state.go('game', {
                     players: players

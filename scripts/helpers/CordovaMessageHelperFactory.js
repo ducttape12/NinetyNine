@@ -23,6 +23,10 @@ angular.module('ninetynine').factory('CordovaMessageHelperFactory', ['$document'
                         $rootScope.$apply();
                         
                     });
+                    $document.$on('backbutton', function() {
+                        $rootScope.$broadcast('backbutton');
+                        $rootScope.$apply();
+                    })
                 });
             }
 
