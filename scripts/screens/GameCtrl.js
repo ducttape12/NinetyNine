@@ -259,6 +259,8 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                     break;
 
                 case GameFactory.MoveResult.PlayerWon:
+                    AmazonAdFactory.prepareInterstitialAd();
+                    
                     translatedHand = translateFullHand(result.player.hand);
                     modalInstance = $uibModal.open({
                         templateUrl: 'views/modals/playerWonModal.html',
