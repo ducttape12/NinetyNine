@@ -7,25 +7,23 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
         var interstitialAd = null;
         var lastBannerRequest = null;
         var lastInterstitialRequest = null;
+        var bannerDisplayed = false;
 
         var showBannerAd = function() {
-            mobileAds.loadAndShowFloatingBannerAd(function(operationResponse) {}, function(errorResponse) {}, [bannerAd]);
+            if(bannerDisplayed) {
+                return;
+            }
+            
+            
+            mobileAds.loadAndShowFloatingBannerAd(function(operationResponse) {
+                bannerDisplayed = true;
+            }, function(errorResponse) {}, [bannerAd]);
         };
 
         var closeBannerAd = function() {
-            mobileAds.closeFloatingBannerAd(function(operationResponse) {}, function(errorResponse) {}, [bannerAd]);
-        };
-
-        var showInterstitialAd = function() {
-            mobileAds.loadInterstitialAd(
-                function(operationResponse) {
-                    // Handle success
-                    var loadingStarted = operationResponse.booleanValue;
-                },
-                function(errorResponse) {
-                    // Handle error
-                }, []
-            );
+            mobileAds.closeFloatingBannerAd(function(operationResponse) {
+                bannerDisplayed = false;
+            }, function(errorResponse) {}, [bannerAd]);
         };
 
         var prepareInterstitialAd = function() {
@@ -36,7 +34,6 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
             // Ensure there's an ad ready to be shown.  If there isn't, oh well, guess the user gets an ad free experience!
             mobileAds.isInterstitialAdReady(function(operationResponse) {
                 var isReady = operationResponse.booleanValue;
-
                 if (isReady) {
                     mobileAds.showInterstitialAd(function(operationResponse) { }, function(errorResponse) { }, [interstitialAd]);
                 }
@@ -74,7 +71,7 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
                                 }, function(errorResponse) {
                                     // Handle error
                                 }, [{
-                                    "dock": AmazonMobileAds.Dock.TOP,
+                                    "dock": AmazonMobileAds.Dock.BOTTOM,
                                     "horizontalAlign": AmazonMobileAds.HorizontalAlign.CENTER,
                                     "adFit": AmazonMobileAds.AdFit.FIT_AD_SIZE
                                 }]);
