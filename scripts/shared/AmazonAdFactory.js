@@ -7,7 +7,6 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
         var interstitialAd = null;
         var showBannerWhenReady = false;
         var prepareInterstitialAdWhenReady = false;
-        
 
         return {
             bannerAdVisible: false,

@@ -172,6 +172,8 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             remainingResults = [];
             paused = true;
             $timeout.cancel(cpuTimeoutPromise);
+            
+            AmazonAdFactory.prepareInterstitialAd();
 
             var modalInstance = $uibModal.open({
                 templateUrl: 'views/modals/pause.html',
