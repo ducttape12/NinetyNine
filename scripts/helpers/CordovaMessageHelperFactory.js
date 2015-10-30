@@ -14,19 +14,21 @@ angular.module('ninetynine').factory('CordovaMessageHelperFactory', ['$document'
                     $rootScope.$apply();
 
                     $document.on('pause', function() {
+                        console.log('pause received');
                         $rootScope.$broadcast('pause');
                         $rootScope.$apply();
-                        
                     });
+                    
                     $document.on('resume', function() {
+                        console.log('resume received');
                         $rootScope.$broadcast('resume');
                         $rootScope.$apply();
-                        
                     });
-                    $document.$on('backbutton', function() {
-                        $rootScope.$broadcast('backbutton');
+                    
+                    $document.on('backbutton', function(e) {
+                        $rootScope.$broadcast('backbutton', e);
                         $rootScope.$apply();
-                    })
+                    });
                 });
             }
 
