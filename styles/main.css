@@ -34,6 +34,11 @@ body {
     padding-right: 0;
 }
 /* Background Themes */
+.background-menu {
+    background: royalblue;
+	background-image: linear-gradient(to bottom, #565E60 0%, #565E60 75%, #BCBCBC 100%);
+}
+
 .background-blue {
 	background: dodgerblue;
 	background-image: linear-gradient(dodgerblue, skyblue);
