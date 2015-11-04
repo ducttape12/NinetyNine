@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
 
     <link rel="stylesheet" href="styles/main.css">
+    
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/lodash/lodash.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
 </head>
 
 <body ng-app="ninetynine" ng-controller="IndexCtrl" class="{{screenSettings.backgroundClass}}" ng-class="{'navbar-padding': screenSettings.navBarVisible, 'banner-ad-padding': ads.bannerAdVisible}">
@@ -21,7 +26,7 @@
         <nav-bar title="screenSettings.title" back-button-func="screenSettings.backButtonFunc" options-button-func="screenSettings.optionsButtonFunc" options-button-text="screenSettings.optionsButtonText" visible="screenSettings.navBarVisible"></nav-bar>
 
         <div class="container-fluid">
-            <div class="achievement animated" ng-if="achievementDisplay.firstAchievementShown" ng-hide="hideAchievement" ng-class="{'fadeInUpBig': achievementDisplay.show, 'fadeOutDownBig': !achievementDisplay.show}">
+            <div class="achievement animated" ng-if="achievementDisplay.firstAchievementShown" ng-class="{'fadeInUpBig': achievementDisplay.show, 'fadeOutDownBig': !achievementDisplay.show}">
                 <div class="alert alert-info" role="alert">
                     <div class="media">
                         <div class="media-left">
@@ -42,10 +47,6 @@
 
     <script type="text/javascript" src="cordova.js"></script>
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/lodash/lodash.min.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
