@@ -251,6 +251,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
             switch (result.result) {
                 case GameFactory.MoveResult.PlayerOut:
+                    paused = true;
                     translatedHand = translateFullHand(result.player.hand);
                     modalInstance = $uibModal.open({
                         templateUrl: 'views/modals/playerOutModal.html',
@@ -274,13 +275,16 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                     }
 
                     modalInstance.result.then(function() {
+                        paused = false;
                         processNextResult(results);
                     }, function() {
+                        paused = false;
                         processNextResult(results);
                     });
                     break;
 
                 case GameFactory.MoveResult.PlayerWon:
+                    paused = true;
                     AmazonAdFactory.prepareInterstitialAd();
                     
                     translatedHand = translateFullHand(result.player.hand);
@@ -305,11 +309,13 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                     }
 
                     modalInstance.result.then(function() {
+                        paused = false;
                         promptForNavigationConfirm = false;
                         AmazonAdFactory.showInterstitialAd(function() {
                             $state.go('newgame');    
                         });
                     }, function() {
+                        paused = false;
                         promptForNavigationConfirm = false;
                         AmazonAdFactory.showInterstitialAd(function() {
                             $state.go('mainmenu');    
