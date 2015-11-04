@@ -10,7 +10,6 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
         var interstitialCallback = null;
         
         var interstitialDismissed = function() {
-            console.log('ad dismissed');
             if(interstitialCallback !== null) {
                 interstitialCallback();
             } 
