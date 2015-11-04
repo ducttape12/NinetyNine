@@ -20,7 +20,7 @@ angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory
                 randomSong = songs[Math.floor(Math.random() * (songs.length))];
             }
 
-            if (nowPlaying != null) {
+            if (nowPlaying !== null) {
                 nowPlaying.media.stop();
                 nowPlaying = null;
             }
@@ -56,6 +56,12 @@ angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory
             enableDisableMusic: function(enabled) {
                 SettingsFactory.setMusicEnabled(enabled);
                 playWithCordovaCheck();
+            },
+            
+            killMusic: function() {
+                if(nowPlaying !== null) {
+                    nowPlaying.media.kill();
+                }
             }
         };
 
@@ -81,13 +87,13 @@ angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory
         }
         
         $rootScope.$on('pause', function() {
-            if(nowPlaying != null) {
+            if(nowPlaying !== null) {
                 nowPlaying.media.pause();
             }
         });
         
         $rootScope.$on('resume', function() {
-            if(nowPlaying != null) {
+            if(nowPlaying !== null) {
                 nowPlaying.media.play();
             }
         });

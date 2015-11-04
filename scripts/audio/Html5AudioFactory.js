@@ -85,6 +85,12 @@ angular.module('ninetynine').factory('Html5AudioFactory', ['$timeout', function(
         return this.audio.volume;  
     };
     
+    Html5Audio.prototype.kill = function() {
+        self.audio.pause();
+        self.audio.currentTime = 0;
+        self.audio.removeEventListener('ended', self.playbackFinishCallback);
+    };
+    
     return {
         create: function(path, playbackFinishCallback) {
             return new Html5Audio(path, playbackFinishCallback);

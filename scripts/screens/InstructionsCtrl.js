@@ -8,5 +8,9 @@ angular.module('ninetynine').controller('InstructionsCtrl', ['$scope', '$state',
         ScreenSettingsFactory.clearBackgroundClass();
         
         AchievementFactory.readInstructions();
+    
+        $scope.$on('backbutton', function() {
+            $state.go('mainmenu');
+        });
     }
 ]);

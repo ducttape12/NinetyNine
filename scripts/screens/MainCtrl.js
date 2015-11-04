@@ -8,8 +8,14 @@ angular.module('ninetynine').controller('MainCtrl', ['ScreenSettingsFactory', 'B
         AmazonAdFactory.showBannerAd();
         
         // Cordova specific logic to exit the application when the back button is hit
-        $scope.$on('backbutton', function(e) {
-            e.preventDefault();
+        $scope.$on('backbutton', function() {
+            BackgroundMusicFactory.killMusic();
+
+            if (navigator && navigator.app) {
+                navigator.app.exitApp();
+            } else if (navigator && navigator.device) {
+                navigator.device.exitApp();
+            }
         });
     }
 ]);

@@ -15,12 +15,30 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             return;
         };
         
-
+        // Pressing the back button in a browser will ask the user if he or she wants to quit
         $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-            if(promptForNavigationConfirm) {
+            if(promptForNavigationConfirm && !paused) {
                 $scope.pause(true);
                 event.preventDefault();
+            } else if (paused) {
+                event.preventDefault();
             }
+        });
+    
+        // Pressing the back button on a phone will pause the game
+        $scope.$on('backbutton', function(e) {
+            if(!paused) {
+                $scope.pause(false);
+            }
+            e.preventDefault();
+        });
+        
+        // Pressing the home button on a phone will pause the game
+        $scope.$on('pause', function() {
+            if(!paused) {
+                $scope.pause(false);
+            }
+            e.preventDefault();
         });
 
         BackgroundMusicFactory.playGameMusic();
@@ -186,6 +204,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             });
 
             modalInstance.result.then(function() {
+                paused = false;
                 promptForNavigationConfirm = false;
                 AmazonAdFactory.showInterstitialAd();
                 $state.go('mainmenu');

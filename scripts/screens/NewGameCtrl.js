@@ -7,6 +7,10 @@ angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$uibModal', '
         }, null, null);
         ScreenSettingsFactory.clearBackgroundClass();
         
+        $scope.$on('backbutton', function() {
+            $state.go('mainmenu');
+        });
+        
         AmazonAdFactory.showBannerAd();
 
         $scope.icons = ConfigurationFactory.getAvailablePlayerIcons();

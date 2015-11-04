@@ -97,6 +97,12 @@ angular.module('ninetynine').factory('CordovaAudioFactory', ['$timeout', 'CORDOV
         return this.volume;  
     };
     
+    CordovaAudio.prototype.kill = function() {
+        this.manualStop = true;
+        this.audio.stop();
+        this.audio.release();
+    };
+    
     return {
         create: function(path, playbackFinishCallback) {
             return new CordovaAudio(path, playbackFinishCallback);

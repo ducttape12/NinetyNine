@@ -6,6 +6,10 @@ angular.module('ninetynine').controller('StatsCtrl', ['$scope', 'AchievementFact
             $state.go('mainmenu');
         }, null, null);
         ScreenSettingsFactory.clearBackgroundClass();
+    
+        $scope.$on('backbutton', function() {
+            $state.go('mainmenu');
+        });
 
         var initialize = function() {
             $scope.achievements = AchievementFactory.getAchievements();

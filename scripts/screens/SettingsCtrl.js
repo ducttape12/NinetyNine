@@ -5,5 +5,9 @@ angular.module('ninetynine').controller('SettingsCtrl', ['$scope', '$state', 'Sc
         $state.go('mainmenu');
     }, null, null);
     ScreenSettingsFactory.clearBackgroundClass();
+    
+    $scope.$on('backbutton', function() {
+        $state.go('mainmenu');
+    });
 
 }]);
