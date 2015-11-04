@@ -1,5 +1,5 @@
-angular.module('ninetynine').controller('PauseModalCtrl', ['$scope', '$modalInstance', 'SettingsFactory', 'BackgroundMusicFactory', 'ConfigurationFactory', 'ScreenSettingsFactory', 'promptForQuit',
-    function ($scope, $modalInstance, SettingsFactory, BackgroundMusicFactory, ConfigurationFactory, ScreenSettingsFactory, promptForQuit) {
+angular.module('ninetynine').controller('PauseModalCtrl', ['$scope', '$uibModalInstance', 'SettingsFactory', 'BackgroundMusicFactory', 'ConfigurationFactory', 'ScreenSettingsFactory', 'promptForQuit',
+    function ($scope, $uibModalInstance, SettingsFactory, BackgroundMusicFactory, ConfigurationFactory, ScreenSettingsFactory, promptForQuit) {
         'use strict';
 
         $scope.music = SettingsFactory.getMusicEnabled();
@@ -26,11 +26,11 @@ angular.module('ninetynine').controller('PauseModalCtrl', ['$scope', '$modalInst
         });
 
         $scope.close = function () {
-            $modalInstance.dismiss();
+            $uibModalInstance.dismiss();
         };
 
         $scope.quit = function() {
-            $modalInstance.close();
+            $uibModalInstance.close();
         };
     }
 ]);

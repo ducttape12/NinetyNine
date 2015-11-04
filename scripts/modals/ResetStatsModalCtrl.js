@@ -1,13 +1,13 @@
-angular.module('ninetynine').controller('ResetStatsModalCtrl', ['$scope', '$modalInstance',
-    function($scope, $modalInstance) {
+angular.module('ninetynine').controller('ResetStatsModalCtrl', ['$scope', '$uibModalInstance',
+    function($scope, $uibModalInstance) {
         'use strict';
 
         $scope.ok = function() {
-            $modalInstance.close(true);
+            $uibModalInstance.close(true);
         };
 
         $scope.cancel = function() {
-            $modalInstance.dismiss(false);
+            $uibModalInstance.dismiss(false);
         };
     }
 ]);
