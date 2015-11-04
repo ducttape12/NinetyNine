@@ -1,11 +1,12 @@
-angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$uibModal', '$state', 'SettingsFactory', 'ScreenSettingsFactory', 'Lodash', 'ComputerPlayerFactory', 'ConfigurationFactory', 'AmazonAdFactory',
-    function ($scope, $uibModal, $state, SettingsFactory, ScreenSettingsFactory, Lodash, ComputerPlayerFactory, ConfigurationFactory, AmazonAdFactory) {
+angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$uibModal', '$state', 'SettingsFactory', 'ScreenSettingsFactory', 'Lodash', 'ComputerPlayerFactory', 'ConfigurationFactory', 'AmazonAdFactory', 'BackgroundMusicFactory',
+    function ($scope, $uibModal, $state, SettingsFactory, ScreenSettingsFactory, Lodash, ComputerPlayerFactory, ConfigurationFactory, AmazonAdFactory, BackgroundMusicFactory) {
         'use strict';
 
         ScreenSettingsFactory.setNavBar('New Game', function () {
             $state.go('mainmenu');
         }, null, null);
         ScreenSettingsFactory.clearBackgroundClass();
+        BackgroundMusicFactory.playMenuMusic();
         
         $scope.$on('backbutton', function() {
             $state.go('mainmenu');

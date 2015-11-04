@@ -1,5 +1,5 @@
-angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING_MODE', 'AD_GEO_LOCATION_ENABLED', 'AMAZON_APP_KEY', '$window', 'CordovaMessageHelperFactory', '$rootScope',
-    function(SHOW_ADS, AD_TESTING_MODE, AD_GEO_LOCATION_ENABLED, AMAZON_APP_KEY, $window, CordovaMessageHelperFactory, $rootScope) {
+angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING_MODE', 'AD_GEO_LOCATION_ENABLED', 'AMAZON_APP_KEY', '$window', 'CordovaMessageHelperFactory', '$rootScope', 'BackgroundMusicFactory',
+    function(SHOW_ADS, AD_TESTING_MODE, AD_GEO_LOCATION_ENABLED, AMAZON_APP_KEY, $window, CordovaMessageHelperFactory, $rootScope, BackgroundMusicFactory) {
         'use strict';
 
         var mobileAds = null;
@@ -7,6 +7,15 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
         var interstitialAd = null;
         var showBannerWhenReady = false;
         var prepareInterstitialAdWhenReady = false;
+        var interstitialCallback = null;
+        
+        var interstitialDismissed = function() {
+            console.log('ad dismissed');
+            if(interstitialCallback !== null) {
+                interstitialCallback();
+            } 
+            $rootScope.$apply();
+        };
 
         return {
             bannerAdVisible: false,
@@ -57,6 +66,9 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
                                 }, function(errorResponse) {
                                     // Handle error
                                 }, []);
+                                
+                                // Detect when an interstitial ad is dismissed
+                                mobileAds.addListener('adDismissed', interstitialDismissed);
 
                             }, function(errorResponse) {}, [{
                                 'booleanValue': AD_GEO_LOCATION_ENABLED
@@ -114,18 +126,30 @@ angular.module('ninetynine').factory('AmazonAdFactory', ['SHOW_ADS', 'AD_TESTING
                 }
             },
 
-            showInterstitialAd: function() {
+            showInterstitialAd: function(callback) {
+                interstitialCallback = angular.isUndefined(callback) ? function() {} : callback;
+                
                 if (!SHOW_ADS || interstitialAd === null) {
+                    interstitialCallback();
                     return;
                 }
+                
+                // Works around an issue on Android 4.4 where music will keep being played
+                BackgroundMusicFactory.killMusic();
 
                 // Ensure there's an ad ready to be shown.  If there isn't, oh well, guess the user gets an ad free experience!
                 mobileAds.isInterstitialAdReady(function(operationResponse) {
                     var isReady = operationResponse.booleanValue;
                     if (isReady) {
-                        mobileAds.showInterstitialAd(function(operationResponse) {}, function(errorResponse) {}, [interstitialAd]);
+                        mobileAds.showInterstitialAd(function(operationResponse) {}, function(errorResponse) {
+                            interstitialCallback();
+                        }, [interstitialAd]);
+                    } else {
+                        interstitialCallback();
                     }
-                }, function(errorResponse) { }, []);
+                }, function(errorResponse) {
+                    interstitialCallback();
+                }, []);
             }
         };
     }

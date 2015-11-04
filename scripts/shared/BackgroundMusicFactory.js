@@ -38,6 +38,7 @@ angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory
 
         var musicFactory = {
             playMenuMusic: function() {
+                console.log('play menu music');
                 // If they're equal, then we're already playing menu music
                 if (songs !== MENU_MUSIC) {
                     songs = MENU_MUSIC;
@@ -46,6 +47,7 @@ angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory
             },
 
             playGameMusic: function() {
+                console.log('play game music');
                 // If they're equal, then we're already playing game music
                 if (songs !== GAME_MUSIC) {
                     songs = GAME_MUSIC;
@@ -87,13 +89,17 @@ angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory
         }
         
         $rootScope.$on('pause', function() {
+            console.log('pause fired');
             if(nowPlaying !== null) {
+                console.log('pausing music');
                 nowPlaying.media.pause();
             }
         });
         
         $rootScope.$on('resume', function() {
+            console.log('resume fired');
             if(nowPlaying !== null) {
+                console.log('resuming music');
                 nowPlaying.media.play();
             }
         });

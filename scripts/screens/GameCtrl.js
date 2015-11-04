@@ -35,10 +35,10 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
         
         // Pressing the home button on a phone will pause the game
         $scope.$on('pause', function() {
-            if(!paused) {
+            // This will fire when a full-screen ad is shown, but we don't want to show the pause dialog then
+            if(promptForNavigationConfirm && !paused) {
                 $scope.pause(false);
             }
-            e.preventDefault();
         });
 
         BackgroundMusicFactory.playGameMusic();
@@ -206,8 +206,9 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             modalInstance.result.then(function() {
                 paused = false;
                 promptForNavigationConfirm = false;
-                AmazonAdFactory.showInterstitialAd();
-                $state.go('mainmenu');
+                AmazonAdFactory.showInterstitialAd(function() {
+                    $state.go('mainmenu');    
+                });
             }, function() {
                 // Continue processing results
                 paused = false;
@@ -305,12 +306,14 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
                     modalInstance.result.then(function() {
                         promptForNavigationConfirm = false;
-                        AmazonAdFactory.showInterstitialAd();
-                        $state.go('newgame');
+                        AmazonAdFactory.showInterstitialAd(function() {
+                            $state.go('newgame');    
+                        });
                     }, function() {
                         promptForNavigationConfirm = false;
-                        AmazonAdFactory.showInterstitialAd();
-                        $state.go('mainmenu');
+                        AmazonAdFactory.showInterstitialAd(function() {
+                            $state.go('mainmenu');    
+                        });
                     });
 
                     // There won't be any other items in results (since the game is now over), so we can stop processing here
