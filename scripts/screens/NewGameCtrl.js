@@ -5,7 +5,7 @@ angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$uibModal', '
         ScreenSettingsFactory.setNavBar('New Game', function () {
             $state.go('mainmenu');
         }, null, null);
-        ScreenSettingsFactory.clearBackgroundClass();
+        ScreenSettingsFactory.setBackgroundClass('background-newgame');
         BackgroundMusicFactory.playMenuMusic();
         
         $scope.$on('backbutton', function() {

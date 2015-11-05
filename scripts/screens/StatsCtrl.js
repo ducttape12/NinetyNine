@@ -1,11 +1,12 @@
-angular.module('ninetynine').controller('StatsCtrl', ['$scope', 'AchievementFactory', '$uibModal', 'ScreenSettingsFactory', '$state',
-    function($scope, AchievementFactory, $uibModal, ScreenSettingsFactory, $state) {
+angular.module('ninetynine').controller('StatsCtrl', ['$scope', 'AchievementFactory', '$uibModal', 'ScreenSettingsFactory', '$state', 'AmazonAdFactory',
+    function($scope, AchievementFactory, $uibModal, ScreenSettingsFactory, $state, AmazonAdFactory) {
         'use strict';
         
         ScreenSettingsFactory.setNavBar('Stats and Unlockables', function() {
             $state.go('mainmenu');
         }, null, null);
-        ScreenSettingsFactory.clearBackgroundClass();
+        ScreenSettingsFactory.setBackgroundClass('background-stats');
+        AmazonAdFactory.showBannerAd();
     
         $scope.$on('backbutton', function() {
             $state.go('mainmenu');

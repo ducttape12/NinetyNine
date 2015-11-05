@@ -42,7 +42,7 @@
         <ul class="list-group">
             <li class="list-group-item" ng-class="{'list-group-item-success': achievement.isCompleted()}" ng-repeat="achievement in achievements">
                 <div class="media">
-                    <div class="media-left">
+                    <div class="media-left media-middle">
                         <div class="achievement-image">
                             <i class="fa" ng-class="achievement.icon"></i>
                         </div>
@@ -54,7 +54,7 @@
                             <uib-progressbar ng-if="achievement.progress() != null" max="achievement.progress().goal" value="achievement.isCompleted() ? achievement.progress().goal : achievement.progress().current" type="{{achievement.isCompleted() ? 'success' : 'primary'}}"><span>{{achievement.isCompleted() ? achievement.progress().goal : achievement.progress().current}} / {{achievement.progress().goal}}</span></uib-progressbar>
                         </div>
                     </div>
-                    <div class="media-right" ng-show="achievement.isCompleted()">
+                    <div class="media-right media-middle" ng-show="achievement.isCompleted()">
                         <div class="achievement-image">
                             <i class="fa fa-check"></i>
                         </div>
