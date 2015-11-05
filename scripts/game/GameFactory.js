@@ -126,8 +126,6 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
                 }
             }
         }
-        
-        availableMove = false;
 
         this.players[this.currentPlayerIndex].active = availableMove;
 

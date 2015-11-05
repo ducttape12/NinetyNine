@@ -385,7 +385,7 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
         }, {
             icon: 'fa-trophy',
             title: 'A Winner is You!',
-            description: 'Get all other achievements.',
+            description: 'Unlock all other icons.',
             isCompleted: function () {
                 return achievements[14];
             },

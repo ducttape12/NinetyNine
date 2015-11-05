@@ -34,8 +34,14 @@ body {
     padding-right: 0;
 }
 
+/* Stats */
 .progress {
     height: 23px;
+}
+
+.progress-bar {
+    text-shadow: 1px 1px #444;
+    white-space: nowrap;
 }
 
 /* Background Themes */

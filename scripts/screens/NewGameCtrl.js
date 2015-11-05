@@ -15,7 +15,7 @@ angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$uibModal', '
         AmazonAdFactory.showBannerAd();
 
         $scope.icons = ConfigurationFactory.getAvailablePlayerIcons();
-        $scope.selectedIcon = $scope.icons[SettingsFactory.getIconIndex()];
+        $scope.selectedIcon = SettingsFactory.getIcon();
         $scope.cpuPlayers = ConfigurationFactory.getCpuPlayerConfigurations();
         $scope.cpuPlayersCount = $scope.cpuPlayers[SettingsFactory.getPlayerCountIndex()];
         $scope.name = SettingsFactory.getName();
@@ -79,9 +79,5 @@ angular.module('ninetynine').controller('NewGameCtrl', ['$scope', '$uibModal', '
         $scope.cancel = function () {
             $state.go('mainmenu');
         };
-
-
-
-
     }
 ]);

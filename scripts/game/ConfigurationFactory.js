@@ -64,8 +64,8 @@
         getAvailablePlayerIcons: function (forceAll) {
             return getIcons(false);
         },
-        getDefaultIconIndex: function () {
-            return 0;
+        getDefaultIcon: function () {
+            return getIcons(false)[0];
         }
     }
 }]);

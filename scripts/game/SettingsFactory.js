@@ -41,12 +41,20 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
             saveSimple('playerCountIndex', count, ConfigurationFactory.getCpuPlayerConfigurations(), ConfigurationFactory.getDefaultCpuPlayerConfigurationIndex());
         },
 
-        // Icon
-        getIconIndex: function () {
-            return loadIndex('iconIndex', ConfigurationFactory.getDefaultIconIndex(), 0, ConfigurationFactory.getAvailablePlayerIcons().length);
+        // Icon - Unlike other settings, icon actually saves the underlying icon (since the available icon array can change)
+        getIcon: function () {
+            var defaultIcon = ConfigurationFactory.getDefaultIcon();
+            
+            var icon = LocalStorageHelper.loadOrInitialize('icon', defaultIcon);
+            var index = Lodash.indexOf(ConfigurationFactory.getAllIcons(), icon); // Verify the icon is valid
+            return index < 0 ? defaultIcon : icon;
         },
         setIcon: function (icon) {
-            saveSimple('iconIndex', icon, ConfigurationFactory.getAvailablePlayerIcons(), ConfigurationFactory.getDefaultIconIndex());
+            var index = Lodash.indexOf(ConfigurationFactory.getAllIcons(), icon);
+            if(index < 0) {
+                icon = ConfigurationFactory.getDefaultIcon();
+            }
+            LocalStorageHelper.save('icon', icon);
         },
 
         // Card Design
