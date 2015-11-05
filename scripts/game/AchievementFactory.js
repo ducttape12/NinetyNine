@@ -68,6 +68,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
 
                 return null;
+            },
+            progress: function() {
+                return null;
             }
         }, {
             icon: 'fa-heart',
@@ -86,6 +89,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     return this;
                 }
 
+                return null;
+            },
+            progress: function() {
                 return null;
             }
         }, {
@@ -106,6 +112,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
 
                 return null;
+            },
+            progress: function() {
+                return null;
             }
         }, {
             icon: 'fa-bolt',
@@ -124,6 +133,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     return this;
                 }
 
+                return null;
+            },
+            progress: function() {
                 return null;
             }
         }, {
@@ -150,6 +162,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
 
                 return null;
+            },
+            progress: function() {
+                return null;
             }
         }, {
             icon: 'fa-fire',
@@ -169,6 +184,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
 
                 return null;
+            },
+            progress: function() {
+                return {current: stats.gamesWon, goal: 50};
             }
         }, {
             icon: 'fa-beer',
@@ -188,6 +206,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
 
                 return null;
+            },
+            progress: function() {
+                return {current: stats.gamesLost, goal: 50};
             }
         }, {
             icon: 'fa-ticket',
@@ -207,6 +228,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
 
                 return null;
+            },
+            progress: function() {
+                return {current: stats.opponentsEliminated, goal: 99};
             }
         }, {
             icon: 'fa-pencil',
@@ -226,6 +250,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
 
                 return null;
+            },
+            progress: function() {
+                return {current: stats.cardsDrawn, goal: 999};
             }
         }, {
             icon: 'fa-gamepad',
@@ -245,6 +272,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
 
                 return null;
+            },
+            progress: function() {
+                return {current: stats.gamesWon + stats.gamesLost, goal: 99};
             }
         }, {
             icon: 'fa-coffee',
@@ -264,6 +294,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
 
                 return null;
+            },
+            progress: function() {
+                return {current: stats.consecutiveDaysPlayed, goal: 5};
             }
         }, {
             icon: 'fa-magnet',
@@ -290,6 +323,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     return this;
                 }
 
+                return null;
+            },
+            progress: function() {
                 return null;
             }
         }, {
@@ -320,6 +356,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
 
                 return null;
+            },
+            progress: function() {
+                return null;
             }
         }, {
             icon: 'fa-diamond',
@@ -339,10 +378,13 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                 }
 
                 return null;
+            },
+            progress: function() {
+                return {current: stats.decksReshuffledDuringGame, goal: 99};
             }
         }, {
             icon: 'fa-trophy',
-            title: 'You\'re Winner!',
+            title: 'A Winner is You!',
             description: 'Get all other achievements.',
             isCompleted: function () {
                 return achievements[14];
@@ -357,6 +399,9 @@ angular.module('ninetynine').factory('AchievementFactory', ['LocalStorageHelper'
                     return this;
                 }
 
+                return null;
+            },
+            progress: function() {
                 return null;
             }
         }];

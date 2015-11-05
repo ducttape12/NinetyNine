@@ -33,6 +33,11 @@ body {
     padding-left: 0;
     padding-right: 0;
 }
+
+.progress {
+    height: 23px;
+}
+
 /* Background Themes */
 .background-menu {
     background: royalblue;

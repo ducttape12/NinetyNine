@@ -48,7 +48,11 @@
                         </div>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">{{achievement.title}}</h4> {{achievement.description}}
+                        <h4 class="media-heading">{{achievement.title}}</h4>
+                        {{achievement.description}}
+                        <div ng-if="achievement.progress() != null" class="text-center">
+                            <uib-progressbar ng-if="achievement.progress() != null" max="achievement.progress().goal" value="achievement.isCompleted() ? achievement.progress().goal : achievement.progress().current" type="{{achievement.isCompleted() ? 'success' : 'primary'}}"><span>{{achievement.isCompleted() ? achievement.progress().goal : achievement.progress().current}} / {{achievement.progress().goal}}</span></uib-progressbar>
+                        </div>
                     </div>
                     <div class="media-right" ng-show="achievement.isCompleted()">
                         <div class="achievement-image">
