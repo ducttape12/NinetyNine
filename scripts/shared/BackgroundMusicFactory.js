@@ -87,17 +87,13 @@ angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory
         }
         
         $rootScope.$on('pause', function() {
-            console.log('pause fired');
             if(nowPlaying !== null) {
-                console.log('pausing music');
                 nowPlaying.media.pause();
             }
         });
         
         $rootScope.$on('resume', function() {
-            console.log('resume fired');
             if(nowPlaying !== null) {
-                console.log('resuming music');
                 nowPlaying.media.play();
             }
         });

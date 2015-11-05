@@ -14,13 +14,11 @@ angular.module('ninetynine').factory('CordovaMessageHelperFactory', ['$document'
                     $rootScope.$apply();
 
                     $document.on('pause', function() {
-                        console.log('pause received');
                         $rootScope.$broadcast('pause');
                         $rootScope.$apply();
                     });
                     
                     $document.on('resume', function() {
-                        console.log('resume received');
                         $rootScope.$broadcast('resume');
                         $rootScope.$apply();
                     });
