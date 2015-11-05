@@ -70,7 +70,7 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
     .constant('SHOW_ADS', true)
     
     // If disabled, real ads will be displayed (enable when testing)
-    .constant('AD_TESTING_MODE', true)
+    .constant('AD_TESTING_MODE', false)
     
     // Whether ads can collect geo location information
     .constant('AD_GEO_LOCATION_ENABLED', false)
