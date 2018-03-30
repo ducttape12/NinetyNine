@@ -15,14 +15,12 @@
   "dependencies": {
     "angular": "~1.x.x",
     "angular-ui-router": "~x.x.x",
-    "fontawesome": "~4.x.x",
+    
     "bootstrap": "~3.x.x",
     "angular-bootstrap": "~0.x.x",
     "jquery": "~2.x.x",
     "lodash": "~3.x.x",
     "angular-sanitize": "~1.x.x",
-    "angular-local-storage": "~0.x.x",
-    "moment": "~2.x.x",
-    "animate.css": "~3.x.x"
+    "angular-local-storage": "~0.x.x"
   }
 }
