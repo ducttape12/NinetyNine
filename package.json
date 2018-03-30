@@ -1,0 +1,11 @@
+{
+  "name": "ninetynine",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@bitbucket.org:ducttape12/ninetynine.git",
+  "author": "Keith Ott <ducttape12@yahoo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "font-awesome": "^4.7.0"
+  }
+}
