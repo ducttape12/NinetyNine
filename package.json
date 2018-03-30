@@ -6,6 +6,7 @@
   "author": "Keith Ott <ducttape12@yahoo.com>",
   "license": "MIT",
   "dependencies": {
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "moment": "^2.21.0"
   }
 }
