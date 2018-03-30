@@ -1,8 +1,8 @@
 angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory',
-    'Lodash', '$timeout', '$uibModal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window', 'SettingsFactory',
+    '$timeout', '$uibModal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window', 'SettingsFactory',
     '$document', 'AmazonAdFactory',
     function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
-        Lodash, $timeout, $uibModal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory,
+        $timeout, $uibModal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory,
         $document, AmazonAdFactory) {
         'use strict';
         

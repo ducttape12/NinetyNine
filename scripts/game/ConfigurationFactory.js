@@ -1,4 +1,4 @@
-﻿angular.module('ninetynine').factory('ConfigurationFactory', ['AchievementFactory', 'Lodash', function (AchievementFactory, Lodash) {
+﻿angular.module('ninetynine').factory('ConfigurationFactory', ['AchievementFactory', function (AchievementFactory) {
     'use strict';
 
     var getIcons = function (all) {

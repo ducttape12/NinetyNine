@@ -133,7 +133,7 @@ angular.module('ninetynine').factory('GameFactory', ['DeckFactory', 'CardFactory
     };
 
     Game.prototype.currentPlayerWon = function() {
-        return Lodash.where(this.players, {
+        return Lodash.filter(this.players, {
             'active': true
         }).length === 1;
     };
