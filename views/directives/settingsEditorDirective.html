@@ -35,3 +35,16 @@
         </div>
     </div>
 </div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Game Speed</h3>
+    </div>
+    <div class="panel-body">
+        <div class="text-center">
+            <div class="btn-group btn-group-lg">
+                <label class="btn btn-default" ng-repeat="speed in gameSpeeds" ng-model="$parent.gameSpeed" uib-btn-radio="speed">{{speed.name}}</label>
+            </div>
+        </div>
+    </div>
+</div>

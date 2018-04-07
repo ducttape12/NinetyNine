@@ -77,6 +77,17 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
         },
         setBackgroundDesign: function (design) {
             saveComplex('backgroundDesignIndex', design, { 'name': design.name }, ConfigurationFactory.getBackgroundDesigns(), ConfigurationFactory.getDefaultBackgroundDesignIndex());
+        },
+
+        // Game Speed
+        getGameSpeedIndex: function () {
+            return loadIndex('gameSpeedIndex', ConfigurationFactory.getDefaultGameSpeedIndex(), 0, ConfigurationFactory.getGameSpeeds().length);
+        },
+        getGameSpeed: function()  {
+            return ConfigurationFactory.getGameSpeeds()[this.getGameSpeedIndex()];
+        },
+        setGameSpeed: function (gameSpeed) {
+            saveComplex('gameSpeedIndex', gameSpeed, { 'name': gameSpeed.name }, ConfigurationFactory.getGameSpeeds(), ConfigurationFactory.getDefaultGameSpeedIndex());
         }
     }
 }]);

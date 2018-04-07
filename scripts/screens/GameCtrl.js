@@ -56,8 +56,12 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             remainingResults = [],
             cpuTimeoutPromise = null;
 
+        // Set to true to force all delays to 0
+        var finishGame = false;
 
-        var delay = 1500;
+        var delay = function() {
+            return finishGame ? 0 : SettingsFactory.getGameSpeed().speed;
+        }
 
         $scope.isCpu = function(player) {
             return player.properties.player != null;
@@ -240,7 +244,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                         var card = nextPlayer.properties.player.makeMove($scope.game.count, nextPlayer.hand);
                         cpuTimeoutPromise = $timeout(function() {
                             $scope.playCard(card.cardIndex, card.valueIndex);
-                        }, delay);
+                        }, delay());
                     }
                 }
                 return;
@@ -335,7 +339,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
         $scope.finishGame = function() {
             AchievementFactory.fastForwardUsed();
-            delay = 0;
+            finishGame = true;
         };
 
         $scope.heightLimited = function() {

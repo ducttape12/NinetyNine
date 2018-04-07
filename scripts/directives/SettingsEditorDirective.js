@@ -21,6 +21,9 @@ angular.module('ninetynine').directive('settingsEditor', ['SettingsFactory', 'Ba
             scope.backgroundDesigns = ConfigurationFactory.getBackgroundDesigns();
             scope.backgroundDesign = SettingsFactory.getBackgroundDesign();
 
+            scope.gameSpeeds = ConfigurationFactory.getGameSpeeds();
+            scope.gameSpeed = SettingsFactory.getGameSpeed();
+
             scope.$watch('cardDesign', function () {
                 SettingsFactory.setCardDesign(scope.cardDesign);
             });
@@ -31,6 +34,10 @@ angular.module('ninetynine').directive('settingsEditor', ['SettingsFactory', 'Ba
                 if (scope.applyBackground()) {
                     ScreenSettingsFactory.setBackgroundClass(scope.backgroundDesign.cssClass);
                 }
+            });
+
+            scope.$watch('gameSpeed', function () {
+                SettingsFactory.setGameSpeed(scope.gameSpeed);
             });
         }
     }

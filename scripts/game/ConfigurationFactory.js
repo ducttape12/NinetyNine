@@ -66,6 +66,18 @@
         },
         getDefaultIcon: function () {
             return getIcons(false)[0];
+        },
+
+        getGameSpeeds: function() {
+            return [
+                { name: 'Slow', speed: 2000 },
+                { name: 'Normal', speed: 1000 },
+                { name: 'Faster', speed: 300 },
+                { name: 'Fastest', speed: 100 }
+            ];
+        },
+        getDefaultGameSpeedIndex: function() {
+            return 1;
         }
     }
 }]);
