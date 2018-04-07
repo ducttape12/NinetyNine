@@ -8,7 +8,7 @@
     </div>
 
 
-    <div ng-hide="game.lastCard == null" class="card" style="display: table; overflow: hidden;" ng-style="{'height': cardHeight, 'width': cardWidth, 'margin-top': verticalMargin, 'margin-bottom': verticalMargin, 'right': cardPosition}">
+    <div ng-hide="game.lastCard == null" class="card" ng-style="{'height': cardHeight, 'width': cardWidth, 'margin-top': verticalMargin, 'margin-bottom': verticalMargin, 'right': cardPosition}">
         <div style="display: table-cell; vertical-align: middle;">
             <div>
                 <span ng-bind-html="translateCard(game.lastCard).played"></span>
@@ -18,7 +18,11 @@
 
 
     <div class="card card-back" ng-class="settings.getCardDesign().cssClass" ng-show="game.deck.stockRemaining()" ng-style="{'height': cardHeight, 'width': cardWidth, 'margin-top': verticalMargin, 'margin-bottom': verticalMargin, 'left': cardPosition}">
-        &nbsp;
+        <div style="display: table-cell; vertical-align: middle;">
+            <div>
+                <span ng-show="heightLimited()">Count: {{game.count}}</span>
+            </div>
+        </div>
     </div>
 
 
@@ -28,7 +32,7 @@
             <div class="panel-heading" ng-class="{'player-eliminated': !getHumanPlayer().active, 'panel-heading-limited-height': heightLimited()}">
                 <div class="row">
                     <div class="col-xs-9 col-sm-10">
-                        <p ng-class="{'player-eliminated': !getHumanPlayer().active, 'h4': !heightLimited(), 'h6': heightLimited()}"><i class="fa {{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}<span ng-show="heightLimited()"> - Count: {{game.count}}</span></p>
+                        <p ng-class="{'player-eliminated': !getHumanPlayer().active, 'h4': !heightLimited(), 'h5': heightLimited(), 'player-name-limited-height' : heightLimited()}"><i class="fa {{getHumanPlayer().properties.icon}}"></i> {{getHumanPlayer().properties.name}}</p>
                     </div>
                     <div class="col-xs-3 col-sm-2">
                         <button type="button" class="btn btn-default btn-block" ng-class="{'btn-lg': !heightLimited(), 'btn-sm': heightLimited()}" ng-click="pause(false)"><i class="fa fa-pause"></i></button>
