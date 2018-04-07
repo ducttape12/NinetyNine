@@ -38,7 +38,10 @@
                 { name: 'Blue', cssClass: 'card-blue' },
                 { name: 'Pink', cssClass: 'card-pink' },
                 { name: 'Red', cssClass: 'card-red' },
-                { name: 'Brown', cssClass: 'card-brown' }
+                { name: 'Brown', cssClass: 'card-brown' },
+                { name: 'Argyle', cssClass: 'card-argyle' },
+                { name: 'Bricks', cssClass: 'card-bricks' },
+                { name: 'Yin Yang', cssClass: 'card-yinyang' }
             ];
         },
         getDefaultCardDesignIndex: function() {
@@ -51,7 +54,9 @@
                 { name: 'Blue', cssClass: 'background-blue' },
                 { name: 'Yellow', cssClass: 'background-yellow' },
                 { name: 'Red', cssClass: 'background-red' },
-                { name: 'Purple', cssClass: 'background-purple' },
+                { name: 'Carbon Fibre', cssClass: 'background-carbonfibre' },
+                { name: 'Hearts', cssClass: 'background-hearts' },
+                { name: 'Night', cssClass: 'background-night' }
             ];
         },
         getDefaultBackgroundDesignIndex: function() {
