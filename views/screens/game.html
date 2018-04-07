@@ -2,7 +2,7 @@
     <div class="row" id="cpuPlayers">
         <div class="text-center col-xs-{{calculateXsCpuSize(player)}} col-sm-{{12 / cpuPlayerCount}}" ng-repeat="player in game.players | filter:isCpu">
             <div class="no-padding alert" ng-class="{'alert-eliminated': !player.active, 'alert-warning': (player.active && game.getCurrentPlayer() == player), 'alert-default': (player.active && game.getCurrentPlayer() != player)}">
-                <p class="lead"><i class="fa {{player.properties.icon}}"></i><span ng-class="{'hidden-xs': game.getCurrentPlayer() != player}"> {{player.properties.name}}</span></p>
+                <p class="lead"><i class="fa {{player.properties.icon}}"></i><span ng-class="{'hidden-xs': game.getCurrentPlayer() != player}"> {{player.properties.name}}</span><span ng-show="player.active && game.getCurrentPlayer() == player"> <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i></span></p>
             </div>
         </div>
     </div>
