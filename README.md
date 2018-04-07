@@ -15,6 +15,5 @@ yarn install
 # TODO
 * Some sort of webpack / minify, especially for angular-ui-bootstrap
 * Some new themes
-* Adjust player speeds
 * Maybe some new songs?
-* Remove ad code
+* Add some sort of player thinking feedback
