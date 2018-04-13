@@ -1,49 +1,50 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Music</h3>
-    </div>
-    <div class="panel-body">
-        <button id="music" type="button" class="btn btn-default btn-block btn-lg" ng-change="musicChange()" ng-model="music" uib-btn-checkbox uib-btn-checkbox-true="true" uib-btn-checkbox-false="false">
-            <i class="fa fa-volume-{{music ? 'up' : 'off'}}"></i> Music is {{music ? 'Enabled' : 'Disabled'}}
-        </button>
-    </div>
-</div>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Card Design</h3>
-    </div>
-    <div class="panel-body">
-        <div class="text-center">
-            <div class="card card-back sample-card" ng-class="cardDesign.cssClass" ng-show="sampleCard()"></div>
-            <div class="btn-group btn-group-lg">
-                <label class="btn btn-default" ng-repeat="design in cardDesigns" ng-model="$parent.cardDesign" uib-btn-radio="design">{{design.name}}</label>
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Gameplay</h3>
+            </div>
+            <div class="panel-body">
+                <label for="music" class="control-label">Music:</label>
+                <button id="music" type="button" class="btn btn-default btn-block btn-lg" ng-change="musicChange()" ng-model="music" uib-btn-checkbox uib-btn-checkbox-true="true" uib-btn-checkbox-false="false">
+                    <i class="fa fa-volume-{{music ? 'up' : 'off'}}"></i> Music is {{music ? 'Enabled' : 'Disabled'}}
+                </button>
+                <br />
+                <div class="form-group">
+                    <label for="speed" class="control-label">Game Speed:</label>
+                    <select class="form-control" name="speed" ng-model="gameSpeedIndex">
+                        <option ng-repeat="speed in gameSpeeds" value="{{$index}}">{{speed.name}}</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Background Design</h3>
-    </div>
-    <div class="panel-body">
-        <div class="text-center">
-            <div class="btn-group btn-group-lg">
-                <label class="btn btn-default" ng-repeat="design in backgroundDesigns" ng-model="$parent.backgroundDesign" uib-btn-radio="design">{{design.name}}</label>
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Customization</h3>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Game Speed</h3>
-    </div>
-    <div class="panel-body">
-        <div class="text-center">
-            <div class="btn-group btn-group-lg">
-                <label class="btn btn-default" ng-repeat="speed in gameSpeeds" ng-model="$parent.gameSpeed" uib-btn-radio="speed">{{speed.name}}</label>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="text-center col-xs-6 col-sm-3 col-md-12">
+                        <div class="card card-back sample-card" ng-class="cardDesign.cssClass" ng-show="sampleCard()"></div>
+                    </div>
+                    <div class="col-xs-6 col-sm-9 col-md-12">
+                        <div class="form-group">
+                            <label for="card" class="control-label">Card Design:</label>
+                            <select class="form-control" name="card" ng-model="cardDesignIndex">
+                                <option ng-repeat="card in cardDesigns" value="{{$index}}">{{card.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="background" class="control-label">Background Design:</label>
+                    <select class="form-control" name="background" ng-model="backgroundDesignIndex">
+                        <option ng-repeat="background in backgroundDesigns" value="{{$index}}">{{background.name}}</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>

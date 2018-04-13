@@ -17,19 +17,23 @@ angular.module('ninetynine').directive('settingsEditor', ['SettingsFactory', 'Ba
 
             scope.cardDesigns = ConfigurationFactory.getCardDesigns();
             scope.cardDesign = SettingsFactory.getCardDesign();
+            scope.cardDesignIndex = SettingsFactory.getCardDesignIndex().toString();
 
             scope.backgroundDesigns = ConfigurationFactory.getBackgroundDesigns();
             scope.backgroundDesign = SettingsFactory.getBackgroundDesign();
+            scope.backgroundDesignIndex = SettingsFactory.getBackgroundDesignIndex().toString();
 
             scope.gameSpeeds = ConfigurationFactory.getGameSpeeds();
-            scope.gameSpeed = SettingsFactory.getGameSpeed();
+            scope.gameSpeedIndex = SettingsFactory.getGameSpeedIndex().toString();
 
-            scope.$watch('cardDesign', function () {
-                SettingsFactory.setCardDesign(scope.cardDesign);
+            scope.$watch('cardDesignIndex', function () {
+                SettingsFactory.setCardDesignIndex(scope.cardDesignIndex);
+                scope.cardDesign = SettingsFactory.getCardDesign();
             });
 
-            scope.$watch('backgroundDesign', function () {
-                SettingsFactory.setBackgroundDesign(scope.backgroundDesign);
+            scope.$watch('backgroundDesignIndex', function () {
+                SettingsFactory.setBackgroundDesignIndex(scope.backgroundDesignIndex);
+                scope.backgroundDesign = SettingsFactory.getBackgroundDesign();
 
                 if (scope.applyBackground()) {
                     ScreenSettingsFactory.setBackgroundClass(scope.backgroundDesign.cssClass);
@@ -37,7 +41,7 @@ angular.module('ninetynine').directive('settingsEditor', ['SettingsFactory', 'Ba
             });
 
             scope.$watch('gameSpeed', function () {
-                SettingsFactory.setGameSpeed(scope.gameSpeed);
+                SettingsFactory.setGameSpeedIndex(scope.gameSpeedIndex);
             });
         }
     }

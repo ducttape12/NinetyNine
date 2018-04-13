@@ -6,14 +6,18 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
         return index < min || index > max ? defaultValue : index;
     };
 
+    var saveIndex = function(key, index, defaultValue) {
+        LocalStorageHelper.save(key, index >= 0 ? index : defaultValue);
+    };
+
     var saveSimple = function (key, element, searchArray, defaultValue) {
         var index = Lodash.indexOf(searchArray, element);
-        LocalStorageHelper.save(key, index >= 0 ? index : defaultValue);
+        saveIndex(key, index, defaultValue);
     };
 
     var saveComplex = function (key, element, searchCriteria, searchArray, defaultValue) {
         var index = Lodash.findIndex(searchArray, searchCriteria);
-        LocalStorageHelper.save(key, index >= 0 ? index : defaultValue);
+        saveIndex(key, index, defaultValue);
     };
 
     return {
@@ -67,6 +71,9 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
         setCardDesign: function (design) {
             saveComplex('cardDesignIndex', design, { 'name': design.name }, ConfigurationFactory.getCardDesigns(), ConfigurationFactory.getDefaultCardDesignIndex());
         },
+        setCardDesignIndex: function(index) {
+            saveIndex('cardDesignIndex', index, ConfigurationFactory.getDefaultCardDesignIndex());
+        },
 
         // Background
         getBackgroundDesignIndex: function () {
@@ -78,6 +85,9 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
         setBackgroundDesign: function (design) {
             saveComplex('backgroundDesignIndex', design, { 'name': design.name }, ConfigurationFactory.getBackgroundDesigns(), ConfigurationFactory.getDefaultBackgroundDesignIndex());
         },
+        setBackgroundDesignIndex: function(index) {
+            saveIndex('backgroundDesignIndex', index, ConfigurationFactory.getDefaultBackgroundDesignIndex());
+        },
 
         // Game Speed
         getGameSpeedIndex: function () {
@@ -88,6 +98,9 @@ angular.module('ninetynine').factory('SettingsFactory', ['LocalStorageHelper', '
         },
         setGameSpeed: function (gameSpeed) {
             saveComplex('gameSpeedIndex', gameSpeed, { 'name': gameSpeed.name }, ConfigurationFactory.getGameSpeeds(), ConfigurationFactory.getDefaultGameSpeedIndex());
+        },
+        setGameSpeedIndex: function (index) {
+            saveIndex('gameSpeedIndex', index, ConfigurationFactory.getDefaultGameSpeedIndex());
         }
     }
 }]);
