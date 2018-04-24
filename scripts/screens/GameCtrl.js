@@ -200,6 +200,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             var modalInstance = $uibModal.open({
                 templateUrl: 'views/modals/pause.html',
                 controller: 'PauseModalCtrl',
+                size: 'lg',
                 resolve: {
                     promptForQuit: function() {
                         return promptForQuit;
