@@ -40,7 +40,7 @@ angular.module('ninetynine').directive('settingsEditor', ['SettingsFactory', 'Ba
                 }
             });
 
-            scope.$watch('gameSpeed', function () {
+            scope.$watch('gameSpeedIndex', function () {
                 SettingsFactory.setGameSpeedIndex(scope.gameSpeedIndex);
             });
         }
