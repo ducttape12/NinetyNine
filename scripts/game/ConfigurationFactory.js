@@ -2,7 +2,8 @@
     'use strict';
 
     var getIcons = function (all) {
-        var allIcons = ['fa-smile-o', 'fa-suitcase', 'fa-tree', 'fa-bicycle', 'fa-fighter-jet'];
+        var allIcons = ['fa-smile-o', 'fa-suitcase', 'fa-tree', 'fa-bicycle', 'fa-fighter-jet', 'fa-money',
+            'fa-puzzle-piece', 'fa-futbol-o', 'fa-car', 'fa-gift', 'fa-cutlery', 'fa-thumbs-o-up'];
         var achievements = AchievementFactory.getAchievements();
 
         for (var i = 0; i < achievements.length; i++) {
