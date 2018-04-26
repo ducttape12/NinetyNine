@@ -1,11 +1,10 @@
-angular.module('ninetynine').controller('MainCtrl', ['ScreenSettingsFactory', 'BackgroundMusicFactory', 'AmazonAdFactory', '$scope',
-    function(ScreenSettingsFactory, BackgroundMusicFactory, AmazonAdFactory, $scope) {
+angular.module('ninetynine').controller('MainCtrl', ['ScreenSettingsFactory', 'BackgroundMusicFactory', '$scope',
+    function(ScreenSettingsFactory, BackgroundMusicFactory, $scope) {
         'use strict';
 
         BackgroundMusicFactory.playMenuMusic();
         ScreenSettingsFactory.setNavBar('Ninety-Nine');
         ScreenSettingsFactory.setBackgroundClass('background-menu');
-        AmazonAdFactory.showBannerAd();
         
         // Cordova specific logic to exit the application when the back button is hit
         $scope.$on('backbutton', function() {

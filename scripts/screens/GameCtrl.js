@@ -1,9 +1,9 @@
 angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '$state', 'GameFactory', 'CardFactory', 'ComputerPlayerFactory',
     '$timeout', '$uibModal', 'AchievementFactory', 'ScreenSettingsFactory', 'BackgroundMusicFactory', '$window', 'SettingsFactory',
-    '$document', 'AmazonAdFactory',
+    '$document',
     function($scope, $stateParams, $state, GameFactory, CardFactory, ComputerPlayerFactory,
         $timeout, $uibModal, AchievementFactory, ScreenSettingsFactory, BackgroundMusicFactory, $window, SettingsFactory,
-        $document, AmazonAdFactory) {
+        $document) {
         'use strict';
         
         var promptForNavigationConfirm = true;
@@ -194,8 +194,6 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             remainingResults = [];
             paused = true;
             $timeout.cancel(cpuTimeoutPromise);
-            
-            AmazonAdFactory.prepareInterstitialAd();
 
             var modalInstance = $uibModal.open({
                 templateUrl: 'views/modals/pause.html',
@@ -211,9 +209,7 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
             modalInstance.result.then(function() {
                 paused = false;
                 promptForNavigationConfirm = false;
-                AmazonAdFactory.showInterstitialAd(function() {
-                    $state.go('mainmenu');    
-                });
+                $state.go('mainmenu');
             }, function() {
                 // Continue processing results
                 paused = false;
@@ -290,7 +286,6 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
 
                 case GameFactory.MoveResult.PlayerWon:
                     paused = true;
-                    AmazonAdFactory.prepareInterstitialAd();
                     
                     translatedHand = translateFullHand(result.player.hand);
                     modalInstance = $uibModal.open({
@@ -316,15 +311,11 @@ angular.module('ninetynine').controller('GameCtrl', ['$scope', '$stateParams', '
                     modalInstance.result.then(function() {
                         paused = false;
                         promptForNavigationConfirm = false;
-                        AmazonAdFactory.showInterstitialAd(function() {
-                            $state.go('newgame');    
-                        });
+                        $state.go('newgame');
                     }, function() {
                         paused = false;
                         promptForNavigationConfirm = false;
-                        AmazonAdFactory.showInterstitialAd(function() {
-                            $state.go('mainmenu');    
-                        });
+                        $state.go('mainmenu');
                     });
 
                     // There won't be any other items in results (since the game is now over), so we can stop processing here

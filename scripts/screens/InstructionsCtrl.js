@@ -1,12 +1,11 @@
-angular.module('ninetynine').controller('InstructionsCtrl', ['$scope', '$state', 'AchievementFactory', 'ScreenSettingsFactory', 'AmazonAdFactory',
-    function($scope, $state, AchievementFactory, ScreenSettingsFactory, AmazonAdFactory) {
+angular.module('ninetynine').controller('InstructionsCtrl', ['$scope', '$state', 'AchievementFactory', 'ScreenSettingsFactory',
+    function($scope, $state, AchievementFactory, ScreenSettingsFactory) {
         'use strict';
 
         ScreenSettingsFactory.setNavBar('Instructions', function() {
             $state.go('mainmenu');
         }, null, null);
         ScreenSettingsFactory.setBackgroundClass('background-instructions');
-        AmazonAdFactory.showBannerAd();
 
         AchievementFactory.readInstructions();
 

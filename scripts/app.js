@@ -66,23 +66,10 @@ angular.module('ninetynine', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'LocalS
     // The game music that plays when the game is on (relative to the path where index.html lies)
     .constant('GAME_MUSIC', ['music/CMA-YoureNotAlone.mp3', 'music/CMA-CaughtInOurThoughts.mp3', 'music/CMA-Kuuipo.mp3', 'music/CMA-MovingForward.mp3'])
 
-    // Whether or not ads will be displayed
-    .constant('SHOW_ADS', false)
-    
-    // If disabled, real ads will be displayed (enable when testing)
-    .constant('AD_TESTING_MODE', false)
-    
-    // Whether ads can collect geo location information
-    .constant('AD_GEO_LOCATION_ENABLED', false)
-    
-    // Amazon Ads app key
-    .constant('AMAZON_APP_KEY', 'f50b259cb8384291b1716baf1247bac3')
-
     // ------------------------------
     // - Application Initialization -
     // ------------------------------
 
-    .run(['CordovaMessageHelperFactory', 'AmazonAdFactory', function(CordovaMessageHelperFactory, AmazonAdFactory) {
+    .run(['CordovaMessageHelperFactory', function(CordovaMessageHelperFactory) {
         CordovaMessageHelperFactory.initialize();
-        AmazonAdFactory.initialize();
     }]);
