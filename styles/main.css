@@ -50,15 +50,6 @@ body {
 	background-image: linear-gradient(to bottom, #565E60 0%, #565E60 75%, #BCBCBC 100%);
 }
 
-.background-credits {
-    background: #B8CFB5;
-	background-image: linear-gradient(to bottom, #B8CFB5 0%, #B8CFB5 75%, #454871 100%);
-}
-
-.background-instructions {
-    background: #C5CED2;
-}
-
 .background-stats {
     background: #F0F2EB;
 }
@@ -351,4 +342,40 @@ body {
     height: 3em;
     position: relative!important;
     margin: 0 auto 0.5em auto!important;
+}
+
+/* Credits */
+.credit {
+    margin-top: 1.5em;
+    color: #EEE6AB;
+}
+
+.credit-header {
+    font-variant: all-petite-caps;
+    margin: 0px;
+}
+
+.credit-name {
+    font-variant: small-caps;
+    font-size: 2em;
+    margin-top: -0.5em;
+    margin-bottom: -0.4em;
+}
+
+.background-credits {
+    background: #45484B;
+	background-image: linear-gradient(to bottom, #45484B 0%, #45484B 75%, #36393B 100%);
+}
+
+/* Instructions */
+.instructions {
+    color: #F6F6F6;
+}
+
+.instructions h3 {
+    color: #9CC4E4;
+}
+
+.background-instructions {
+    background: #333333;
 }
