@@ -78,7 +78,7 @@
             return [
                 { name: 'Slow', speed: 2000 },
                 { name: 'Normal', speed: 1000 },
-                { name: 'Faster', speed: 300 },
+                { name: 'Faster', speed: 500 },
                 { name: 'Fastest', speed: 100 }
             ];
         },

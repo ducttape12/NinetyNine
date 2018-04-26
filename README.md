@@ -17,3 +17,6 @@ yarn install
 * Some new themes
 * Maybe some new songs?
 * Add some sort of player thinking feedback
+
+# Thoughts for new achievements
+* Customize your card or background
