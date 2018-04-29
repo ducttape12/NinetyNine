@@ -53,9 +53,8 @@ angular.module('ninetynine').factory('CordovaAudioFactory', ['$timeout', 'CORDOV
     
     CordovaAudio.prototype.pause = function() {
         var self = this;
-        this.fadeOut(function() {
-            self.audio.pause();
-        })
+        self.audio.pause();
+        this.setVolume(0);
     };
     
     CordovaAudio.prototype.stop = function() {
