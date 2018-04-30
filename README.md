@@ -7,8 +7,8 @@ You can play this now on [KeithOtt.com](http://keithott.com/99/).
 
 ## Android Version
 You can download this for your Android device:
-* [Google Play](https://play.google.com/store/apps/details?id=com.keithott.ninetynine)
-* [Amazon Appstore](http://www.amazon.com/gp/product/B0178EWJCC/ref=mas_pm_ninety-nine_-_99_card_game)
+- [Google Play](https://play.google.com/store/apps/details?id=com.keithott.ninetynine)
+- [Amazon Appstore](http://www.amazon.com/gp/product/B0178EWJCC/ref=mas_pm_ninety-nine_-_99_card_game)
 
 # Development
 ## Running
