@@ -34,7 +34,7 @@ angular.module('ninetynine').factory('CordovaMessageHelperFactory', ['$document'
         },
         
         isDeviceReady: function() {
-            return deviceReady;
+            return IS_CORDOVA ? deviceReady : true;
         }
     };
 }]);

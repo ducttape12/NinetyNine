@@ -6,8 +6,7 @@ angular.module('ninetynine').controller('PauseModalCtrl', ['$scope', '$uibModalI
         $scope.confirmQuit = promptForQuit;
         $scope.displaySettings = false;
         $scope.musicChange = function () {
-            SettingsFactory.setMusicEnabled($scope.music);
-            BackgroundMusicFactory.playGameMusic();
+            BackgroundMusicFactory.enableDisableMusic($scope.music);
         };
 
         $scope.cardDesigns = ConfigurationFactory.getCardDesigns();

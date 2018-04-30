@@ -1,5 +1,5 @@
-angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory', '$rootScope', 'AudioFactory', 'MENU_MUSIC', 'GAME_MUSIC', 'IS_CORDOVA', 'CordovaMessageHelperFactory',
-    function(SettingsFactory, $rootScope, AudioFactory, MENU_MUSIC, GAME_MUSIC, IS_CORDOVA, CordovaMessageHelperFactory) {
+angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory', '$rootScope', 'AudioFactory', 'MENU_MUSIC', 'GAME_MUSIC', 'CordovaMessageHelperFactory',
+    function(SettingsFactory, $rootScope, AudioFactory, MENU_MUSIC, GAME_MUSIC, CordovaMessageHelperFactory) {
         'use strict';
 
         var SongType = {
@@ -36,12 +36,18 @@ angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory
             nowPlaying.media.play();
         };
 
+        var killMusic = function() {
+            if(nowPlaying !== null) {
+                nowPlaying.media.kill();
+            }
+        };
+
         var musicFactory = {
             playMenuMusic: function() {
                 // If they're equal, then we're already playing menu music
                 if (songs !== MENU_MUSIC) {
                     songs = MENU_MUSIC;
-                    playWithCordovaCheck();
+                    playOrQueuePlay();
                 }
             },
 
@@ -49,20 +55,21 @@ angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory
                 // If they're equal, then we're already playing game music
                 if (songs !== GAME_MUSIC) {
                     songs = GAME_MUSIC;
-                    playWithCordovaCheck();
+                    playOrQueuePlay();
                 }
             },
 
             enableDisableMusic: function(enabled) {
                 SettingsFactory.setMusicEnabled(enabled);
-                playWithCordovaCheck();
+                
+                if(enabled) {
+                    playOrQueuePlay();
+                } else {
+                    killMusic();
+                }
             },
             
-            killMusic: function() {
-                if(nowPlaying !== null) {
-                    nowPlaying.media.kill();
-                }
-            }
+            killMusic: killMusic
         };
 
 
@@ -77,8 +84,8 @@ angular.module('ninetynine').factory('BackgroundMusicFactory', ['SettingsFactory
             }
         });
 
-        var playWithCordovaCheck = function() {
-            if (IS_CORDOVA && !CordovaMessageHelperFactory.isDeviceReady()) {
+        var playOrQueuePlay = function() {
+            if (!CordovaMessageHelperFactory.isDeviceReady()) {
                 queuedPlay = true;
             }
             else {
